@@ -33,6 +33,8 @@ import android.view.inputmethod.InputMethodSubtype;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * GKOS Input Method Service.
@@ -43,6 +45,46 @@ import java.io.IOException;
 public class GkosInputMethodService extends InputMethodService
         implements GkosKeyboardView.ChordOutputHandler, GkosKeyboardView.OutcomeProvider,
                    GkosKeyboardView.GlobeClickListener {
+
+    /** Unicode keyboard symbols for action names. */
+    private static final Map<String, String> ACTION_SYMBOLS = new HashMap<>();
+    static {
+        // Common keys
+        ACTION_SYMBOLS.put("space",         "\u2423");  // ␣  OPEN BOX
+        ACTION_SYMBOLS.put("backspace",     "\u232B");  // ⌫  ERASE TO THE LEFT
+        ACTION_SYMBOLS.put("delete",        "\u2326");  // ⌦  ERASE TO THE RIGHT
+        ACTION_SYMBOLS.put("enter",         "\u23CE");  // ⏎  RETURN SYMBOL
+        ACTION_SYMBOLS.put("tab",           "\u21E5");  // ⇥  RIGHTWARDS ARROW TO BAR
+        ACTION_SYMBOLS.put("esc",           "\u238B");  // ⎋  BROKEN CIRCLE WITH NORTHWEST ARROW
+        // Modifiers
+        ACTION_SYMBOLS.put("shift",         "\u21E7");  // ⇧  UPWARDS WHITE ARROW
+        ACTION_SYMBOLS.put("ctrl",          "\u2303");  // ⌃  UP ARROWHEAD
+        ACTION_SYMBOLS.put("alt",           "\u2325");  // ⌥  OPTION KEY
+        ACTION_SYMBOLS.put("mode_toggle",   "\u21C4");  // ⇄  RIGHTWARDS ARROW OVER LEFTWARDS
+        ACTION_SYMBOLS.put("symb",          "#+=");
+        // Arrows
+        ACTION_SYMBOLS.put("UpArrow",       "\u2191");  // ↑
+        ACTION_SYMBOLS.put("DownArrow",     "\u2193");  // ↓
+        ACTION_SYMBOLS.put("LeftArrow",     "\u2190");  // ←
+        ACTION_SYMBOLS.put("RightArrow",    "\u2192");  // →
+        // Page / Home / End
+        ACTION_SYMBOLS.put("PageUp",        "\u21DE");  // ⇞  UPWARDS ARROW WITH DOUBLE STROKE
+        ACTION_SYMBOLS.put("PageDown",      "\u21DF");  // ⇟  DOWNWARDS ARROW WITH DOUBLE STROKE
+        ACTION_SYMBOLS.put("Home",          "\u2196");  // ↖  NORTH WEST ARROW
+        ACTION_SYMBOLS.put("End",           "\u2198");  // ↘  SOUTH EAST ARROW
+        ACTION_SYMBOLS.put("Insert",        "Ins");
+        // Scroll / Pan
+        ACTION_SYMBOLS.put("ScrollUp",      "\u21C8");  // ⇈  UPWARDS PAIRED ARROWS
+        ACTION_SYMBOLS.put("ScrollDown",    "\u21CA");  // ⇊  DOWNWARDS PAIRED ARROWS
+        ACTION_SYMBOLS.put("PanLeft",       "\u21D0");  // ⇐  LEFTWARDS DOUBLE ARROW
+        ACTION_SYMBOLS.put("PanRight",      "\u21D2");  // ⇒  RIGHTWARDS DOUBLE ARROW
+        // Word movement
+        ACTION_SYMBOLS.put("WordLeft",      "\u21E0");  // ⇠  LEFTWARDS DASHED ARROW
+        ACTION_SYMBOLS.put("WordRight",     "\u21E2");  // ⇢  RIGHTWARDS DASHED ARROW
+        // Pan to boundary
+        ACTION_SYMBOLS.put("PanLeftHome",   "\u21E4");  // ⇤  LEFTWARDS ARROW TO BAR
+        ACTION_SYMBOLS.put("PanRightEnd",   "\u21A6");  // ↦  RIGHTWARDS ARROW FROM BAR
+    }
 
     private GkosKeyboardView keyboardView;
     private LayoutEngine layoutEngine;
@@ -123,7 +165,11 @@ public class GkosInputMethodService extends InputMethodService
         if (layoutEngine == null) return null;
         LayoutEngine.ResolveResult r = layoutEngine.resolve(chordBitmask);
         if (r == null) return null;
-        return r.isAction() ? r.action : r.text;
+        if (r.isAction()) {
+            String symbol = ACTION_SYMBOLS.get(r.action);
+            return symbol != null ? symbol : r.action;
+        }
+        return r.text;
     }
 
     @Override
