@@ -1,0 +1,18 @@
+*~
+.DS_Store
+local.properties
+
+# Gradle
+.gradle/
+build/
+app/build/
+
+# IDE
+.idea/
+*.iml
+
+# Android build artifacts
+*.apk
+*.aab
+*.dex
+*.class

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    android:icon="@android:drawable/ic_menu_edit"
+    android:settingsActivity="org.bluezoo.gkos.SettingsActivity">
+    <subtype
+        android:label="@string/layout_en_us"
+        android:imeSubtypeLocale="en_US"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=en-US" />
+    <subtype
+        android:label="@string/layout_en_alphabetic"
+        android:imeSubtypeLocale="en"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=en-Alphabetic" />
+    <subtype
+        android:label="@string/layout_de"
+        android:imeSubtypeLocale="de"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=de" />
+    <subtype
+        android:label="@string/layout_fi"
+        android:imeSubtypeLocale="fi"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=fi" />
+    <subtype
+        android:label="@string/layout_ru"
+        android:imeSubtypeLocale="ru"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=ru" />
+    <subtype
+        android:label="@string/layout_el"
+        android:imeSubtypeLocale="el"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=el" />
+    <subtype
+        android:label="@string/layout_ko"
+        android:imeSubtypeLocale="ko"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=ko" />
+</input-method>

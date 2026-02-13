@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GKOS Korean (Hangeul) layout. Source: gkos_linux/FMain.class (Gambas). Note: syllable composition not implemented -->
+<layout id="ko" name="한글">
+  <entry ref="1" abc="ㅏ" abc_shift="ㅏ" num="1" num_shift="1" symb="1" symb_shift="1"/>
+  <entry ref="2" abc="ㅣ" abc_shift="ㅣ" num="2" num_shift="2" symb="2" symb_shift="2"/>
+  <entry ref="3" abc="ㅓ" abc_shift="ㅓ" num="3" num_shift="3" symb="3" symb_shift="3"/>
+  <entry ref="4" abc="ㅗ" abc_shift="ㅗ" num="4" num_shift="4" symb="4" symb_shift="4"/>
+  <entry ref="5" abc="ㅡ" abc_shift="ㅡ" num="5" num_shift="5" symb="5" symb_shift="5"/>
+  <entry ref="6" abc="ㅜ" abc_shift="ㅜ" num="6" num_shift="6" symb="6" symb_shift="6"/>
+  <entry ref="7" abc="ㅛ" abc_shift="ㅛ" num="0" num_shift="0" symb="0" symb_shift="0"/>
+  <entry ref="8" abc="ㅋ" abc_shift="ㅋ" num="7" num_shift="7" symb="7" symb_shift="7"/>
+  <entry ref="9" abc="ㄱ" abc_shift="ㄱ" num="8" num_shift="8" symb="8" symb_shift="8"/>
+  <entry ref="10" abc="ㄲ" abc_shift="ㄲ" num="9" num_shift="9" symb="9" symb_shift="9"/>
+  <entry ref="11" abc="ㅠ" abc_shift="ㅠ" num="#" num_shift="#" symb="#" symb_shift="#"/>
+  <entry ref="12" abc="ㅌ" abc_shift="ㅌ" num="@" num_shift="@" symb="@" symb_shift="@"/>
+  <entry ref="13" abc="ㄷ" abc_shift="ㄷ" num="½" num_shift="½" symb="½" symb_shift="½"/>
+  <entry ref="14" abc="ㄸ" abc_shift="ㄸ" num="&amp;" num_shift="&amp;" symb="&amp;" symb_shift="&amp;"/>
+  <entry ref="15" abc="ㅑ" abc_shift="ㅑ" num="+" num_shift="+" symb="+" symb_shift="+"/>
+  <entry ref="16" abc="ㅍ" abc_shift="ㅍ" num="%" num_shift="%" symb="%" symb_shift="%"/>
+  <entry ref="17" abc="ㅂ" abc_shift="ㅂ" num="=" num_shift="=" symb="=" symb_shift="="/>
+  <entry ref="18" abc="ㅃ" abc_shift="ㅃ" num="^" num_shift="^" symb="^" symb_shift="^"/>
+  <entry ref="19" abc="ㅕ" abc_shift="ㅕ" num="*" num_shift="*" symb="*" symb_shift="*"/>
+  <entry ref="20" abc="ㅊ" abc_shift="ㅊ" num="$" num_shift="$" symb="$" symb_shift="$"/>
+  <entry ref="21" abc="ㅈ" abc_shift="ㅈ" num="€" num_shift="€" symb="€" symb_shift="€"/>
+  <entry ref="22" abc="ㅉ" abc_shift="ㅉ" num="£" num_shift="£" symb="£" symb_shift="£"/>
+  <entry ref="23" abc="x" abc_shift="x" num="(" num_shift="(" symb="(" symb_shift="("/>
+  <entry ref="24" abc="ㅇ" abc_shift="ㅇ" num="[" num_shift="[" symb="[" symb_shift="["/>
+  <entry ref="25" abc="ㅅ" abc_shift="ㅅ" num="&lt;" num_shift="&lt;" symb="&lt;" symb_shift="&lt;"/>
+  <entry ref="26" abc="ㅆ" abc_shift="ㅆ" num="{" num_shift="{" symb="{" symb_shift="{"/>
+  <entry ref="27" abc="ㄴ" abc_shift="ㄴ" num=")" num_shift=")" symb=")" symb_shift=")"/>
+  <entry ref="28" abc="ㄹ" abc_shift="ㄹ" num="]" num_shift="]" symb="]" symb_shift="]"/>
+  <entry ref="29" abc="ㅁ" abc_shift="ㅁ" num="&gt;" num_shift="&gt;" symb="&gt;" symb_shift="&gt;"/>
+  <entry ref="30" abc="ㅎ" abc_shift="ㅎ" num="}" num_shift="}" symb="}" symb_shift="}"/>
+  <entry ref="31" abc="." abc_shift=":" num="." num_shift=":" symb=":" symb_shift=":"/>
+  <entry ref="32" abc="," abc_shift=";" num="," num_shift=";" symb=";" symb_shift=";"/>
+  <entry ref="33" abc="!" abc_shift="|" num="!" num_shift="|" symb="|" symb_shift="|"/>
+  <entry ref="34" abc="?" abc_shift="~" num="?" num_shift="~" symb="~" symb_shift="~"/>
+  <entry ref="35" abc="-" abc_shift="_" num="-" num_shift="_" symb="_" symb_shift="_"/>
+  <entry ref="36" abc="'" abc_shift="&quot;" num="'" num_shift="&quot;" symb="&quot;" symb_shift="&quot;"/>
+  <entry ref="37" abc="\" abc_shift="`" num="\" num_shift="`" symb="`" symb_shift="`"/>
+  <entry ref="38" abc="/" abc_shift="´" num="/" num_shift="´" symb="´" symb_shift="´"/>
+  <entry ref="39" abc="¨" abc_shift="¨" num="¨" num_shift="¨" symb="¨" symb_shift="¨"/>
+  <entry ref="40" abc="¤" abc_shift="¤" num="§" num_shift="§" symb="§" symb_shift="§"/>
+  <entry ref="41" abc="̌" abc_shift="̌" num="´" num_shift="´" symb="´" symb_shift="´"/>
+  <entry ref="42" abc="UpArrow" abc_shift="ScrollUp" num="UpArrow" num_shift="ScrollUp" symb="ScrollUp" symb_shift="ScrollUp"/>
+  <entry ref="43" abc="DownArrow" abc_shift="ScrollDown" num="DownArrow" num_shift="ScrollDown" symb="ScrollDown" symb_shift="ScrollDown"/>
+  <entry ref="44" abc="PageUp" num="PageUp" symb="PageUp"/>
+  <entry ref="45" abc="PageDown" num="PageDown" symb="PageDown"/>
+  <entry ref="46" abc="backspace" num="backspace" symb="backspace"/>
+  <entry ref="47" abc="LeftArrow" abc_shift="PanLeft" num="LeftArrow" num_shift="PanLeft" symb="PanLeft" symb_shift="PanLeft"/>
+  <entry ref="48" abc="WordLeft" num="WordLeft" symb="WordLeft"/>
+  <entry ref="49" abc="Home" abc_shift="PanLeftHome" num="Home" num_shift="PanLeftHome" symb="PanLeftHome" symb_shift="PanLeftHome"/>
+  <entry ref="50" abc="space" num="space" symb="space"/>
+  <entry ref="51" abc="RightArrow" abc_shift="PanRight" num="RightArrow" num_shift="PanRight" symb="PanRight" symb_shift="PanRight"/>
+  <entry ref="52" abc="WordRight" num="WordRight" symb="WordRight"/>
+  <entry ref="53" abc="End" abc_shift="PanRightEnd" num="End" num_shift="PanRightEnd" symb="PanRightEnd" symb_shift="PanRightEnd"/>
+  <entry ref="54" abc="enter" num="enter" symb="enter"/>
+  <entry ref="55" abc="tab" num="tab" symb="tab"/>
+  <entry ref="56" abc="esc" num="esc" symb="esc"/>
+  <entry ref="57" abc="delete" num="delete" symb="delete"/>
+  <entry ref="58" abc="Insert" abc_shift="°" num="Insert" num_shift="°" symb="°" symb_shift="°"/>
+  <entry ref="59" abc="shift" num="shift" symb="shift"/>
+  <entry ref="60" abc="symb" num="symb" symb="symb"/>
+  <entry ref="61" abc="mode_toggle" num="mode_toggle" symb="mode_toggle"/>
+  <entry ref="62" abc="ctrl" num="ctrl" symb="ctrl"/>
+  <entry ref="63" abc="alt" num="alt" symb="alt"/>
+</layout>

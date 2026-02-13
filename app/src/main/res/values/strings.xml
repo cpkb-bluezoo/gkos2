@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GKOS Keyboard</string>
+    <string name="ime_name">GKOS</string>
+    <string name="settings_title">GKOS Settings</string>
+    <string name="layouts_title">Layouts</string>
+    <string name="layouts_summary">Switch layouts via the globe icon when typing.</string>
+    <string name="layout_en_us">English (US)</string>
+    <string name="layout_en_alphabetic">English (alphabetic)</string>
+    <string name="layout_de">German</string>
+    <string name="layout_fi">Finnish</string>
+    <string name="layout_ru">Russian</string>
+    <string name="layout_el">Greek</string>
+    <string name="layout_ko">Korean</string>
+    <string name="layout_selected">Layout set: %1$s</string>
+</resources>
