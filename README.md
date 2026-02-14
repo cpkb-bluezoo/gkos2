@@ -10,6 +10,22 @@ longer available on the Google Play Store.
 |-----------|---------|
 | ![Keyboard](ss.png) | ![Settings](settings.png) |
 
+## Features
+
+- **6-key chorded input** — tap or swipe across keys to form chords
+- **18 language layouts** — English, French, German, Dutch, Spanish, Portuguese,
+  Italian, Danish, Norwegian, Swedish, Finnish, Greek, Russian, Korean,
+  Esperanto, Estonian, Icelandic, Ukrainian
+- **Dual layout variants** — GKOS Standard and frequency-optimized for each
+  language (where available)
+- **Predictive text** — word suggestions from bundled frequency lists and a
+  personal user dictionary
+- **Emoji picker** and **Unicode hex input** mode
+- **Progressive disclosure** — primary and secondary outcomes displayed on and
+  around keys so you can discover chords at a glance
+- **Dark and light mode** support
+- **No network permissions** — all data stays on your device
+
 ## How it works
 
 GKOS uses just six keys — three on each side of the screen — to produce the
@@ -31,7 +47,7 @@ Settings screen or via the globe icon between the key columns.
 
 ## Build
 
-Requires Android SDK (ANDROID_HOME) and Java 17+.
+Requires Android SDK (`ANDROID_HOME`) and Java 17+.
 
 ```bash
 ./gradlew assembleDebug
@@ -40,9 +56,25 @@ Requires Android SDK (ANDROID_HOME) and Java 17+.
 APK output: `app/build/outputs/apk/debug/app-debug.apk`
 
 Deploy to device/emulator:
+
 ```bash
 ./gradlew installDebug
 ```
+
+Release bundle (for Google Play):
+
+```bash
+./gradlew bundleRelease
+```
+
+## Tests
+
+```bash
+./gradlew testDebugUnitTest
+```
+
+Runs 69 unit tests covering chord mapping, layout data, mode resolution,
+XML parsing of all layout files, and predictive text dictionaries.
 
 ## Setup
 
@@ -51,7 +83,9 @@ Deploy to device/emulator:
 
 ## License
 
-GPL or LGPL.
+This project is licensed under the
+[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
+See [COPYING](COPYING) for the full text.
 
 ## Author
 

@@ -248,23 +248,27 @@ public class GkosInputMethodService extends InputMethodService
             if (ic != null) {
                 ic.commitText(emojiViewItem.getEmoji(), 1);
             }
+            // Auto-return to keyboard after picking an emoji
+            hideEmojiPicker();
         });
         layout.addView(picker);
 
-        // Small "back to keyboard" bar at the bottom
+        // "Back to keyboard" bar at the bottom
         FrameLayout bottomBar = new FrameLayout(this);
-        int barHeight = (int) (36 * density);
+        int barHeight = (int) (40 * density);
         bottomBar.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, barHeight));
         bottomBar.setBackgroundColor(0xFFE0E0E0);
 
-        ImageButton backBtn = new ImageButton(this);
-        backBtn.setImageResource(android.R.drawable.ic_dialog_dialer);
-        backBtn.setBackgroundColor(0x00000000);
+        android.widget.TextView backBtn = new android.widget.TextView(this);
+        backBtn.setText("ABC");
+        backBtn.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14);
+        backBtn.setTypeface(null, android.graphics.Typeface.BOLD);
+        backBtn.setTextColor(0xFF1565C0);
+        backBtn.setGravity(Gravity.CENTER);
         backBtn.setContentDescription("Back to keyboard");
         FrameLayout.LayoutParams btnParams = new FrameLayout.LayoutParams(
-                (int) (48 * density), FrameLayout.LayoutParams.MATCH_PARENT);
-        btnParams.gravity = Gravity.CENTER;
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         backBtn.setLayoutParams(btnParams);
         backBtn.setOnClickListener(v -> hideEmojiPicker());
         bottomBar.addView(backBtn);
