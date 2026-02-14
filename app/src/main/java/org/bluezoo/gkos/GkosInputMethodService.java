@@ -40,7 +40,10 @@ import androidx.emoji2.emojipicker.EmojiPickerView;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +54,8 @@ import java.util.Map;
  */
 public class GkosInputMethodService extends InputMethodService
         implements GkosKeyboardView.ChordOutputHandler, GkosKeyboardView.OutcomeProvider,
-                   GkosKeyboardView.GlobeClickListener {
+                   GkosKeyboardView.GlobeClickListener,
+                   GkosKeyboardView.SuggestionTapListener {
 
     /** Unicode keyboard symbols for action names. */
     private static final Map<String, String> ACTION_SYMBOLS = new HashMap<>();
@@ -102,6 +106,13 @@ public class GkosInputMethodService extends InputMethodService
     private LayoutEngine layoutEngine;
     private boolean emojiVisible = false;
 
+    // Predictive text
+    private WordDictionary wordDictionary;
+    private UserDictionary userDictionary;
+    private StringBuilder currentWord = new StringBuilder();
+    private String currentLangId;
+    private static final int MAX_SUGGESTIONS = 3;
+
     // Unicode hex input mode
     private boolean unicodeInputMode = false;
     private StringBuilder unicodeBuffer = new StringBuilder();
@@ -110,7 +121,17 @@ public class GkosInputMethodService extends InputMethodService
     public void onCreate() {
         super.onCreate();
         layoutEngine = new LayoutEngine();
+        wordDictionary = new WordDictionary();
+        userDictionary = new UserDictionary();
         loadLayoutForCurrentSubtype();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (userDictionary != null) {
+            userDictionary.close();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -142,12 +163,22 @@ public class GkosInputMethodService extends InputMethodService
             Layout layout = layoutEngine.loadFromAssets(this, filename);
             layoutEngine.setLayout(layout);
         } catch (IOException | XmlPullParserException e) {
+            langId = "en";
             try {
                 Layout layout = layoutEngine.loadFromAssets(this, "en.xml");
                 layoutEngine.setLayout(layout);
             } catch (IOException | XmlPullParserException e2) {
                 // Fallback: layoutEngine has no layout
             }
+        }
+
+        // Reload dictionaries if the language changed
+        if (!langId.equals(currentLangId)) {
+            currentLangId = langId;
+            wordDictionary.loadAsync(this, langId);
+            userDictionary.load(this, langId);
+            currentWord.setLength(0);
+            clearSuggestions();
         }
     }
 
@@ -182,6 +213,7 @@ public class GkosInputMethodService extends InputMethodService
         keyboardView.setOutputHandler(this);
         keyboardView.setOutcomeProvider(this);
         keyboardView.setGlobeClickListener(this);
+        keyboardView.setSuggestionTapListener(this);
         keyboardView.setLayoutParams(new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
@@ -304,6 +336,8 @@ public class GkosInputMethodService extends InputMethodService
     @Override
     public void onStartInput(EditorInfo info, boolean restarting) {
         super.onStartInput(info, restarting);
+        currentWord.setLength(0);
+        clearSuggestions();
         if (keyboardView != null) {
             keyboardView.onStartInput(info);
         }
@@ -322,12 +356,21 @@ public class GkosInputMethodService extends InputMethodService
     }
 
     /**
-     * Called when a chord produces output. Commits text or performs action.
+     * Called when a chord produces output. Commits text and updates word tracking.
      */
     public void commitChordOutput(CharSequence text) {
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && text != null && text.length() > 0) {
             ic.commitText(text, 1);
+
+            // Track the current word for predictive text
+            if (text.length() == 1 && Character.isLetter(text.charAt(0))) {
+                currentWord.append(text);
+                updateSuggestions();
+            } else {
+                // Non-letter character: word boundary
+                finishCurrentWord();
+            }
         }
     }
 
@@ -341,11 +384,21 @@ public class GkosInputMethodService extends InputMethodService
         switch (action) {
             case "backspace":
                 ic.deleteSurroundingText(1, 0);
+                if (currentWord.length() > 0) {
+                    currentWord.deleteCharAt(currentWord.length() - 1);
+                    if (currentWord.length() > 0) {
+                        updateSuggestions();
+                    } else {
+                        clearSuggestions();
+                    }
+                }
                 break;
             case "enter":
+                finishCurrentWord();
                 ic.commitText("\n", 1);
                 break;
             case "space":
+                finishCurrentWord();
                 ic.commitText(" ", 1);
                 break;
             case "mode_toggle":
@@ -384,6 +437,75 @@ public class GkosInputMethodService extends InputMethodService
                 break;
             default:
                 break;
+        }
+    }
+
+    // ── Predictive text ──────────────────────────────────────────────
+
+    @Override
+    public void onSuggestionTapped(int index, String word) {
+        if (word == null || word.isEmpty()) return;
+        InputConnection ic = getCurrentInputConnection();
+        if (ic != null && currentWord.length() > 0) {
+            // Replace the partial word with the full suggestion
+            ic.deleteSurroundingText(currentWord.length(), 0);
+            ic.commitText(word, 1);
+        }
+        // Record the accepted word
+        if (userDictionary != null) {
+            userDictionary.recordWord(word);
+        }
+        currentWord.setLength(0);
+        currentWord.append(word);
+        clearSuggestions();
+    }
+
+    /**
+     * Queries both dictionaries and merges results (user words first,
+     * then bundled words, de-duplicated), then updates the keyboard view.
+     */
+    private void updateSuggestions() {
+        String prefix = currentWord.toString().toLowerCase();
+        if (prefix.isEmpty()) {
+            clearSuggestions();
+            return;
+        }
+
+        List<String> userMatches = userDictionary != null
+                ? userDictionary.getMatches(prefix, MAX_SUGGESTIONS) : new ArrayList<>();
+        List<String> bundledMatches = wordDictionary != null
+                ? wordDictionary.getSuggestions(prefix, MAX_SUGGESTIONS) : new ArrayList<>();
+
+        // Merge: user words first (boosted priority), then bundled, de-duplicate
+        LinkedHashSet<String> merged = new LinkedHashSet<>(userMatches);
+        merged.addAll(bundledMatches);
+
+        String[] result = new String[Math.min(MAX_SUGGESTIONS, merged.size())];
+        int i = 0;
+        for (String s : merged) {
+            if (i >= MAX_SUGGESTIONS) break;
+            result[i++] = s;
+        }
+
+        if (keyboardView != null) {
+            keyboardView.setSuggestions(result.length > 0 ? result : null);
+        }
+    }
+
+    /**
+     * Records the current word in the user dictionary and clears tracking state.
+     */
+    private void finishCurrentWord() {
+        if (currentWord.length() >= 2 && userDictionary != null) {
+            userDictionary.recordWord(currentWord.toString());
+        }
+        currentWord.setLength(0);
+        clearSuggestions();
+    }
+
+    private void clearSuggestions() {
+        if (keyboardView != null) {
+            keyboardView.setSuggestions(null);
         }
     }
 

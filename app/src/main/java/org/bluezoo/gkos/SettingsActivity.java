@@ -59,6 +59,7 @@ public class SettingsActivity extends Activity {
         {"en", "English",    "true"},
         {"fr", "French",     "true"},
         {"de", "German",     "true"},
+        {"nl", "Dutch",      "false"},
         {"es", "Spanish",    "true"},
         {"pt", "Portuguese", "true"},
         {"it", "Italian",    "true"},

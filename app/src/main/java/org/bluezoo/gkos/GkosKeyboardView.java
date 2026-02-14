@@ -60,8 +60,12 @@ public class GkosKeyboardView extends View {
     private final Paint bevelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint globePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint modePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint suggestionTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint suggestionBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private RectF globeRect;
     private RectF modeRect;
+    private static final int MAX_SUGGESTIONS = 3;
+    private final RectF[] suggestionRects = new RectF[MAX_SUGGESTIONS];
 
     private float cornerRadius;
     private float keyGap;
@@ -82,6 +86,10 @@ public class GkosKeyboardView extends View {
 
     // Mode indicator — null or empty means hidden (default ABC mode)
     private String modeLabel = null;
+
+    // Predictive text suggestions — null or empty means hidden
+    private String[] suggestions = null;
+    private SuggestionTapListener suggestionTapListener;
 
     // Unicode hex input mode display
     private String unicodeHex = null;        // null = not in unicode mode
@@ -104,6 +112,11 @@ public class GkosKeyboardView extends View {
     /** Called when the globe icon is tapped (open settings). */
     public interface GlobeClickListener {
         void onGlobeClick();
+    }
+
+    /** Called when a predictive text suggestion is tapped. */
+    public interface SuggestionTapListener {
+        void onSuggestionTapped(int index, String word);
     }
 
     public GkosKeyboardView(Context context) {
@@ -152,6 +165,12 @@ public class GkosKeyboardView extends View {
         modePaint.setTextAlign(Paint.Align.CENTER);
         modePaint.setTypeface(Typeface.DEFAULT_BOLD);
 
+        // Suggestion pill paints
+        suggestionTextPaint.setTextSize(14 * density);
+        suggestionTextPaint.setTextAlign(Paint.Align.CENTER);
+        suggestionTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        suggestionBgPaint.setStyle(Paint.Style.FILL);
+
         // Unicode hex input mode paints
         unicodeBoxPaint.setStyle(Paint.Style.FILL);
         unicodeHexPaint.setTextSize(16 * density);
@@ -181,6 +200,19 @@ public class GkosKeyboardView extends View {
      */
     public void setModeLabel(String label) {
         this.modeLabel = label;
+        invalidate();
+    }
+
+    public void setSuggestionTapListener(SuggestionTapListener listener) {
+        this.suggestionTapListener = listener;
+    }
+
+    /**
+     * Set the predictive text suggestions to display in the transparent gap.
+     * Pass null or an empty array to hide suggestions.
+     */
+    public void setSuggestions(String[] suggestions) {
+        this.suggestions = (suggestions != null && suggestions.length > 0) ? suggestions : null;
         invalidate();
     }
 
@@ -238,6 +270,22 @@ public class GkosKeyboardView extends View {
         // Mode indicator — bottom-left of the transparent centre area
         float gLeft = colW + g;              // just right of left column
         modeRect = new RectF(gLeft, gBottom - iconSize, gLeft + iconSize, gBottom);
+
+        // Suggestion pills — vertically centred in the transparent gap
+        float gapLeft = colW + g;
+        float gapRight = w - colW - g;
+        float gapCx = (gapLeft + gapRight) / 2f;
+        float gapW = gapRight - gapLeft;
+        float pillW = gapW * 0.85f;
+        float pillH = 28 * getResources().getDisplayMetrics().density;
+        float pillGap = 4 * getResources().getDisplayMetrics().density;
+        float totalH = MAX_SUGGESTIONS * pillH + (MAX_SUGGESTIONS - 1) * pillGap;
+        float startY = (h - totalH) / 2f;
+        for (int i = 0; i < MAX_SUGGESTIONS; i++) {
+            float top = startY + i * (pillH + pillGap);
+            suggestionRects[i] = new RectF(gapCx - pillW / 2f, top,
+                    gapCx + pillW / 2f, top + pillH);
+        }
     }
 
     private int keyIndexToMask(int index) {
@@ -263,7 +311,16 @@ public class GkosKeyboardView extends View {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                // Check globe tap first (single-finger only)
+                // Check suggestion tap first (single-finger only)
+                if (suggestions != null && suggestionTapListener != null) {
+                    for (int si = 0; si < suggestions.length && si < MAX_SUGGESTIONS; si++) {
+                        if (suggestionRects[si] != null && suggestionRects[si].contains(x, y)) {
+                            suggestionTapListener.onSuggestionTapped(si, suggestions[si]);
+                            return true;
+                        }
+                    }
+                }
+                // Check globe tap (single-finger only)
                 if (globeVisible && globeRect != null && globeRect.contains(x, y)) {
                     if (globeClickListener != null) {
                         globeClickListener.onGlobeClick();
@@ -390,7 +447,10 @@ public class GkosKeyboardView extends View {
         // 5. Mode indicator in the transparent gap (opposite the globe)
         drawModeIndicator(canvas);
 
-        // 6. Unicode hex input overlay (in the centre gap)
+        // 6. Predictive text suggestions (in the centre gap)
+        drawSuggestions(canvas);
+
+        // 7. Unicode hex input overlay (in the centre gap — overlays suggestions)
         drawUnicodeInput(canvas);
     }
 
@@ -446,6 +506,22 @@ public class GkosKeyboardView extends View {
         float cx = modeRect.centerX();
         float cy = modeRect.centerY() + modePaint.getTextSize() / 3f;
         canvas.drawText(modeLabel, cx, cy, modePaint);
+    }
+
+    private void drawSuggestions(Canvas canvas) {
+        if (suggestions == null || suggestions.length == 0 || unicodeHex != null) return;
+        float pillRadius = cornerRadius * 0.5f;
+        for (int i = 0; i < suggestions.length && i < MAX_SUGGESTIONS; i++) {
+            RectF r = suggestionRects[i];
+            if (r == null) continue;
+            // Pill background
+            canvas.drawRoundRect(r, pillRadius, pillRadius, suggestionBgPaint);
+            // Text centred in the pill
+            String word = suggestions[i];
+            if (word.length() > 16) word = word.substring(0, 15) + "\u2026";
+            float cy = r.centerY() + suggestionTextPaint.getTextSize() / 3f;
+            canvas.drawText(word, r.centerX(), cy, suggestionTextPaint);
+        }
     }
 
     // ── Button shapes ───────────────────────────────────────────────
@@ -722,6 +798,9 @@ public class GkosKeyboardView extends View {
             colorText = 0xFFE8E8E8;
             colorSecondary = 0xFF999999;
             colorAction = 0xFF64B5F6;   // lighter blue for dark backgrounds
+            suggestionBgPaint.setColor(0xFF2C2C2C);
+            suggestionBgPaint.setShadowLayer(2 * density, 0, 1 * density, 0x40000000);
+            suggestionTextPaint.setColor(0xFFE0E0E0);
             globePaint.setColor(0xFFBBBBBB);
             unicodeBoxPaint.setColor(0xFF2A2A2A);
             unicodeBoxPaint.setShadowLayer(3 * density, 0, 1 * density, 0x60000000);
@@ -737,6 +816,9 @@ public class GkosKeyboardView extends View {
             colorText = 0xFF222222;
             colorSecondary = 0xFF777777;
             colorAction = 0xFF1565C0;   // Material blue 800
+            suggestionBgPaint.setColor(0xFFE8E8E8);
+            suggestionBgPaint.setShadowLayer(2 * density, 0, 1 * density, 0x30000000);
+            suggestionTextPaint.setColor(0xFF333333);
             globePaint.setColor(0xFF999999);
             unicodeBoxPaint.setColor(0xFFFFFFFF);
             unicodeBoxPaint.setShadowLayer(3 * density, 0, 1 * density, 0x40000000);
