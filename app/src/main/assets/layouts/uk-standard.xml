@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- GKOS Optimized layout (Russian). Source: Frequency-optimized from APK v1.1.0b experimental -->
-<layout id="ru" name="Russian">
+<!-- GKOS GKOS Standard layout (Ukrainian). Source: gkos.com APK v1.1.0b (ukrainian_optimized) -->
+<layout id="uk" name="Ukrainian">
   <!-- Single keys A-F: ref 1-6 -->
-  <entry chord="1" ref="1" abc="и" abc_shift="И" num="1" num_shift="1" symb="1" symb_shift="1"/>
-  <entry chord="2" ref="2" abc="е" abc_shift="Е" num="2" num_shift="2" symb="2" symb_shift="2"/>
-  <entry chord="4" ref="3" abc="т" abc_shift="Т" num="3" num_shift="3" symb="3" symb_shift="3"/>
-  <entry chord="8" ref="4" abc="а" abc_shift="А" num="4" num_shift="4" symb="4" symb_shift="4"/>
-  <entry chord="16" ref="5" abc="о" abc_shift="О" num="5" num_shift="5" symb="5" symb_shift="5"/>
-  <entry chord="32" ref="6" abc="н" abc_shift="Н" num="6" num_shift="6" symb="6" symb_shift="6"/>
+  <entry chord="1" ref="1" abc="а" abc_shift="А" num="1" num_shift="1" symb="1" symb_shift="1"/>
+  <entry chord="2" ref="2" abc="в" abc_shift="В" num="2" num_shift="2" symb="2" symb_shift="2"/>
+  <entry chord="4" ref="3" abc="к" abc_shift="К" num="3" num_shift="3" symb="3" symb_shift="3"/>
+  <entry chord="8" ref="4" abc="и" abc_shift="И" num="4" num_shift="4" symb="4" symb_shift="4"/>
+  <entry chord="16" ref="5" abc="е" abc_shift="Е" num="5" num_shift="5" symb="5" symb_shift="5"/>
+  <entry chord="32" ref="6" abc="р" abc_shift="Р" num="6" num_shift="6" symb="6" symb_shift="6"/>
   <!-- Two-key chords: ref 7-21 -->
-  <entry chord="24" ref="7" abc="с" abc_shift="С" num="0" num_shift="0" symb="0" symb_shift="0"/>
-  <entry chord="25" ref="8" abc="д" abc_shift="Д" num="7" num_shift="7" symb="7" symb_shift="7"/>
-  <entry chord="26" ref="9" abc="у" abc_shift="У" num="8" num_shift="8" symb="8" symb_shift="8"/>
-  <entry chord="28" ref="10" abc="б" abc_shift="Б" num="9" num_shift="9" symb="9" symb_shift="9"/>
-  <entry chord="48" ref="11" abc="в" abc_shift="В" num="#" num_shift="#" symb="#" symb_shift="#"/>
-  <entry chord="49" ref="12" abc="г" abc_shift="Г" num="@" num_shift="@" symb="@" symb_shift="@"/>
-  <entry chord="50" ref="13" abc="й" abc_shift="Й" num="½" num_shift="½" symb="½" symb_shift="½"/>
-  <entry chord="52" ref="14" abc="ж" abc_shift="Ж" num="&amp;" num_shift="&amp;" symb="&amp;" symb_shift="&amp;"/>
-  <entry chord="3" ref="15" abc="р" abc_shift="Р" num="+" num_shift="+" symb="+" symb_shift="+"/>
+  <entry chord="24" ref="7" abc="т" abc_shift="Т" num="0" num_shift="0" symb="0" symb_shift="0"/>
+  <entry chord="25" ref="8" abc="х" abc_shift="Х" num="7" num_shift="7" symb="7" symb_shift="7"/>
+  <entry chord="26" ref="9" abc="г" abc_shift="Г" num="8" num_shift="8" symb="8" symb_shift="8"/>
+  <entry chord="28" ref="10" abc="й" abc_shift="Й" num="9" num_shift="9" symb="9" symb_shift="9"/>
+  <entry chord="48" ref="11" abc="щ" abc_shift="Щ" num="#" num_shift="#" symb="#" symb_shift="#"/>
+  <entry chord="49" ref="12" abc="н" abc_shift="Н" num="@" num_shift="@" symb="@" symb_shift="@"/>
+  <entry chord="50" ref="13" abc="б" abc_shift="Б" num="½" num_shift="½" symb="½" symb_shift="½"/>
+  <entry chord="52" ref="14" abc="ц" abc_shift="Ц" num="&amp;" num_shift="&amp;" symb="&amp;" symb_shift="&amp;"/>
+  <entry chord="3" ref="15" abc="о" abc_shift="О" num="+" num_shift="+" symb="+" symb_shift="+"/>
   <entry chord="11" ref="16" abc="п" abc_shift="П" num="%" num_shift="%" symb="%" symb_shift="%"/>
-  <entry chord="19" ref="17" abc="ы" abc_shift="Ы" num="=" num_shift="=" symb="=" symb_shift="="/>
-  <entry chord="35" ref="18" abc="ч" abc_shift="Ч" num="^" num_shift="^" symb="^" symb_shift="^"/>
-  <entry chord="6" ref="19" abc="л" abc_shift="Л" num="*" num_shift="*" symb="*" symb_shift="*"/>
-  <entry chord="14" ref="20" abc="з" abc_shift="З" num="$" num_shift="$" symb="$" symb_shift="$"/>
-  <entry chord="22" ref="21" abc="х" abc_shift="Х" num="€" num_shift="€" symb="€" symb_shift="€"/>
+  <entry chord="19" ref="17" abc="ж" abc_shift="Ж" num="=" num_shift="=" symb="=" symb_shift="="/>
+  <entry chord="35" ref="18" abc="ф" abc_shift="Ф" num="^" num_shift="^" symb="^" symb_shift="^"/>
+  <entry chord="6" ref="19" abc="с" abc_shift="С" num="*" num_shift="*" symb="*" symb_shift="*"/>
+  <entry chord="14" ref="20" abc="ш" abc_shift="Ш" num="$" num_shift="$" symb="$" symb_shift="$"/>
+  <entry chord="22" ref="21" abc="у" abc_shift="У" num="€" num_shift="€" symb="€" symb_shift="€"/>
   <!-- Three-key chords: ref 22-26 -->
-  <entry chord="38" ref="22" abc="ш" abc_shift="Ш" num="£" num_shift="£" symb="£" symb_shift="£"/>
-  <entry chord="40" ref="23" abc="к" abc_shift="К" num="(" num_shift="(" symb="(" symb_shift="("/>
-  <entry chord="41" ref="24" abc="ц" abc_shift="Ц" num="[" num_shift="[" symb="[" symb_shift="["/>
-  <entry chord="42" ref="25" abc="щ" abc_shift="Щ" num="&lt;" num_shift="&lt;" symb="&lt;" symb_shift="&lt;"/>
-  <entry chord="44" ref="26" abc="ф" abc_shift="Ф" num="{" num_shift="{" symb="{" symb_shift="{"/>
+  <entry chord="38" ref="22" abc="м" abc_shift="М" num="£" num_shift="£" symb="£" symb_shift="£"/>
+  <entry chord="40" ref="23" abc="д" abc_shift="Д" num="(" num_shift="(" symb="(" symb_shift="("/>
+  <entry chord="41" ref="24" abc="ч" abc_shift="Ч" num="[" num_shift="[" symb="[" symb_shift="["/>
+  <entry chord="42" ref="25" abc="і" abc_shift="І" num="&lt;" num_shift="&lt;" symb="&lt;" symb_shift="&lt;"/>
+  <entry chord="44" ref="26" abc="з" abc_shift="З" num="{" num_shift="{" symb="{" symb_shift="{"/>
   <!-- Native chars / word shortcuts: ref 27-30 -->
-  <entry chord="5" ref="27" abc="м" abc_shift="М" num=")" num_shift=")" symb=")" symb_shift=")"/>
+  <entry chord="5" ref="27" abc="л" abc_shift="Л" num=")" num_shift=")" symb=")" symb_shift=")"/>
   <entry chord="13" ref="28" abc="ю" abc_shift="Ю" num="]" num_shift="]" symb="]" symb_shift="]"/>
-  <entry chord="21" ref="29" abc="э" abc_shift="Э" num="&gt;" num_shift="&gt;" symb="&gt;" symb_shift="&gt;"/>
+  <entry chord="21" ref="29" abc="є" abc_shift="Є" num="&gt;" num_shift="&gt;" symb="&gt;" symb_shift="&gt;"/>
   <entry chord="37" ref="30" abc="я" abc_shift="Я" num="}" num_shift="}" symb="}" symb_shift="}"/>
   <!-- Punctuation: ref 31-36 -->
   <entry chord="34" ref="31" abc="." abc_shift=":" num="." num_shift=":" symb=":" symb_shift=":"/>
@@ -45,9 +45,9 @@
   <!-- Intonate / diacritics: ref 37-41 -->
   <entry chord="51" ref="37" abc="\" abc_shift="\" num="\" num_shift="\" symb="\" symb_shift="\"/>
   <entry chord="30" ref="38" abc="/" abc_shift="/" num="/" num_shift="/" symb="/" symb_shift="/"/>
-  <entry chord="53" ref="39" abc="ъ" abc_shift="Ъ" num="µ" num_shift="µ" symb="µ" symb_shift="µ"/>
-  <entry chord="46" ref="40" abc="ь" abc_shift="Ь" num="§" num_shift="§" symb="§" symb_shift="§"/>
-  <entry chord="29" ref="41" abc="¨" abc_shift="¨" num="~" num_shift="~" symb="~" symb_shift="~"/>
+  <entry chord="53" ref="39" abc="ь" abc_shift="Ь" num="µ" num_shift="µ" symb="µ" symb_shift="µ"/>
+  <entry chord="46" ref="40" abc="ї" abc_shift="Ї" num="§" num_shift="§" symb="§" symb_shift="§"/>
+  <entry chord="29" ref="41" abc="ґ" abc_shift="Ґ" num="~" num_shift="~" symb="~" symb_shift="~"/>
   <!-- Navigate: ref 42-53 -->
   <entry chord="9" ref="42" abc="UpArrow" abc_shift="ScrollUp" num="UpArrow" num_shift="ScrollUp" symb="ScrollUp" symb_shift="ScrollUp"/>
   <entry chord="36" ref="43" abc="DownArrow" abc_shift="ScrollDown" num="DownArrow" num_shift="ScrollDown" symb="ScrollDown" symb_shift="ScrollDown"/>

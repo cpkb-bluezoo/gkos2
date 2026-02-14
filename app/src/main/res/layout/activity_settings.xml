@@ -26,65 +26,12 @@
             android:textColor="?android:attr/textColorSecondary"
             android:paddingBottom="16dp" />
 
-        <TextView
-            android:id="@+id/layout_en"
+        <!-- Language entries added dynamically by SettingsActivity -->
+        <LinearLayout
+            android:id="@+id/layouts_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/layout_en"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground" />
-
-        <TextView
-            android:id="@+id/layout_de"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/layout_de"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground" />
-
-        <TextView
-            android:id="@+id/layout_fi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/layout_fi"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground" />
-
-        <TextView
-            android:id="@+id/layout_ru"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/layout_ru"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground" />
-
-        <TextView
-            android:id="@+id/layout_el"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/layout_el"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground" />
-
-        <TextView
-            android:id="@+id/layout_ko"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/layout_ko"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground" />
+            android:orientation="vertical" />
 
     </LinearLayout>
 </ScrollView>

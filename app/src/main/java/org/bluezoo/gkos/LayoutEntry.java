@@ -22,13 +22,17 @@
 package org.bluezoo.gkos;
 
 /**
- * Single entry in a GKOS layout: ref to character/action per mode.
+ * Single entry in a GKOS layout: chord bitmask to character/action per mode.
+ * <p>
+ * The {@code chord} field is the chord bitmask (1-63), which is the bitwise OR
+ * of the pressed keys: A=0x01, B=0x02, C=0x04, D=0x08, E=0x10, F=0x20.
+ * This is the primary key used for lookup.
  *
  * @author <a href='mailto:dog@gnu.org'>Chris Burdess</a>
  */
 public final class LayoutEntry {
 
-    private final int ref;
+    private final int chord;
     private final String abc;
     private final String abcShift;
     private final String num;
@@ -36,9 +40,9 @@ public final class LayoutEntry {
     private final String symb;
     private final String symbShift;
 
-    public LayoutEntry(int ref, String abc, String abcShift, String num, String numShift,
+    public LayoutEntry(int chord, String abc, String abcShift, String num, String numShift,
                       String symb, String symbShift) {
-        this.ref = ref;
+        this.chord = chord;
         this.abc = abc;
         this.abcShift = abcShift;
         this.num = num;
@@ -47,8 +51,9 @@ public final class LayoutEntry {
         this.symbShift = symbShift;
     }
 
-    public int getRef() {
-        return ref;
+    /** Returns the chord bitmask (1-63). */
+    public int getChord() {
+        return chord;
     }
 
     public String getAbc() {

@@ -112,14 +112,14 @@ public class LayoutEngine {
 
     /**
      * Resolves chord bitmask to character or action.
+     * The bitmask is used directly as the lookup key into the layout.
      * Returns null if chord is invalid or has no mapping.
      */
     public ResolveResult resolve(int chordBitmask) {
-        int ref = ChordComboTable.chordToRef(chordBitmask);
-        if (ref == 0 || layout == null) {
+        if (chordBitmask <= 0 || chordBitmask > 63 || layout == null) {
             return null;
         }
-        LayoutEntry entry = layout.getEntry(ref);
+        LayoutEntry entry = layout.getEntry(chordBitmask);
         if (entry == null) {
             return null;
         }
@@ -186,15 +186,15 @@ public class LayoutEngine {
                     id = parser.getAttributeValue(null, "id");
                     name = parser.getAttributeValue(null, "name");
                 } else if ("entry".equals(tag)) {
-                    int ref = parseInt(parser.getAttributeValue(null, "ref"), 0);
-                    if (ref >= 1 && ref <= 63) {
+                    int chord = parseInt(parser.getAttributeValue(null, "chord"), 0);
+                    if (chord >= 1 && chord <= 63) {
                         String abc = parser.getAttributeValue(null, "abc");
                         String abcShift = parser.getAttributeValue(null, "abc_shift");
                         String num = parser.getAttributeValue(null, "num");
                         String numShift = parser.getAttributeValue(null, "num_shift");
                         String symb = parser.getAttributeValue(null, "symb");
                         String symbShift = parser.getAttributeValue(null, "symb_shift");
-                        entries.add(new LayoutEntry(ref, abc, abcShift, num, numShift, symb, symbShift));
+                        entries.add(new LayoutEntry(chord, abc, abcShift, num, numShift, symb, symbShift));
                     }
                 }
             }

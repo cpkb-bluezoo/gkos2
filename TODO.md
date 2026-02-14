@@ -1,19 +1,23 @@
 # TODO
 
-## Predictive text
+### Predictive text
 - User dictionary (learned words, custom additions)
-- Open dictionary word lists for different languages
+- Use bundled word frequency lists for inline suggestions
 - Display suggestions in the transparent middle area between key columns
+- Predictive text suggestion bar in the transparent gap
 
-## Emoji pane
-- Searchable emoji picker accessible from the keyboard
-- Recently used / favourites
+## Planned
 
-## Unicode codepage selector
-- Allow input of arbitrary Unicode characters by codepoint or block
-
-## More language layouts
-- All common European languages (French, Spanish, Italian, Portuguese,
-  Dutch, Swedish, Norwegian, Danish, Polish, Czech, Hungarian, Romanian,
-  Croatian, etc.)
+### Additional languages
+- Dutch (no GKOS Standard available; requires from-scratch Optimized layout)
+- Polish, Czech, Hungarian, Romanian, Croatian (lower priority)
 - Additional non-European layouts as demand arises
+
+### UI polish
+- Configurable key sizes / layout dimensions ?
+
+### Quality of life
+- Haptic feedback options
+- Sound feedback options
+- Configurable long-press behaviour
+- Tutorial / onboarding experience for new users

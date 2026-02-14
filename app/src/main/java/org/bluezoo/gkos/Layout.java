@@ -22,7 +22,10 @@
 package org.bluezoo.gkos;
 
 /**
- * GKOS layout: id, name, and 63 entries (ref 1–63).
+ * GKOS layout: id, name, and entries indexed by chord bitmask (1-63).
+ * <p>
+ * The entries array is indexed directly by the chord bitmask, so lookup
+ * is a simple array access with no intermediate ref conversion needed.
  *
  * @author <a href='mailto:dog@gnu.org'>Chris Burdess</a>
  */
@@ -30,16 +33,16 @@ public final class Layout {
 
     private final String id;
     private final String name;
-    private final LayoutEntry[] entries; // index 0 = ref 1, ..., index 62 = ref 63
+    private final LayoutEntry[] entries; // index 0 unused, index 1-63 = combo bitmask
 
     public Layout(String id, String name, LayoutEntry[] entries) {
         this.id = id;
         this.name = name;
-        this.entries = new LayoutEntry[63];
+        this.entries = new LayoutEntry[64]; // indices 0-63, 0 unused
         if (entries != null) {
             for (LayoutEntry e : entries) {
-                if (e != null && e.getRef() >= 1 && e.getRef() <= 63) {
-                    this.entries[e.getRef() - 1] = e;
+                if (e != null && e.getChord() >= 1 && e.getChord() <= 63) {
+                    this.entries[e.getChord()] = e;
                 }
             }
         }
@@ -53,10 +56,14 @@ public final class Layout {
         return name;
     }
 
-    public LayoutEntry getEntry(int ref) {
-        if (ref < 1 || ref > 63) {
+    /**
+     * Look up an entry by chord bitmask (1-63).
+     * Returns null if the combo is invalid or has no entry.
+     */
+    public LayoutEntry getEntry(int combo) {
+        if (combo < 1 || combo > 63) {
             return null;
         }
-        return entries[ref - 1];
+        return entries[combo];
     }
 }

@@ -6,7 +6,9 @@ A chorded keyboard for Android implementing the
 This is a reboot of the original GKOS Keyboard app from 2014, which is no
 longer available on the Google Play Store.
 
-![Screenshot](Screenshot.png)
+| Keyboard | Settings |
+|-----------|---------|
+| ![Keyboard](ss.png) | ![Settings](settings.png) |
 
 ## How it works
 
@@ -50,3 +52,7 @@ Deploy to device/emulator:
 ## License
 
 GPL or LGPL.
+
+## Author
+
+Chris Burdess

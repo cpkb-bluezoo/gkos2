@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- GKOS Optimized layout (Korean). Source: Frequency-optimized from APK v1.1.0b experimental -->
+<!-- GKOS GKOS Standard layout (Korean). Source: gkos.com APK v1.1.0b (korean_optimized) -->
 <layout id="ko" name="Korean">
   <!-- Single keys A-F: ref 1-6 -->
   <entry chord="1" ref="1" abc="ㅏ" abc_shift="ㄾ" num="1" num_shift="1" symb="1" symb_shift="1"/>
@@ -27,14 +27,14 @@
   <!-- Three-key chords: ref 22-26 -->
   <entry chord="38" ref="22" abc="ㄸ" abc_shift="♨" num="£" num_shift="£" symb="£" symb_shift="£"/>
   <entry chord="40" ref="23" abc="ㄹ" abc_shift="ㄳ" num="(" num_shift="(" symb="(" symb_shift="("/>
-  <entry chord="41" ref="24" abc="ㅑ" abc_shift="«" num="[" num_shift="[" symb="[" symb_shift="["/>
-  <entry chord="42" ref="25" abc="ㅅ" abc_shift="《" num="&lt;" num_shift="&lt;" symb="&lt;" symb_shift="&lt;"/>
-  <entry chord="44" ref="26" abc="ㅕ" abc_shift="ㅕ" num="{" num_shift="{" symb="{" symb_shift="{"/>
+  <entry chord="41" ref="24" abc="ㅅ" abc_shift="«" num="[" num_shift="[" symb="[" symb_shift="["/>
+  <entry chord="42" ref="25" abc="ㅆ" abc_shift="《" num="&lt;" num_shift="&lt;" symb="&lt;" symb_shift="&lt;"/>
+  <entry chord="44" ref="26" abc=" " abc_shift="" num="{" num_shift="{" symb="{" symb_shift="{"/>
   <!-- Native chars / word shortcuts: ref 27-30 -->
   <entry chord="5" ref="27" abc="⇨" abc_shift="⇨" num=")" num_shift=")" symb=")" symb_shift=")"/>
-  <entry chord="13" ref="28" abc="ㅠ" abc_shift="»" num="]" num_shift="]" symb="]" symb_shift="]"/>
-  <entry chord="21" ref="29" abc="ㅆ" abc_shift="》" num="&gt;" num_shift="&gt;" symb="&gt;" symb_shift="&gt;"/>
-  <entry chord="37" ref="30" abc="ㅛ" abc_shift="ㆍ" num="}" num_shift="}" symb="}" symb_shift="}"/>
+  <entry chord="13" ref="28" abc=" " abc_shift="»" num="]" num_shift="]" symb="]" symb_shift="]"/>
+  <entry chord="21" ref="29" abc=" " abc_shift="》" num="&gt;" num_shift="&gt;" symb="&gt;" symb_shift="&gt;"/>
+  <entry chord="37" ref="30" abc=" " abc_shift="ㆍ" num="}" num_shift="}" symb="}" symb_shift="}"/>
   <!-- Punctuation: ref 31-36 -->
   <entry chord="34" ref="31" abc="." abc_shift=":" num="." num_shift=":" symb=":" symb_shift=":"/>
   <entry chord="20" ref="32" abc="," abc_shift=";" num="," num_shift=";" symb=";" symb_shift=";"/>
@@ -45,9 +45,9 @@
   <!-- Intonate / diacritics: ref 37-41 -->
   <entry chord="51" ref="37" abc="\" abc_shift="\" num="\" num_shift="\" symb="\" symb_shift="\"/>
   <entry chord="30" ref="38" abc="/" abc_shift="/" num="/" num_shift="/" symb="/" symb_shift="/"/>
-  <entry chord="53" ref="39" abc="ㅔ" abc_shift="ㅔ" num="µ" num_shift="µ" symb="µ" symb_shift="µ"/>
-  <entry chord="46" ref="40" abc="ㅘ" abc_shift="ㅘ" num="§" num_shift="§" symb="§" symb_shift="§"/>
-  <entry chord="29" ref="41" abc="ㅐ" abc_shift="ㅐ" num="~" num_shift="~" symb="~" symb_shift="~"/>
+  <entry chord="53" ref="39" abc=" " abc_shift="" num="µ" num_shift="µ" symb="µ" symb_shift="µ"/>
+  <entry chord="46" ref="40" abc=" " abc_shift="" num="§" num_shift="§" symb="§" symb_shift="§"/>
+  <entry chord="29" ref="41" abc=" " abc_shift="" num="~" num_shift="~" symb="~" symb_shift="~"/>
   <!-- Navigate: ref 42-53 -->
   <entry chord="9" ref="42" abc="UpArrow" abc_shift="ScrollUp" num="UpArrow" num_shift="ScrollUp" symb="ScrollUp" symb_shift="ScrollUp"/>
   <entry chord="36" ref="43" abc="DownArrow" abc_shift="ScrollDown" num="DownArrow" num_shift="ScrollDown" symb="ScrollDown" symb_shift="ScrollDown"/>

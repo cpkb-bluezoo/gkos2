@@ -21,6 +21,7 @@
 
 package org.bluezoo.gkos;
 
+import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.view.Gravity;
 import android.view.View;
@@ -67,7 +68,7 @@ public class GkosInputMethodService extends InputMethodService
         ACTION_SYMBOLS.put("ctrl",          "\u2303");  // ⌃  UP ARROWHEAD
         ACTION_SYMBOLS.put("alt",           "\u2325");  // ⌥  OPTION KEY
         ACTION_SYMBOLS.put("mode_toggle",   "\u21C4");  // ⇄  RIGHTWARDS ARROW OVER LEFTWARDS
-        ACTION_SYMBOLS.put("symb",          "#+=");
+        ACTION_SYMBOLS.put("symb",          "@");
         // Arrows
         ACTION_SYMBOLS.put("UpArrow",       "\u2191");  // ↑
         ACTION_SYMBOLS.put("DownArrow",     "\u2193");  // ↓
@@ -118,21 +119,25 @@ public class GkosInputMethodService extends InputMethodService
         loadLayoutForCurrentSubtype();
     }
 
-    private static final String PREFS_NAME = "gkos_prefs";
-    private static final String KEY_PREFERRED_LAYOUT = "preferred_layout";
-
     /**
-     * Reads layout id from user preference (Settings) or subtype extra value, and loads that layout.
+     * Reads the language from the preferred layout or current subtype,
+     * then checks the per-language variant preference to determine
+     * the layout filename. Falls back to English Optimized.
      */
     private void loadLayoutForCurrentSubtype() {
-        String layoutId = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-                .getString(KEY_PREFERRED_LAYOUT, null);
-        if (layoutId == null) {
+        android.content.SharedPreferences prefs =
+                getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE);
+        String langId = prefs.getString(SettingsActivity.KEY_PREFERRED_LAYOUT, null);
+        if (langId == null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             InputMethodSubtype subtype = imm != null ? imm.getCurrentInputMethodSubtype() : null;
-            layoutId = getLayoutIdFromSubtype(subtype);
+            langId = getLayoutIdFromSubtype(subtype);
         }
-        String filename = layoutId + ".xml";
+        // Check per-language variant preference
+        String variant = prefs.getString(SettingsActivity.KEY_VARIANT_PREFIX + langId, "optimized");
+        String filename = "standard".equals(variant)
+                ? langId + "-standard.xml"
+                : langId + ".xml";
         try {
             Layout layout = layoutEngine.loadFromAssets(this, filename);
             layoutEngine.setLayout(layout);
@@ -263,11 +268,17 @@ public class GkosInputMethodService extends InputMethodService
     }
 
     @Override
+    public boolean isActionOutcome(int chordBitmask) {
+        if (layoutEngine == null) return false;
+        LayoutEngine.ResolveResult r = layoutEngine.resolve(chordBitmask);
+        return r != null && r.isAction();
+    }
+
+    @Override
     public void onGlobeClick() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.showInputMethodPicker();
-        }
+        Intent intent = new Intent(this, SettingsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
@@ -295,6 +306,18 @@ public class GkosInputMethodService extends InputMethodService
         super.onStartInput(info, restarting);
         if (keyboardView != null) {
             keyboardView.onStartInput(info);
+        }
+    }
+
+    @Override
+    public void onWindowShown() {
+        super.onWindowShown();
+        // Reload the layout every time the keyboard appears, so changes
+        // made in SettingsActivity take effect immediately.
+        loadLayoutForCurrentSubtype();
+        updateModeIndicator();
+        if (keyboardView != null) {
+            keyboardView.invalidate();
         }
     }
 
@@ -330,12 +353,15 @@ public class GkosInputMethodService extends InputMethodService
                     LayoutEngine.Mode m = layoutEngine.getMode();
                     layoutEngine.setMode(m == LayoutEngine.Mode.ABC ? LayoutEngine.Mode.NUM : LayoutEngine.Mode.ABC);
                 }
+                updateModeIndicator();
                 break;
             case "shift":
                 if (layoutEngine != null) layoutEngine.setShift(!layoutEngine.getShift());
+                updateModeIndicator();
                 break;
             case "symb":
                 if (layoutEngine != null) layoutEngine.setSymb(!layoutEngine.getSymb());
+                updateModeIndicator();
                 break;
             case "tab":
                 ic.commitText("\t", 1);
@@ -359,6 +385,30 @@ public class GkosInputMethodService extends InputMethodService
             default:
                 break;
         }
+    }
+
+    // ── Mode indicator ────────────────────────────────────────────────
+
+    /**
+     * Updates the mode label on the keyboard view.
+     * Hidden in the default state (ABC, no shift, no symb).
+     * Shows: "⇧" (shift), "123" (NUM), "⇧123", "@" (SYMB), "⇧@".
+     */
+    private void updateModeIndicator() {
+        if (keyboardView == null || layoutEngine == null) return;
+        boolean shift = layoutEngine.getShift();
+        boolean symb = layoutEngine.getSymb();
+        LayoutEngine.Mode mode = layoutEngine.getMode();
+
+        StringBuilder sb = new StringBuilder();
+        if (shift) sb.append("\u21E7");  // ⇧
+        if (symb) {
+            sb.append("@");
+        } else if (mode == LayoutEngine.Mode.NUM) {
+            sb.append("123");
+        }
+        // If sb is empty, we're in default ABC mode → hide indicator
+        keyboardView.setModeLabel(sb.length() > 0 ? sb.toString() : null);
     }
 
     // ── Unicode hex input mode ──────────────────────────────────────

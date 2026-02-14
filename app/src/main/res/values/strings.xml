@@ -4,12 +4,26 @@
     <string name="ime_name">GKOS</string>
     <string name="settings_title">GKOS Settings</string>
     <string name="layouts_title">Layouts</string>
-    <string name="layouts_summary">Switch layouts via the globe icon when typing.</string>
+    <string name="layouts_summary">Select a language layout. Use the variant toggle to switch between GKOS Standard and Optimized letter arrangements.</string>
+    <string name="variant_standard">GKOS Standard</string>
+    <string name="variant_optimized">Optimized</string>
+    <string name="layout_selected">Layout set: %1$s (%2$s)</string>
+    <!-- Language names -->
     <string name="layout_en">English</string>
+    <string name="layout_fr">French</string>
     <string name="layout_de">German</string>
+    <string name="layout_es">Spanish</string>
+    <string name="layout_pt">Portuguese</string>
+    <string name="layout_it">Italian</string>
+    <string name="layout_da">Danish</string>
+    <string name="layout_no">Norwegian</string>
+    <string name="layout_sv">Swedish</string>
     <string name="layout_fi">Finnish</string>
-    <string name="layout_ru">Russian</string>
     <string name="layout_el">Greek</string>
+    <string name="layout_ru">Russian</string>
     <string name="layout_ko">Korean</string>
-    <string name="layout_selected">Layout set: %1$s</string>
+    <string name="layout_eo">Esperanto</string>
+    <string name="layout_et">Estonian</string>
+    <string name="layout_is">Icelandic</string>
+    <string name="layout_uk">Ukrainian</string>
 </resources>

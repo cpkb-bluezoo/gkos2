@@ -22,6 +22,7 @@
 package org.bluezoo.gkos;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -58,19 +59,29 @@ public class GkosKeyboardView extends View {
     private final Paint secondaryTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint bevelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint globePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint modePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private RectF globeRect;
+    private RectF modeRect;
 
     private float cornerRadius;
     private float keyGap;
     private float textPadding;
     private float baseFontSize;
 
+    // Colour scheme values (swapped for dark/light mode)
+    private int colorAction;       // blue for action outcomes and mode indicator
+    private int colorText;         // primary outcome text (for colour-swap restore)
+    private int colorSecondary;    // secondary outcome text (for colour-swap restore)
+
     private int currentChord = 0;
     private Set<Integer> activePointers = new HashSet<>();
     private ChordOutputHandler outputHandler;
     private OutcomeProvider outcomeProvider;
     private GlobeClickListener globeClickListener;
-    private boolean globeVisible = false;  // hidden — system bar already provides this
+    private boolean globeVisible = true;  // opens GKOS language/layout settings
+
+    // Mode indicator — null or empty means hidden (default ABC mode)
+    private String modeLabel = null;
 
     // Unicode hex input mode display
     private String unicodeHex = null;        // null = not in unicode mode
@@ -85,9 +96,12 @@ public class GkosKeyboardView extends View {
     /** Provides the outcome string for a chord (for progressive disclosure). */
     public interface OutcomeProvider {
         String getOutcomeForChord(int chordBitmask);
+
+        /** Returns true if the chord resolves to an action (mode switch, nav, etc.). */
+        boolean isActionOutcome(int chordBitmask);
     }
 
-    /** Called when the globe icon is tapped (switch keyboard). */
+    /** Called when the globe icon is tapped (open settings). */
     public interface GlobeClickListener {
         void onGlobeClick();
     }
@@ -113,49 +127,40 @@ public class GkosKeyboardView extends View {
         textPadding = 32 * density;
         baseFontSize = 28 * density;
 
-        // Unpressed key fill with drop shadow
-        keyPaint.setColor(0xFFE8E8E8);
+        // Paint styles (colours are set by applyColorScheme)
         keyPaint.setStyle(Paint.Style.FILL);
-        keyPaint.setShadowLayer(4 * density, 0, 2 * density, 0x44000000);
-
-        // Pressed key fill with subtler shadow (appears "pushed in")
-        keyPressedPaint.setColor(0xFFB0D0FF);
         keyPressedPaint.setStyle(Paint.Style.FILL);
-        keyPressedPaint.setShadowLayer(2 * density, 0, 1 * density, 0x30000000);
-
-        // Subtle highlight stroke for bevel effect
         bevelPaint.setStyle(Paint.Style.STROKE);
         bevelPaint.setStrokeWidth(1.5f * density);
-        bevelPaint.setColor(0x33FFFFFF);
 
         // Primary outcome text — large and bold
-        textPaint.setColor(0xFF222222);
         textPaint.setTextSize(baseFontSize);
         textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
-        // Secondary outcome text — half the size, lighter colour
-        secondaryTextPaint.setColor(0xFF777777);
+        // Secondary outcome text — half the size
         secondaryTextPaint.setTextSize(baseFontSize * 0.5f);
         secondaryTextPaint.setTextAlign(Paint.Align.CENTER);
         secondaryTextPaint.setTypeface(Typeface.DEFAULT);
 
         // Globe icon paint
-        globePaint.setColor(0xFF999999);
         globePaint.setTextSize(20 * density);
         globePaint.setTextAlign(Paint.Align.CENTER);
 
+        // Mode indicator paint — blue, bold, same size as globe
+        modePaint.setTextSize(16 * density);
+        modePaint.setTextAlign(Paint.Align.CENTER);
+        modePaint.setTypeface(Typeface.DEFAULT_BOLD);
+
         // Unicode hex input mode paints
-        unicodeBoxPaint.setColor(0xFFFFFFFF);
         unicodeBoxPaint.setStyle(Paint.Style.FILL);
-        unicodeBoxPaint.setShadowLayer(3 * density, 0, 1 * density, 0x40000000);
-        unicodeHexPaint.setColor(0xFF333333);
         unicodeHexPaint.setTextSize(16 * density);
         unicodeHexPaint.setTextAlign(Paint.Align.CENTER);
         unicodeHexPaint.setTypeface(Typeface.MONOSPACE);
-        unicodePreviewPaint.setColor(0xFF111111);
         unicodePreviewPaint.setTextSize(baseFontSize);
         unicodePreviewPaint.setTextAlign(Paint.Align.CENTER);
+
+        applyColorScheme();
     }
 
     public void setOutputHandler(ChordOutputHandler handler) {
@@ -168,6 +173,15 @@ public class GkosKeyboardView extends View {
 
     public void setGlobeClickListener(GlobeClickListener listener) {
         this.globeClickListener = listener;
+    }
+
+    /**
+     * Set the mode indicator label, or null/empty to hide it.
+     * Hidden in the default ABC state; shown for SHIFT, NUM, SYMB.
+     */
+    public void setModeLabel(String label) {
+        this.modeLabel = label;
+        invalidate();
     }
 
     /**
@@ -216,10 +230,14 @@ public class GkosKeyboardView extends View {
         keyRects[5] = new RectF(w - colW + g, 2 * rowH + g, w - g, h - g); // F
 
         // Globe icon — bottom-right of the transparent centre area
-        float globeSize = 36 * getResources().getDisplayMetrics().density;
+        float iconSize = 36 * getResources().getDisplayMetrics().density;
         float gRight = w - colW - g;         // just left of right column
         float gBottom = h - g;
-        globeRect = new RectF(gRight - globeSize, gBottom - globeSize, gRight, gBottom);
+        globeRect = new RectF(gRight - iconSize, gBottom - iconSize, gRight, gBottom);
+
+        // Mode indicator — bottom-left of the transparent centre area
+        float gLeft = colW + g;              // just right of left column
+        modeRect = new RectF(gLeft, gBottom - iconSize, gLeft + iconSize, gBottom);
     }
 
     private int keyIndexToMask(int index) {
@@ -318,6 +336,12 @@ public class GkosKeyboardView extends View {
         return outcome != null && !outcome.isEmpty() ? outcome : "";
     }
 
+    /** Whether adding this key to the current chord would produce an action. */
+    private boolean isActionForKey(int keyIndex) {
+        if (outcomeProvider == null) return false;
+        return outcomeProvider.isActionOutcome(currentChord | keyIndexToMask(keyIndex));
+    }
+
     /** Outcome for an arbitrary chord mask (current chord OR'd with extra keys). */
     private String getOutcomeForMask(int mask) {
         if (outcomeProvider == null) return "";
@@ -325,11 +349,23 @@ public class GkosKeyboardView extends View {
         return outcome != null ? outcome : "";
     }
 
+    /** Whether the given mask OR'd with the current chord would produce an action. */
+    private boolean isActionForMask(int mask) {
+        if (outcomeProvider == null) return false;
+        return outcomeProvider.isActionOutcome(currentChord | mask);
+    }
+
     /** Outcome for the current chord exactly (used for merged pressed groups). */
     private String getCurrentChordOutcome() {
         if (outcomeProvider == null || currentChord == 0) return "";
         String outcome = outcomeProvider.getOutcomeForChord(currentChord);
         return outcome != null ? outcome : "";
+    }
+
+    /** Whether the current chord exactly resolves to an action. */
+    private boolean isCurrentChordAction() {
+        if (outcomeProvider == null || currentChord == 0) return false;
+        return outcomeProvider.isActionOutcome(currentChord);
     }
 
     // ── Drawing ─────────────────────────────────────────────────────
@@ -351,7 +387,10 @@ public class GkosKeyboardView extends View {
         // 4. Globe icon in the transparent gap
         drawGlobe(canvas);
 
-        // 5. Unicode hex input overlay (in the centre gap)
+        // 5. Mode indicator in the transparent gap (opposite the globe)
+        drawModeIndicator(canvas);
+
+        // 6. Unicode hex input overlay (in the centre gap)
         drawUnicodeInput(canvas);
     }
 
@@ -400,6 +439,13 @@ public class GkosKeyboardView extends View {
         float cx = globeRect.centerX();
         float cy = globeRect.centerY() + globePaint.getTextSize() / 3f;
         canvas.drawText("\uD83C\uDF10", cx, cy, globePaint);  // 🌐
+    }
+
+    private void drawModeIndicator(Canvas canvas) {
+        if (modeLabel == null || modeLabel.isEmpty() || modeRect == null) return;
+        float cx = modeRect.centerX();
+        float cy = modeRect.centerY() + modePaint.getTextSize() / 3f;
+        canvas.drawText(modeLabel, cx, cy, modePaint);
     }
 
     // ── Button shapes ───────────────────────────────────────────────
@@ -458,7 +504,8 @@ public class GkosKeyboardView extends View {
                     RectF first = keyRects[startIdx + i];
                     RectF last  = keyRects[startIdx + j - 1];
                     RectF area  = new RectF(first.left, first.top, last.right, last.bottom);
-                    drawPrimaryText(canvas, area, getCurrentChordOutcome(), leftSide);
+                    drawPrimaryText(canvas, area, getCurrentChordOutcome(), leftSide,
+                            isCurrentChordAction());
                     for (int k = i; k < j; k++) merged[k] = true;
                 }
                 i = j;
@@ -470,15 +517,19 @@ public class GkosKeyboardView extends View {
         // Individual keys
         for (i = 0; i < count; i++) {
             if (!merged[i] && keyRects[startIdx + i] != null) {
-                drawPrimaryText(canvas, keyRects[startIdx + i], getOutcome(startIdx + i), leftSide);
+                drawPrimaryText(canvas, keyRects[startIdx + i],
+                        getOutcome(startIdx + i), leftSide,
+                        isActionForKey(startIdx + i));
             }
         }
     }
 
-    /** Draw primary text with auto-scaling so long words like "UpArrow" fit. */
-    private void drawPrimaryText(Canvas canvas, RectF rect, String text, boolean leftSide) {
+    /** Draw primary text with auto-scaling so long words fit.
+     *  Action outcomes (mode switches, nav) are drawn in blue. */
+    private void drawPrimaryText(Canvas canvas, RectF rect, String text,
+                                 boolean leftSide, boolean isAction) {
         if (text == null || text.isEmpty()) return;
-        if (text.length() > 14) text = text.substring(0, 13) + "…";
+        if (text.length() > 14) text = text.substring(0, 13) + "\u2026";
 
         float maxWidth = rect.width() - textPadding * 2;
         float origSize = textPaint.getTextSize();
@@ -486,6 +537,9 @@ public class GkosKeyboardView extends View {
         if (measured > maxWidth && maxWidth > 0) {
             textPaint.setTextSize(origSize * (maxWidth / measured));
         }
+
+        // Swap to action colour if needed
+        if (isAction) textPaint.setColor(colorAction);
 
         float cy = rect.centerY() + textPaint.getTextSize() / 3f;
         if (leftSide) {
@@ -495,6 +549,9 @@ public class GkosKeyboardView extends View {
             textPaint.setTextAlign(Paint.Align.LEFT);
             canvas.drawText(text, rect.left + textPadding, cy, textPaint);
         }
+
+        // Restore
+        if (isAction) textPaint.setColor(colorText);
         textPaint.setTextSize(origSize);
         textPaint.setTextAlign(Paint.Align.CENTER);
     }
@@ -530,8 +587,9 @@ public class GkosKeyboardView extends View {
         if ((currentChord & adjTM) != adjTM) {
             String s = getOutcomeForMask(adjTM);
             if (!s.isEmpty()) {
+                boolean act = isActionForMask(adjTM);
                 float y = (topRect.bottom + midRect.top) / 2f + halfSecondary;
-                drawSecondaryText(canvas, s, y, midRect, leftSide, innerPad, true);
+                drawSecondaryText(canvas, s, y, midRect, leftSide, innerPad, true, act);
             }
         }
 
@@ -540,8 +598,9 @@ public class GkosKeyboardView extends View {
         if ((currentChord & adjMB) != adjMB) {
             String s = getOutcomeForMask(adjMB);
             if (!s.isEmpty()) {
+                boolean act = isActionForMask(adjMB);
                 float y = (midRect.bottom + botRect.top) / 2f + halfSecondary;
-                drawSecondaryText(canvas, s, y, midRect, leftSide, innerPad, true);
+                drawSecondaryText(canvas, s, y, midRect, leftSide, innerPad, true, act);
             }
         }
 
@@ -550,8 +609,9 @@ public class GkosKeyboardView extends View {
         if ((currentChord & nonAdj) != nonAdj) {
             String s = getOutcomeForMask(nonAdj);
             if (!s.isEmpty()) {
+                boolean act = isActionForMask(nonAdj);
                 float y = midRect.centerY() + halfSecondary;
-                drawSecondaryInGap(canvas, s, y, midRect, leftSide, gapOffset);
+                drawSecondaryInGap(canvas, s, y, midRect, leftSide, gapOffset, act);
             }
         }
 
@@ -560,8 +620,9 @@ public class GkosKeyboardView extends View {
         if ((currentChord & allThree) != allThree) {
             String s = getOutcomeForMask(allThree);
             if (!s.isEmpty()) {
+                boolean act = isActionForMask(allThree);
                 float y = midRect.centerY() + halfSecondary;
-                drawSecondaryText(canvas, s, y, midRect, leftSide, outerPad, false);
+                drawSecondaryText(canvas, s, y, midRect, leftSide, outerPad, false, act);
             }
         }
     }
@@ -570,15 +631,19 @@ public class GkosKeyboardView extends View {
      * Draw secondary text inside a button rect.
      * @param towardCentre  true → inner edge (toward screen centre);
      *                      false → outer edge (toward screen edge)
+     * @param isAction      true → draw in blue action colour
      */
     private void drawSecondaryText(Canvas canvas, String text, float y,
                                    RectF rect, boolean leftSide,
-                                   float padding, boolean towardCentre) {
+                                   float padding, boolean towardCentre,
+                                   boolean isAction) {
         if (text == null || text.isEmpty()) return;
-        if (text.length() > 12) text = text.substring(0, 11) + "…";
+        if (text.length() > 12) text = text.substring(0, 11) + "\u2026";
 
         float maxWidth = rect.width() - padding * 2;
         scaleSecondaryIfNeeded(text, maxWidth);
+
+        if (isAction) secondaryTextPaint.setColor(colorAction);
 
         if (leftSide) {
             if (towardCentre) {
@@ -597,14 +662,19 @@ public class GkosKeyboardView extends View {
                 canvas.drawText(text, rect.right - padding, y, secondaryTextPaint);
             }
         }
+
+        if (isAction) secondaryTextPaint.setColor(colorSecondary);
         restoreSecondarySize();
     }
 
     /** Draw secondary text in the transparent gap beyond the button, toward screen centre. */
     private void drawSecondaryInGap(Canvas canvas, String text, float y,
-                                    RectF rect, boolean leftSide, float offset) {
+                                    RectF rect, boolean leftSide, float offset,
+                                    boolean isAction) {
         if (text == null || text.isEmpty()) return;
-        if (text.length() > 12) text = text.substring(0, 11) + "…";
+        if (text.length() > 12) text = text.substring(0, 11) + "\u2026";
+
+        if (isAction) secondaryTextPaint.setColor(colorAction);
 
         if (leftSide) {
             secondaryTextPaint.setTextAlign(Paint.Align.LEFT);
@@ -613,6 +683,8 @@ public class GkosKeyboardView extends View {
             secondaryTextPaint.setTextAlign(Paint.Align.RIGHT);
             canvas.drawText(text, rect.left - offset, y, secondaryTextPaint);
         }
+
+        if (isAction) secondaryTextPaint.setColor(colorSecondary);
     }
 
     /** Temporarily shrink secondary paint if text is wider than maxWidth. */
@@ -627,6 +699,61 @@ public class GkosKeyboardView extends View {
 
     private void restoreSecondarySize() {
         secondaryTextPaint.setTextSize(baseFontSize * 0.5f);
+    }
+
+    // ── Colour scheme (light/dark mode) ─────────────────────────────
+
+    /**
+     * Detects the current UI mode and applies the appropriate colour palette
+     * to all paints.  Called from {@link #init()} and when configuration changes.
+     */
+    private void applyColorScheme() {
+        boolean dark = (getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+        float density = getResources().getDisplayMetrics().density;
+
+        if (dark) {
+            // ── Dark palette ──
+            keyPaint.setColor(0xFF3A3A3A);
+            keyPaint.setShadowLayer(4 * density, 0, 2 * density, 0x66000000);
+            keyPressedPaint.setColor(0xFF2A4A7A);
+            keyPressedPaint.setShadowLayer(2 * density, 0, 1 * density, 0x44000000);
+            bevelPaint.setColor(0x22FFFFFF);
+            colorText = 0xFFE8E8E8;
+            colorSecondary = 0xFF999999;
+            colorAction = 0xFF64B5F6;   // lighter blue for dark backgrounds
+            globePaint.setColor(0xFFBBBBBB);
+            unicodeBoxPaint.setColor(0xFF2A2A2A);
+            unicodeBoxPaint.setShadowLayer(3 * density, 0, 1 * density, 0x60000000);
+            unicodeHexPaint.setColor(0xFFDDDDDD);
+            unicodePreviewPaint.setColor(0xFFEEEEEE);
+        } else {
+            // ── Light palette (default) ──
+            keyPaint.setColor(0xFFE8E8E8);
+            keyPaint.setShadowLayer(4 * density, 0, 2 * density, 0x44000000);
+            keyPressedPaint.setColor(0xFFB0D0FF);
+            keyPressedPaint.setShadowLayer(2 * density, 0, 1 * density, 0x30000000);
+            bevelPaint.setColor(0x33FFFFFF);
+            colorText = 0xFF222222;
+            colorSecondary = 0xFF777777;
+            colorAction = 0xFF1565C0;   // Material blue 800
+            globePaint.setColor(0xFF999999);
+            unicodeBoxPaint.setColor(0xFFFFFFFF);
+            unicodeBoxPaint.setShadowLayer(3 * density, 0, 1 * density, 0x40000000);
+            unicodeHexPaint.setColor(0xFF333333);
+            unicodePreviewPaint.setColor(0xFF111111);
+        }
+
+        textPaint.setColor(colorText);
+        secondaryTextPaint.setColor(colorSecondary);
+        modePaint.setColor(colorAction);
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        applyColorScheme();
+        invalidate();
     }
 
     // ── Utilities ───────────────────────────────────────────────────
