@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Key gradient: top-lit blue -->
+    <linearGradient id="keyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#42A5F5"/>
+      <stop offset="100%" stop-color="#1565C0"/>
+    </linearGradient>
+    <!-- Pressed / accent key gradient (slightly lighter, for middle keys) -->
+    <linearGradient id="keyMidGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#64B5F6"/>
+      <stop offset="100%" stop-color="#1976D2"/>
+    </linearGradient>
+    <!-- Subtle highlight for top edge of each key -->
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-4%" y="-2%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0D47A1" flood-opacity="0.35"/>
+    </filter>
+    <!-- Background circle gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E3F2FD"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="108" ry="108" fill="url(#bgGrad)"/>
+
+  <!-- PP Left column (keys A, B, C) PP -->
+
+  <!-- Key A (top-left) -->
+  <g filter="url(#shadow)">
+    <rect x="62" y="68" width="150" height="108" rx="22" ry="22" fill="url(#keyGrad)"/>
+    <rect x="62" y="68" width="150" height="54"  rx="22" ry="22" fill="url(#sheen)"/>
+  </g>
+
+  <!-- Key B (mid-left) -->
+  <g filter="url(#shadow)">
+    <rect x="62" y="196" width="150" height="108" rx="22" ry="22" fill="url(#keyMidGrad)"/>
+    <rect x="62" y="196" width="150" height="54"  rx="22" ry="22" fill="url(#sheen)"/>
+  </g>
+
+  <!-- Key C (bottom-left) -->
+  <g filter="url(#shadow)">
+    <rect x="62" y="324" width="150" height="108" rx="22" ry="22" fill="url(#keyGrad)"/>
+    <rect x="62" y="324" width="150" height="54"  rx="22" ry="22" fill="url(#sheen)"/>
+  </g>
+
+  <!-- PP Right column (keys D, E, F) PP -->
+
+  <!-- Key D (top-right) -->
+  <g filter="url(#shadow)">
+    <rect x="300" y="68" width="150" height="108" rx="22" ry="22" fill="url(#keyGrad)"/>
+    <rect x="300" y="68" width="150" height="54"  rx="22" ry="22" fill="url(#sheen)"/>
+  </g>
+
+  <!-- Key E (mid-right) -->
+  <g filter="url(#shadow)">
+    <rect x="300" y="196" width="150" height="108" rx="22" ry="22" fill="url(#keyMidGrad)"/>
+    <rect x="300" y="196" width="150" height="54"  rx="22" ry="22" fill="url(#sheen)"/>
+  </g>
+
+  <!-- Key F (bottom-right) -->
+  <g filter="url(#shadow)">
+    <rect x="300" y="324" width="150" height="108" rx="22" ry="22" fill="url(#keyGrad)"/>
+    <rect x="300" y="324" width="150" height="54"  rx="22" ry="22" fill="url(#sheen)"/>
+  </g>
+
+  <!-- PP Subtle centre detail: small dots suggesting connectivity PP -->
+  <circle cx="256" cy="182" r="4" fill="#90CAF9" opacity="0.6"/>
+  <circle cx="256" cy="250" r="4" fill="#90CAF9" opacity="0.6"/>
+  <circle cx="256" cy="318" r="4" fill="#90CAF9" opacity="0.6"/>
+</svg>
