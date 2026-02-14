@@ -3,15 +3,10 @@
     android:icon="@android:drawable/ic_menu_edit"
     android:settingsActivity="org.bluezoo.gkos.SettingsActivity">
     <subtype
-        android:label="@string/layout_en_us"
-        android:imeSubtypeLocale="en_US"
-        android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="layout=en-US" />
-    <subtype
-        android:label="@string/layout_en_alphabetic"
+        android:label="@string/layout_en"
         android:imeSubtypeLocale="en"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="layout=en-Alphabetic" />
+        android:imeSubtypeExtraValue="layout=en" />
     <subtype
         android:label="@string/layout_de"
         android:imeSubtypeLocale="de"

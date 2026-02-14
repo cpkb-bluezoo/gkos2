@@ -54,8 +54,7 @@ public class SettingsActivity extends Activity {
     }
 
     private void setupLayoutClicks() {
-        setLayoutClick(R.id.layout_en_us, "en-US");
-        setLayoutClick(R.id.layout_en_alphabetic, "en-Alphabetic");
+        setLayoutClick(R.id.layout_en, "en");
         setLayoutClick(R.id.layout_de, "de");
         setLayoutClick(R.id.layout_fi, "fi");
         setLayoutClick(R.id.layout_ru, "ru");

@@ -27,20 +27,10 @@
             android:paddingBottom="16dp" />
 
         <TextView
-            android:id="@+id/layout_en_us"
+            android:id="@+id/layout_en"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/layout_en_us"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:attr/selectableItemBackground" />
-
-        <TextView
-            android:id="@+id/layout_en_alphabetic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/layout_en_alphabetic"
+            android:text="@string/layout_en"
             android:padding="12dp"
             android:clickable="true"
             android:focusable="true"

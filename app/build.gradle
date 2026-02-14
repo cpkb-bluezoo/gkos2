@@ -49,5 +49,6 @@ android {
 }
 
 dependencies {
-    // IME uses framework APIs only; no appcompat required
+    // Emoji picker (AndroidX)
+    implementation 'androidx.emoji2:emoji2-emojipicker:1.5.0'
 }

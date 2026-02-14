@@ -70,6 +70,13 @@ public class GkosKeyboardView extends View {
     private ChordOutputHandler outputHandler;
     private OutcomeProvider outcomeProvider;
     private GlobeClickListener globeClickListener;
+    private boolean globeVisible = false;  // hidden — system bar already provides this
+
+    // Unicode hex input mode display
+    private String unicodeHex = null;        // null = not in unicode mode
+    private final Paint unicodeBoxPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint unicodeHexPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint unicodePreviewPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     public interface ChordOutputHandler {
         void onChord(int chord);
@@ -137,6 +144,18 @@ public class GkosKeyboardView extends View {
         globePaint.setColor(0xFF999999);
         globePaint.setTextSize(20 * density);
         globePaint.setTextAlign(Paint.Align.CENTER);
+
+        // Unicode hex input mode paints
+        unicodeBoxPaint.setColor(0xFFFFFFFF);
+        unicodeBoxPaint.setStyle(Paint.Style.FILL);
+        unicodeBoxPaint.setShadowLayer(3 * density, 0, 1 * density, 0x40000000);
+        unicodeHexPaint.setColor(0xFF333333);
+        unicodeHexPaint.setTextSize(16 * density);
+        unicodeHexPaint.setTextAlign(Paint.Align.CENTER);
+        unicodeHexPaint.setTypeface(Typeface.MONOSPACE);
+        unicodePreviewPaint.setColor(0xFF111111);
+        unicodePreviewPaint.setTextSize(baseFontSize);
+        unicodePreviewPaint.setTextAlign(Paint.Align.CENTER);
     }
 
     public void setOutputHandler(ChordOutputHandler handler) {
@@ -149,6 +168,15 @@ public class GkosKeyboardView extends View {
 
     public void setGlobeClickListener(GlobeClickListener listener) {
         this.globeClickListener = listener;
+    }
+
+    /**
+     * Set the current unicode hex input string, or null to leave unicode mode.
+     * Triggers a redraw to show/hide the hex box and preview character.
+     */
+    public void setUnicodeHex(String hex) {
+        this.unicodeHex = hex;
+        invalidate();
     }
 
     public void onStartInput(android.view.inputmethod.EditorInfo info) {
@@ -218,7 +246,7 @@ public class GkosKeyboardView extends View {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 // Check globe tap first (single-finger only)
-                if (globeRect != null && globeRect.contains(x, y)) {
+                if (globeVisible && globeRect != null && globeRect.contains(x, y)) {
                     if (globeClickListener != null) {
                         globeClickListener.onGlobeClick();
                     }
@@ -322,10 +350,53 @@ public class GkosKeyboardView extends View {
 
         // 4. Globe icon in the transparent gap
         drawGlobe(canvas);
+
+        // 5. Unicode hex input overlay (in the centre gap)
+        drawUnicodeInput(canvas);
+    }
+
+    private void drawUnicodeInput(Canvas canvas) {
+        if (unicodeHex == null) return;
+
+        // The transparent centre area is between the left and right key columns
+        float gapLeft = keyRects[0] != null ? keyRects[0].right : getWidth() / 3f;
+        float gapRight = keyRects[3] != null ? keyRects[3].left : getWidth() * 2f / 3f;
+        float gapCx = (gapLeft + gapRight) / 2f;
+        float density = getResources().getDisplayMetrics().density;
+        float pad = 8 * density;
+
+        // -- Box with "U+XXXX" at the top of the gap --
+        String label = "U+" + unicodeHex;
+        float labelW = unicodeHexPaint.measureText(label) + pad * 4;
+        float labelH = unicodeHexPaint.getTextSize() + pad * 2;
+        float boxTop = pad;
+        RectF box = new RectF(gapCx - labelW / 2, boxTop, gapCx + labelW / 2, boxTop + labelH);
+        canvas.drawRoundRect(box, cornerRadius * 0.5f, cornerRadius * 0.5f, unicodeBoxPaint);
+        canvas.drawText(label, gapCx, box.centerY() + unicodeHexPaint.getTextSize() / 3f, unicodeHexPaint);
+
+        // -- Large preview character centred below the box --
+        int codepoint = parseHexCodepoint(unicodeHex);
+        if (codepoint > 0) {
+            String preview = new String(Character.toChars(codepoint));
+            float previewY = box.bottom + pad + unicodePreviewPaint.getTextSize();
+            canvas.drawText(preview, gapCx, previewY, unicodePreviewPaint);
+        }
+    }
+
+    private static int parseHexCodepoint(String hex) {
+        if (hex == null || hex.isEmpty()) return 0;
+        try {
+            int cp = Integer.parseInt(hex, 16);
+            if (cp >= 0 && cp <= 0x10FFFF && Character.isValidCodePoint(cp)) {
+                return cp;
+            }
+        } catch (NumberFormatException ignored) {
+        }
+        return 0;
     }
 
     private void drawGlobe(Canvas canvas) {
-        if (globeRect == null) return;
+        if (!globeVisible || globeRect == null) return;
         float cx = globeRect.centerX();
         float cy = globeRect.centerY() + globePaint.getTextSize() / 3f;
         canvas.drawText("\uD83C\uDF10", cx, cy, globePaint);  // 🌐

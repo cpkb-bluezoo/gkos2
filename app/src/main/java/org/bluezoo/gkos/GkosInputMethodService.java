@@ -22,6 +22,7 @@
 package org.bluezoo.gkos;
 
 import android.inputmethodservice.InputMethodService;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -29,6 +30,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
+import androidx.emoji2.emojipicker.EmojiPickerView;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -84,10 +90,20 @@ public class GkosInputMethodService extends InputMethodService
         // Pan to boundary
         ACTION_SYMBOLS.put("PanLeftHome",   "\u21E4");  // ⇤  LEFTWARDS ARROW TO BAR
         ACTION_SYMBOLS.put("PanRightEnd",   "\u21A6");  // ↦  RIGHTWARDS ARROW FROM BAR
+        // Special panes
+        ACTION_SYMBOLS.put("emoji",         "\uD83D\uDE00");  // 😀
+        ACTION_SYMBOLS.put("unicode_picker", "U+");
     }
 
+    private FrameLayout container;
     private GkosKeyboardView keyboardView;
+    private View emojiPane;
     private LayoutEngine layoutEngine;
+    private boolean emojiVisible = false;
+
+    // Unicode hex input mode
+    private boolean unicodeInputMode = false;
+    private StringBuilder unicodeBuffer = new StringBuilder();
 
     @Override
     public void onCreate() {
@@ -122,7 +138,7 @@ public class GkosInputMethodService extends InputMethodService
             layoutEngine.setLayout(layout);
         } catch (IOException | XmlPullParserException e) {
             try {
-                Layout layout = layoutEngine.loadFromAssets(this, "en-US.xml");
+                Layout layout = layoutEngine.loadFromAssets(this, "en.xml");
                 layoutEngine.setLayout(layout);
             } catch (IOException | XmlPullParserException e2) {
                 // Fallback: layoutEngine has no layout
@@ -131,12 +147,12 @@ public class GkosInputMethodService extends InputMethodService
     }
 
     private static String getLayoutIdFromSubtype(InputMethodSubtype subtype) {
-        if (subtype == null) return "en-US";
+        if (subtype == null) return "en";
         String extra = subtype.getExtraValue();
         if (extra != null && extra.startsWith("layout=")) {
             return extra.substring(7);
         }
-        return "en-US";
+        return "en";
     }
 
     @Override
@@ -148,16 +164,90 @@ public class GkosInputMethodService extends InputMethodService
             }
         } catch (Exception ignored) {
         }
+
+        int height = (int) (200 * getResources().getDisplayMetrics().density);
+
+        // Container that swaps between keyboard and emoji picker
+        container = new FrameLayout(this);
+        container.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, height));
+
+        // Keyboard view
         keyboardView = new GkosKeyboardView(this);
         keyboardView.setOutputHandler(this);
         keyboardView.setOutcomeProvider(this);
         keyboardView.setGlobeClickListener(this);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) (200 * getResources().getDisplayMetrics().density)
-        );
-        keyboardView.setLayoutParams(params);
-        return keyboardView;
+        keyboardView.setLayoutParams(new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
+        container.addView(keyboardView);
+
+        // Emoji pane (hidden by default)
+        emojiPane = createEmojiPane(height);
+        emojiPane.setVisibility(View.GONE);
+        container.addView(emojiPane);
+
+        emojiVisible = false;
+        return container;
+    }
+
+    private View createEmojiPane(int totalHeight) {
+        float density = getResources().getDisplayMetrics().density;
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
+        layout.setBackgroundColor(0xFFF5F5F5);
+
+        // Emoji picker (fills available space)
+        EmojiPickerView picker = new EmojiPickerView(this);
+        LinearLayout.LayoutParams pickerParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f);
+        picker.setLayoutParams(pickerParams);
+        picker.setOnEmojiPickedListener(emojiViewItem -> {
+            InputConnection ic = getCurrentInputConnection();
+            if (ic != null) {
+                ic.commitText(emojiViewItem.getEmoji(), 1);
+            }
+        });
+        layout.addView(picker);
+
+        // Small "back to keyboard" bar at the bottom
+        FrameLayout bottomBar = new FrameLayout(this);
+        int barHeight = (int) (36 * density);
+        bottomBar.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, barHeight));
+        bottomBar.setBackgroundColor(0xFFE0E0E0);
+
+        ImageButton backBtn = new ImageButton(this);
+        backBtn.setImageResource(android.R.drawable.ic_dialog_dialer);
+        backBtn.setBackgroundColor(0x00000000);
+        backBtn.setContentDescription("Back to keyboard");
+        FrameLayout.LayoutParams btnParams = new FrameLayout.LayoutParams(
+                (int) (48 * density), FrameLayout.LayoutParams.MATCH_PARENT);
+        btnParams.gravity = Gravity.CENTER;
+        backBtn.setLayoutParams(btnParams);
+        backBtn.setOnClickListener(v -> hideEmojiPicker());
+        bottomBar.addView(backBtn);
+
+        layout.addView(bottomBar);
+        return layout;
+    }
+
+    private void showEmojiPicker() {
+        if (container == null) return;
+        keyboardView.setVisibility(View.GONE);
+        emojiPane.setVisibility(View.VISIBLE);
+        emojiVisible = true;
+    }
+
+    private void hideEmojiPicker() {
+        if (container == null) return;
+        emojiPane.setVisibility(View.GONE);
+        keyboardView.setVisibility(View.VISIBLE);
+        emojiVisible = false;
     }
 
     @Override
@@ -186,6 +276,12 @@ public class GkosInputMethodService extends InputMethodService
 
         LayoutEngine.ResolveResult result = layoutEngine.resolve(chord);
         if (result == null) return;
+
+        // Unicode hex input mode intercepts all chords
+        if (unicodeInputMode) {
+            handleUnicodeChord(result);
+            return;
+        }
 
         if (result.isAction()) {
             performAction(result.action);
@@ -250,6 +346,12 @@ public class GkosInputMethodService extends InputMethodService
             case "delete":
                 ic.deleteSurroundingText(0, 1);
                 break;
+            case "emoji":
+                showEmojiPicker();
+                break;
+            case "unicode_picker":
+                enterUnicodeInputMode();
+                break;
             case "ctrl":
             case "alt":
                 // Modifiers not yet implemented
@@ -257,5 +359,73 @@ public class GkosInputMethodService extends InputMethodService
             default:
                 break;
         }
+    }
+
+    // ── Unicode hex input mode ──────────────────────────────────────
+
+    private void enterUnicodeInputMode() {
+        unicodeInputMode = true;
+        unicodeBuffer.setLength(0);
+        if (keyboardView != null) {
+            keyboardView.setUnicodeHex("");
+        }
+    }
+
+    private void exitUnicodeInputMode() {
+        unicodeInputMode = false;
+        unicodeBuffer.setLength(0);
+        if (keyboardView != null) {
+            keyboardView.setUnicodeHex(null);
+        }
+    }
+
+    private void handleUnicodeChord(LayoutEngine.ResolveResult result) {
+        if (result.isAction()) {
+            switch (result.action) {
+                case "enter":
+                    // Commit the Unicode character and exit
+                    if (unicodeBuffer.length() > 0) {
+                        try {
+                            int codepoint = Integer.parseInt(unicodeBuffer.toString(), 16);
+                            if (codepoint >= 0 && codepoint <= 0x10FFFF
+                                    && Character.isValidCodePoint(codepoint)) {
+                                String ch = new String(Character.toChars(codepoint));
+                                InputConnection ic = getCurrentInputConnection();
+                                if (ic != null) {
+                                    ic.commitText(ch, 1);
+                                }
+                            }
+                        } catch (NumberFormatException ignored) {
+                        }
+                    }
+                    exitUnicodeInputMode();
+                    break;
+                case "backspace":
+                    if (unicodeBuffer.length() > 0) {
+                        unicodeBuffer.deleteCharAt(unicodeBuffer.length() - 1);
+                        keyboardView.setUnicodeHex(unicodeBuffer.toString());
+                    } else {
+                        exitUnicodeInputMode();
+                    }
+                    break;
+                case "esc":
+                    exitUnicodeInputMode();
+                    break;
+                default:
+                    // Ignore other actions in unicode mode
+                    break;
+            }
+        } else if (result.text != null && result.text.length() == 1) {
+            // Accept hex digits (0-9, a-f, A-F), max 6 digits (covers full Unicode range)
+            char c = result.text.charAt(0);
+            if (isHexDigit(c) && unicodeBuffer.length() < 6) {
+                unicodeBuffer.append(Character.toUpperCase(c));
+                keyboardView.setUnicodeHex(unicodeBuffer.toString());
+            }
+        }
+    }
+
+    private static boolean isHexDigit(char c) {
+        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
     }
 }

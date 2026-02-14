@@ -55,13 +55,13 @@
   <entry ref="52" abc="WordRight" num="WordRight" symb="WordRight"/>
   <entry ref="53" abc="End" abc_shift="PanRightEnd" num="End" num_shift="PanRightEnd" symb="PanRightEnd" symb_shift="PanRightEnd"/>
   <entry ref="54" abc="enter" num="enter" symb="enter"/>
-  <entry ref="55" abc="tab" num="tab" symb="tab"/>
+  <entry ref="55" abc="tab" num="tab" symb="unicode_picker"/>
   <entry ref="56" abc="esc" num="esc" symb="esc"/>
   <entry ref="57" abc="delete" num="delete" symb="delete"/>
   <entry ref="58" abc="Insert" abc_shift="°" num="Insert" num_shift="°" symb="°" symb_shift="°"/>
   <entry ref="59" abc="shift" num="shift" symb="shift"/>
   <entry ref="60" abc="symb" num="symb" symb="symb"/>
   <entry ref="61" abc="mode_toggle" num="mode_toggle" symb="mode_toggle"/>
-  <entry ref="62" abc="ctrl" num="ctrl" symb="ctrl"/>
+  <entry ref="62" abc="ctrl" num="ctrl" symb="emoji"/>
   <entry ref="63" abc="alt" num="alt" symb="alt"/>
 </layout>

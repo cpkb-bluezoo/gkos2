@@ -89,6 +89,7 @@ public final class LayoutEntry {
                 || s.equals("WordLeft") || s.equals("Home") || s.equals("RightArrow")
                 || s.equals("WordRight") || s.equals("End") || s.equals("Insert")
                 || s.equals("ScrollUp") || s.equals("ScrollDown") || s.equals("PanLeft")
-                || s.equals("PanLeftHome") || s.equals("PanRight") || s.equals("PanRightEnd"));
+                || s.equals("PanLeftHome") || s.equals("PanRight") || s.equals("PanRightEnd")
+                || s.equals("emoji") || s.equals("unicode_picker"));
     }
 }
