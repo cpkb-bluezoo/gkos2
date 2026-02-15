@@ -399,7 +399,7 @@ public class GkosInputMethodService extends InputMethodService
                 break;
             case "enter":
                 finishCurrentWord();
-                ic.commitText("\n", 1);
+                performEnterAction(ic);
                 break;
             case "space":
                 finishCurrentWord();
@@ -444,6 +444,30 @@ public class GkosInputMethodService extends InputMethodService
         }
     }
 
+    // ── Enter key handling ────────────────────────────────────────────
+
+    /**
+     * Performs the appropriate Enter action based on the current editor.
+     * If the editor has an explicit action (Go, Search, Send, Next, Done),
+     * that action is performed.  Otherwise a newline is inserted (for
+     * multi-line text fields, notes, etc.).
+     */
+    private void performEnterAction(InputConnection ic) {
+        EditorInfo ei = getCurrentInputEditorInfo();
+        if (ei != null) {
+            int actionId = ei.imeOptions & EditorInfo.IME_MASK_ACTION;
+            if (actionId != EditorInfo.IME_ACTION_NONE
+                    && actionId != EditorInfo.IME_ACTION_UNSPECIFIED
+                    && (ei.imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) == 0) {
+                // The editor has a specific action — perform it
+                ic.performEditorAction(actionId);
+                return;
+            }
+        }
+        // No special action — insert a newline
+        ic.commitText("\n", 1);
+    }
+
     // ── Predictive text ──────────────────────────────────────────────
 
     @Override
@@ -451,9 +475,9 @@ public class GkosInputMethodService extends InputMethodService
         if (word == null || word.isEmpty()) return;
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && currentWord.length() > 0) {
-            // Replace the partial word with the full suggestion
+            // Replace the partial word with the full suggestion + trailing space
             ic.deleteSurroundingText(currentWord.length(), 0);
-            ic.commitText(word, 1);
+            ic.commitText(word + " ", 1);
         }
         // Record the accepted word
         if (userDictionary != null) {
