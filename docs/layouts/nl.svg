@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1177 834" width="1177" height="834">
+<defs><style>
+  text { font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+</style></defs>
+<rect width="1177" height="834" fill="white"/>
+<text x="588.5" y="30.0" font-size="22" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">Dutch (Optimized)</text>
+<rect x="220.0" y="54.0" width="713.0" height="404.0" fill="white" stroke="#999" stroke-width="2" rx="16"/>
+<!-- Center: single keys -->
+<rect x="508.5" y="185.0" width="55.0" height="42.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="536.0" y="206.0" font-size="24" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">i</text>
+<rect x="508.5" y="235.0" width="55.0" height="42.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="536.0" y="256.0" font-size="24" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">n</text>
+<rect x="508.5" y="285.0" width="55.0" height="42.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="536.0" y="306.0" font-size="24" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">o</text>
+<rect x="589.5" y="185.0" width="55.0" height="42.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="617.0" y="206.0" font-size="24" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">a</text>
+<rect x="589.5" y="235.0" width="55.0" height="42.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="617.0" y="256.0" font-size="24" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">e</text>
+<rect x="589.5" y="285.0" width="55.0" height="42.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="617.0" y="306.0" font-size="24" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">t</text>
+<text x="501.5" y="197.6" font-size="12" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">1</text>
+<text x="501.5" y="215.2" font-size="11" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">1</text>
+<text x="501.5" y="247.6" font-size="12" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">2</text>
+<text x="501.5" y="265.2" font-size="11" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">2</text>
+<text x="501.5" y="297.6" font-size="12" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">3</text>
+<text x="501.5" y="315.2" font-size="11" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">3</text>
+<text x="651.5" y="197.6" font-size="12" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">4</text>
+<text x="651.5" y="215.2" font-size="11" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">4</text>
+<text x="651.5" y="247.6" font-size="12" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">5</text>
+<text x="651.5" y="265.2" font-size="11" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">5</text>
+<text x="651.5" y="297.6" font-size="12" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">6</text>
+<text x="651.5" y="315.2" font-size="11" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">6</text>
+<!-- Inner chord: AB -->
+<rect x="377.5" y="76.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="377.5" y="112.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="377.5" y="148.0" width="42.0" height="30.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="433.5" y="76.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="454.5" y="91.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">h</text>
+<rect x="433.5" y="112.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="454.5" y="127.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">g</text>
+<rect x="433.5" y="148.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="454.5" y="163.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">v</text>
+<rect x="378.5" y="97.0" width="40.0" height="24.0" fill="#333" stroke="#333" stroke-width="0" rx="12.0"/>
+<text x="398.5" y="109.0" font-size="16" fill="white" text-anchor="middle" font-weight="bold" dominant-baseline="central">l</text>
+<text x="374.5" y="103.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">+</text>
+<text x="374.5" y="115.0" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">+</text>
+<text x="479.5" y="85.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">%</text>
+<text x="479.5" y="97.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">%</text>
+<text x="479.5" y="121.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">=</text>
+<text x="479.5" y="133.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">=</text>
+<text x="479.5" y="157.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">^</text>
+<text x="479.5" y="169.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">^</text>
+<!-- Inner chord: DE -->
+<rect x="677.5" y="76.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="698.5" y="91.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">w</text>
+<rect x="677.5" y="112.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="698.5" y="127.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">k</text>
+<rect x="677.5" y="148.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="698.5" y="163.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">b</text>
+<rect x="733.5" y="76.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="733.5" y="112.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="733.5" y="148.0" width="42.0" height="30.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="734.5" y="97.0" width="40.0" height="24.0" fill="#333" stroke="#333" stroke-width="0" rx="12.0"/>
+<text x="754.5" y="109.0" font-size="16" fill="white" text-anchor="middle" font-weight="bold" dominant-baseline="central">d</text>
+<text x="778.5" y="103.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">0</text>
+<text x="778.5" y="115.0" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">0</text>
+<text x="673.5" y="85.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">7</text>
+<text x="673.5" y="97.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">7</text>
+<text x="673.5" y="121.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">8</text>
+<text x="673.5" y="133.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">8</text>
+<text x="673.5" y="157.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">9</text>
+<text x="673.5" y="169.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">9</text>
+<!-- Inner chord: AC -->
+<rect x="250.0" y="205.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="250.0" y="241.0" width="42.0" height="30.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="250.0" y="277.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="306.0" y="205.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="327.0" y="220.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">ë</text>
+<rect x="306.0" y="241.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="327.0" y="256.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">é</text>
+<rect x="306.0" y="277.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="327.0" y="292.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">ï</text>
+<rect x="237.0" y="245.5" width="40.0" height="21.0" fill="#333" stroke="#333" stroke-width="0" rx="10.5"/>
+<text x="257.0" y="256.0" font-size="13" fill="white" text-anchor="middle" font-weight="bold" dominant-baseline="central">ij</text>
+<text x="233.0" y="250.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">)</text>
+<text x="233.0" y="262.0" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">)</text>
+<text x="352.0" y="214.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">]</text>
+<text x="352.0" y="226.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">]</text>
+<text x="352.0" y="250.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">&gt;</text>
+<text x="352.0" y="262.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">&gt;</text>
+<text x="352.0" y="286.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">}</text>
+<text x="352.0" y="298.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">}</text>
+<!-- Inner chord: DF -->
+<rect x="805.0" y="205.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="826.0" y="220.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">y</text>
+<rect x="805.0" y="241.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="826.0" y="256.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">x</text>
+<rect x="805.0" y="277.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="826.0" y="292.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">q</text>
+<rect x="861.0" y="205.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="861.0" y="241.0" width="42.0" height="30.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="861.0" y="277.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="876.0" y="244.0" width="40.0" height="24.0" fill="#333" stroke="#333" stroke-width="0" rx="12.0"/>
+<text x="896.0" y="256.0" font-size="16" fill="white" text-anchor="middle" font-weight="bold" dominant-baseline="central">c</text>
+<text x="920.0" y="250.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">(</text>
+<text x="920.0" y="262.0" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">(</text>
+<text x="801.0" y="214.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">[</text>
+<text x="801.0" y="226.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">[</text>
+<text x="801.0" y="250.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">&lt;</text>
+<text x="801.0" y="262.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">&lt;</text>
+<text x="801.0" y="286.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">{</text>
+<text x="801.0" y="298.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">{</text>
+<!-- Inner chord: BC -->
+<rect x="377.5" y="334.0" width="42.0" height="30.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="377.5" y="370.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="377.5" y="406.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="433.5" y="334.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="454.5" y="349.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">j</text>
+<rect x="433.5" y="370.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="454.5" y="385.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">z</text>
+<rect x="433.5" y="406.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="454.5" y="421.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">f</text>
+<rect x="378.5" y="391.0" width="40.0" height="24.0" fill="#333" stroke="#333" stroke-width="0" rx="12.0"/>
+<text x="398.5" y="403.0" font-size="16" fill="white" text-anchor="middle" font-weight="bold" dominant-baseline="central">s</text>
+<text x="374.5" y="397.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">*</text>
+<text x="374.5" y="409.0" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">*</text>
+<text x="479.5" y="343.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">$</text>
+<text x="479.5" y="355.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">$</text>
+<text x="479.5" y="379.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">€</text>
+<text x="479.5" y="391.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">€</text>
+<text x="479.5" y="415.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">£</text>
+<text x="479.5" y="427.6" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">£</text>
+<!-- Inner chord: EF -->
+<rect x="677.5" y="334.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="698.5" y="349.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">m</text>
+<rect x="677.5" y="370.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="698.5" y="385.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">u</text>
+<rect x="677.5" y="406.0" width="42.0" height="30.0" fill="white" stroke="#555" stroke-width="1.5" rx="4"/>
+<text x="698.5" y="421.0" font-size="13" fill="black" text-anchor="middle" font-weight="bold" dominant-baseline="central">p</text>
+<rect x="733.5" y="334.0" width="42.0" height="30.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="733.5" y="370.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="733.5" y="406.0" width="42.0" height="30.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="734.5" y="391.0" width="40.0" height="24.0" fill="#333" stroke="#333" stroke-width="0" rx="12.0"/>
+<text x="754.5" y="403.0" font-size="16" fill="white" text-anchor="middle" font-weight="bold" dominant-baseline="central">r</text>
+<text x="778.5" y="397.0" font-size="9" fill="#999" text-anchor="start" font-weight="bold" dominant-baseline="central">#</text>
+<text x="778.5" y="409.0" font-size="8" fill="#2266cc" text-anchor="start" font-weight="normal" dominant-baseline="central">#</text>
+<text x="673.5" y="343.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">@</text>
+<text x="673.5" y="355.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">@</text>
+<text x="673.5" y="379.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">½</text>
+<text x="673.5" y="391.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">½</text>
+<text x="673.5" y="415.0" font-size="9" fill="#999" text-anchor="end" font-weight="bold" dominant-baseline="central">&amp;</text>
+<text x="673.5" y="427.6" font-size="8" fill="#2266cc" text-anchor="end" font-weight="normal" dominant-baseline="central">&amp;</text>
+<!-- Left outer: AE -->
+<rect x="9.0" y="55.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="56.5" y="69.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">-</text>
+<rect x="34.0" y="85.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="34.0" y="103.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="34.0" y="121.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="59.0" y="85.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="59.0" y="103.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="59.0" y="121.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="56.5" y="151.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">-</text>
+<text x="56.5" y="163.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">»</text>
+<!-- Left outer: ABEF -->
+<rect x="114.0" y="55.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="161.5" y="69.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">\</text>
+<rect x="139.0" y="85.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="139.0" y="103.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="139.0" y="121.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="164.0" y="85.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="164.0" y="103.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="164.0" y="121.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="161.5" y="151.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">\</text>
+<text x="161.5" y="163.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">\</text>
+<!-- Left outer: ACEF -->
+<rect x="9.0" y="198.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="56.5" y="212.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">ö</text>
+<rect x="34.0" y="228.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="34.0" y="246.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="34.0" y="264.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="59.0" y="228.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="59.0" y="246.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="59.0" y="264.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="56.5" y="294.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">µ</text>
+<text x="56.5" y="306.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">µ</text>
+<!-- Left outer: ACDE -->
+<rect x="114.0" y="198.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="161.5" y="212.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">è</text>
+<rect x="139.0" y="228.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="139.0" y="246.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="139.0" y="264.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="164.0" y="228.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="164.0" y="246.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="164.0" y="264.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="161.5" y="294.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">~</text>
+<text x="161.5" y="306.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">~</text>
+<!-- Left outer: CE -->
+<rect x="9.0" y="341.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="56.5" y="355.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">,</text>
+<rect x="34.0" y="371.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="34.0" y="389.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="34.0" y="407.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="59.0" y="371.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="59.0" y="389.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="59.0" y="407.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="56.5" y="437.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">,</text>
+<text x="56.5" y="449.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">;</text>
+<!-- Left outer: CD -->
+<rect x="114.0" y="341.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="161.5" y="355.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">!</text>
+<rect x="139.0" y="371.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="139.0" y="389.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="139.0" y="407.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="164.0" y="371.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="164.0" y="389.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="164.0" y="407.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="161.5" y="437.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">!</text>
+<text x="161.5" y="449.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">|</text>
+<!-- Right outer: BCDE -->
+<rect x="964.0" y="55.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="1011.5" y="69.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">/</text>
+<rect x="989.0" y="85.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="989.0" y="103.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="989.0" y="121.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1014.0" y="85.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1014.0" y="103.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1014.0" y="121.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="1011.5" y="151.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">/</text>
+<text x="1011.5" y="163.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">/</text>
+<!-- Right outer: BD -->
+<rect x="1069.0" y="55.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="1116.5" y="69.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">&#x27;</text>
+<rect x="1094.0" y="85.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1094.0" y="103.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1094.0" y="121.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1119.0" y="85.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1119.0" y="103.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1119.0" y="121.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="1116.5" y="151.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">&#x27;</text>
+<text x="1116.5" y="163.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">«</text>
+<!-- Right outer: ABDF -->
+<rect x="964.0" y="198.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="1011.5" y="212.0" font-size="15" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">Ins</text>
+<rect x="989.0" y="228.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="989.0" y="246.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="989.0" y="264.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1014.0" y="228.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1014.0" y="246.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1014.0" y="264.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="1011.5" y="294.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">Ins</text>
+<text x="1011.5" y="306.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">°</text>
+<!-- Right outer: BCDF -->
+<rect x="1069.0" y="198.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="1116.5" y="212.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">ü</text>
+<rect x="1094.0" y="228.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1094.0" y="246.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1094.0" y="264.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1119.0" y="228.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1119.0" y="246.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1119.0" y="264.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="1116.5" y="294.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">§</text>
+<text x="1116.5" y="306.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">§</text>
+<!-- Right outer: AF -->
+<rect x="964.0" y="341.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="1011.5" y="355.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">?</text>
+<rect x="989.0" y="371.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="989.0" y="389.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="989.0" y="407.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1014.0" y="371.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1014.0" y="389.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1014.0" y="407.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="1011.5" y="437.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">?</text>
+<text x="1011.5" y="449.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">~</text>
+<!-- Right outer: BF -->
+<rect x="1069.0" y="341.0" width="95.0" height="116.0" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="7"/>
+<text x="1116.5" y="355.0" font-size="20" fill="#222" text-anchor="middle" font-weight="bold" dominant-baseline="central">.</text>
+<rect x="1094.0" y="371.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1094.0" y="389.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1094.0" y="407.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1119.0" y="371.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1119.0" y="389.5" width="20.0" height="15.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="1119.0" y="407.5" width="20.0" height="15.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="1116.5" y="437.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">.</text>
+<text x="1116.5" y="449.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">:</text>
+<!-- Directions section -->
+<rect x="506.0" y="500.0" width="82.0" height="95.0" fill="#f0f4ff" stroke="#b0c0e0" stroke-width="1" rx="7"/>
+<rect x="529.0" y="533.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="529.0" y="547.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="529.0" y="561.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="549.0" y="533.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="549.0" y="547.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="549.0" y="561.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="547.0" y="518.0" font-size="16" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">↑</text>
+<text x="547.0" y="577.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">↑</text>
+<text x="547.0" y="589.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">↑↑</text>
+<rect x="593.0" y="500.0" width="82.0" height="95.0" fill="#f0f4ff" stroke="#b0c0e0" stroke-width="1" rx="7"/>
+<rect x="616.0" y="533.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="616.0" y="547.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="616.0" y="561.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="636.0" y="533.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="636.0" y="547.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="636.0" y="561.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="634.0" y="518.0" font-size="11" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">PgUp</text>
+<text x="634.0" y="577.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">PgUp</text>
+<text x="634.0" y="589.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">PgUp</text>
+<rect x="506.0" y="600.0" width="82.0" height="95.0" fill="#f0f4ff" stroke="#b0c0e0" stroke-width="1" rx="7"/>
+<rect x="529.0" y="633.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="529.0" y="647.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="529.0" y="661.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="549.0" y="633.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="549.0" y="647.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="549.0" y="661.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="547.0" y="618.0" font-size="16" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">↓</text>
+<text x="547.0" y="677.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">↓</text>
+<text x="547.0" y="689.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">↓↓</text>
+<rect x="593.0" y="600.0" width="82.0" height="95.0" fill="#f0f4ff" stroke="#b0c0e0" stroke-width="1" rx="7"/>
+<rect x="616.0" y="633.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="616.0" y="647.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="616.0" y="661.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="636.0" y="633.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="636.0" y="647.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="636.0" y="661.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="634.0" y="618.0" font-size="11" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">PgDn</text>
+<text x="634.0" y="677.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">PgDn</text>
+<text x="634.0" y="689.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">PgDn</text>
+<rect x="412.0" y="550.0" width="82.0" height="95.0" fill="#f0f4ff" stroke="#b0c0e0" stroke-width="1" rx="7"/>
+<rect x="435.0" y="583.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="435.0" y="597.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="435.0" y="611.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="455.0" y="583.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="455.0" y="597.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="455.0" y="611.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="453.0" y="568.0" font-size="16" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">⌫</text>
+<text x="453.0" y="627.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">⌫</text>
+<text x="453.0" y="639.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">⌫</text>
+<rect x="687.0" y="550.0" width="82.0" height="95.0" fill="#f0f4ff" stroke="#b0c0e0" stroke-width="1" rx="7"/>
+<rect x="710.0" y="583.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="710.0" y="597.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="710.0" y="611.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="730.0" y="583.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="730.0" y="597.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="730.0" y="611.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="728.0" y="568.0" font-size="16" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">␣</text>
+<text x="728.0" y="627.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">␣</text>
+<text x="728.0" y="639.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">␣</text>
+<!-- Mode switches -->
+<rect x="797.0" y="550.0" width="95.0" height="95.0" fill="#fff8f0" stroke="#e0c8a0" stroke-width="1" rx="7"/>
+<rect x="826.5" y="583.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="826.5" y="597.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="826.5" y="611.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="846.5" y="583.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="846.5" y="597.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="846.5" y="611.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="844.5" y="568.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">SHIFT</text>
+<text x="844.5" y="627.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">⇧</text>
+<text x="844.5" y="639.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">⇧</text>
+<rect x="900.0" y="550.0" width="95.0" height="95.0" fill="#fff8f0" stroke="#e0c8a0" stroke-width="1" rx="7"/>
+<rect x="929.5" y="583.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="929.5" y="597.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="929.5" y="611.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="949.5" y="583.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="949.5" y="597.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="949.5" y="611.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="947.5" y="568.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">SYMB</text>
+<text x="947.5" y="627.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">@#</text>
+<text x="947.5" y="639.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">@#</text>
+<rect x="1003.0" y="550.0" width="95.0" height="95.0" fill="#fff8f0" stroke="#e0c8a0" stroke-width="1" rx="7"/>
+<rect x="1032.5" y="583.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1032.5" y="597.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1032.5" y="611.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1052.5" y="583.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1052.5" y="597.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="1052.5" y="611.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="1050.5" y="568.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">ABC⇄123</text>
+<text x="1050.5" y="627.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">ABC⇄123</text>
+<text x="1050.5" y="639.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">ABC⇄123</text>
+<text x="590.5" y="490.0" font-size="10" fill="#aaa" text-anchor="middle" font-weight="normal" dominant-baseline="central">Navigation &amp; Actions</text>
+<text x="947.5" y="490.0" font-size="10" fill="#aaa" text-anchor="middle" font-weight="normal" dominant-baseline="central">Mode Switches</text>
+<!-- 5-key control chords -->
+<text x="590.5" y="711.0" font-size="10" fill="#aaa" text-anchor="middle" font-weight="normal" dominant-baseline="central">5-Key Control Chords</text>
+<rect x="285.5" y="719.0" width="95.0" height="95.0" fill="#f4f0ff" stroke="#c0b0e0" stroke-width="1" rx="7"/>
+<rect x="315.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="315.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="315.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="335.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="335.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="335.0" y="780.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<text x="333.0" y="737.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">Esc</text>
+<text x="333.0" y="796.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">Esc</text>
+<text x="333.0" y="808.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">Esc</text>
+<rect x="388.5" y="719.0" width="95.0" height="95.0" fill="#f4f0ff" stroke="#c0b0e0" stroke-width="1" rx="7"/>
+<rect x="418.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="418.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="418.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="438.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="438.0" y="766.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="438.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="436.0" y="737.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">Ctrl</text>
+<text x="436.0" y="796.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">Ctrl</text>
+<text x="436.0" y="808.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">😀</text>
+<rect x="491.5" y="719.0" width="95.0" height="95.0" fill="#f4f0ff" stroke="#c0b0e0" stroke-width="1" rx="7"/>
+<rect x="521.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="521.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="521.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="541.0" y="752.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="541.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="541.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="539.0" y="737.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">Alt</text>
+<text x="539.0" y="796.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">Alt</text>
+<text x="539.0" y="808.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">Alt</text>
+<rect x="594.5" y="719.0" width="95.0" height="95.0" fill="#f4f0ff" stroke="#c0b0e0" stroke-width="1" rx="7"/>
+<rect x="624.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="624.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="624.0" y="780.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="644.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="644.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="644.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="642.0" y="737.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">⏎ Enter</text>
+<text x="642.0" y="796.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">⏎</text>
+<text x="642.0" y="808.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">⏎</text>
+<rect x="697.5" y="719.0" width="95.0" height="95.0" fill="#f4f0ff" stroke="#c0b0e0" stroke-width="1" rx="7"/>
+<rect x="727.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="727.0" y="766.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="727.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="747.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="747.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="747.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="745.0" y="737.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">⇥ Tab</text>
+<text x="745.0" y="796.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">⇥</text>
+<text x="745.0" y="808.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">Uni</text>
+<rect x="800.5" y="719.0" width="95.0" height="95.0" fill="#f4f0ff" stroke="#c0b0e0" stroke-width="1" rx="7"/>
+<rect x="830.0" y="752.5" width="16.0" height="12.0" fill="#f0f0f0" stroke="#ccc" stroke-width="1" rx="4"/>
+<rect x="830.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="830.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="850.0" y="752.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="850.0" y="766.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<rect x="850.0" y="780.5" width="16.0" height="12.0" fill="#222" stroke="#222" stroke-width="1.5" rx="4"/>
+<text x="848.0" y="737.0" font-size="13" fill="#333" text-anchor="middle" font-weight="bold" dominant-baseline="central">⌦ Del</text>
+<text x="848.0" y="796.0" font-size="10" fill="#999" text-anchor="middle" font-weight="bold" dominant-baseline="central">⌦</text>
+<text x="848.0" y="808.0" font-size="9" fill="#2266cc" text-anchor="middle" font-weight="normal" dominant-baseline="central">⌦</text>
+</svg>
