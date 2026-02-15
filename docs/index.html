@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GKOS2 Chord Reference</title>
+<style>
+  :root {
+    --bg: #fafbfc;
+    --fg: #222;
+    --muted: #666;
+    --accent: #2266cc;
+    --border: #e0e0e0;
+    --card-bg: #fff;
+    --card-hover: #f4f8ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #181a1e;
+      --fg: #e0e0e0;
+      --muted: #999;
+      --accent: #5599ee;
+      --border: #333;
+      --card-bg: #22252a;
+      --card-hover: #2a2f38;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--muted); font-size: 1rem; margin-bottom: 1.5rem; }
+  section { margin-bottom: 2rem; }
+  h2 { font-size: 1.2rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem; }
+  p { margin-bottom: 0.75rem; color: var(--muted); font-size: 0.95rem; }
+  .key-example {
+    display: inline-block;
+    background: #222; color: white;
+    border-radius: 4px; padding: 1px 7px;
+    font-weight: bold; font-size: 0.85rem;
+    vertical-align: middle;
+  }
+  .key-example.off {
+    background: white; color: #888;
+    border: 1.5px solid #ccc;
+  }
+  .legend {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.35rem 1rem;
+    font-size: 0.9rem;
+    margin: 0.75rem 0;
+    color: var(--muted);
+  }
+  .legend dt { font-weight: 600; color: var(--fg); white-space: nowrap; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 4px; }
+  .swatch.num { background: #ccc; }
+  .swatch.symb { background: #2266cc; }
+  .swatch.nav { background: #f0f4ff; border: 1px solid #b0c0e0; }
+  .swatch.mode { background: #fff8f0; border: 1px solid #e0c8a0; }
+  .swatch.ctrl { background: #f4f0ff; border: 1px solid #c0b0e0; }
+
+  .lang-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem;
+  }
+  .lang-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: var(--fg);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .lang-card:hover { background: var(--card-hover); border-color: var(--accent); }
+  .lang-name { font-weight: 600; font-size: 1rem; }
+  .lang-variant { color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<h1>GKOS2 Chord Reference</h1>
+<p class="subtitle">Visual chord diagrams for every supported keyboard layout</p>
+
+<section>
+<h2>About GKOS</h2>
+<p>
+  <a href="https://gkos.com/" style="color:var(--accent)">GKOS (Global Keyboard Open Standard)</a>
+  is a chorded keyboard system that uses just six keys &mdash; three on each side
+  of the screen &mdash; to produce the full range of letters, numbers, symbols, and
+  control actions. Each key can be pressed individually, or multiple keys can be
+  combined into a <strong>chord</strong> to select a different character.
+</p>
+<p>
+  On a touchscreen you don't need to press multiple keys simultaneously. Instead, you
+  can <strong>swipe</strong> across adjacent keys in a single gesture: every key your
+  finger passes through is added to the chord, and the character is emitted when you
+  lift your finger. This makes one-handed typing fast and comfortable.
+</p>
+<p>
+  GKOS2 is an Android keyboard app that implements this system with 18 language
+  layouts, predictive text, an emoji picker, and Unicode hex input. It requires no
+  network permissions &mdash; all data stays on your device.
+</p>
+</section>
+
+<section>
+<h2>How to Read the Diagrams</h2>
+<p>
+  Each diagram shows every chord combination for a given language layout. The six
+  physical keys are labelled A&ndash;F: <strong>A, B, C</strong> on the left and
+  <strong>D, E, F</strong> on the right, from top to bottom.
+</p>
+<p>
+  <span class="key-example">key</span> = pressed (inverted, white-on-black) &nbsp;
+  <span class="key-example off">key</span> = unpressed
+</p>
+<dl class="legend">
+  <dt>Centre (large keys)</dt>
+  <dd>Single-key outcomes in <strong>ABC</strong> mode, shown large on the keys themselves.</dd>
+
+  <dt><span class="swatch num"></span> Gray text</dt>
+  <dd>The outcome in <strong>ABC123 / NUM</strong> mode (e.g. digits, punctuation).</dd>
+
+  <dt><span class="swatch symb"></span> Blue text</dt>
+  <dd>The outcome in <strong>SYMB</strong> mode (e.g. symbols, accented characters).</dd>
+
+  <dt>Inner chord cells</dt>
+  <dd>Two-key chords inside the main box (AB, BC, DE, EF, AC, DF). The character
+  appears as a dark badge between the pressed keys; three-key extensions appear on the
+  opposite-side keys. Gray and blue annotations show NUM/SYMB outcomes.</dd>
+
+  <dt>Outer chord cells</dt>
+  <dd>Cross-side and multi-key chords (AE, ABEF, BCDE, etc.) shown in the panels
+  flanking the main box.</dd>
+
+  <dt><span class="swatch nav"></span> Navigation &amp; Actions</dt>
+  <dd>Arrow keys, page up/down, backspace, and space.</dd>
+
+  <dt><span class="swatch mode"></span> Mode Switches</dt>
+  <dd>SHIFT, SYMB, and ABC&#x21c4;123 mode toggles.</dd>
+
+  <dt><span class="swatch ctrl"></span> 5-Key Control Chords</dt>
+  <dd>Esc, Ctrl, Alt, Enter, Tab, and Delete.</dd>
+</dl>
+<p>
+  Most layouts come in two variants: <strong>Standard</strong> (the official GKOS
+  letter placement) and <strong>Optimized</strong> (letters reordered by frequency
+  for faster typing in that language).
+</p>
+</section>
+
+<section>
+<h2>Layouts</h2>
+<div class="lang-grid">
+  <a class="lang-card" href="layouts/da.svg">
+    <span class="lang-name">Danish</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/da-standard.svg">
+    <span class="lang-name">Danish</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/nl.svg">
+    <span class="lang-name">Dutch</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/en.svg">
+    <span class="lang-name">English</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/en-standard.svg">
+    <span class="lang-name">English</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/eo.svg">
+    <span class="lang-name">Esperanto</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/eo-standard.svg">
+    <span class="lang-name">Esperanto</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/et.svg">
+    <span class="lang-name">Estonian</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/et-standard.svg">
+    <span class="lang-name">Estonian</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/fi.svg">
+    <span class="lang-name">Finnish</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/fi-standard.svg">
+    <span class="lang-name">Finnish</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/fr.svg">
+    <span class="lang-name">French</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/fr-standard.svg">
+    <span class="lang-name">French</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/de.svg">
+    <span class="lang-name">German</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/de-standard.svg">
+    <span class="lang-name">German</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/el.svg">
+    <span class="lang-name">Greek</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/el-standard.svg">
+    <span class="lang-name">Greek</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/is.svg">
+    <span class="lang-name">Icelandic</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/is-standard.svg">
+    <span class="lang-name">Icelandic</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/it.svg">
+    <span class="lang-name">Italian</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/it-standard.svg">
+    <span class="lang-name">Italian</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/ko.svg">
+    <span class="lang-name">Korean</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/ko-standard.svg">
+    <span class="lang-name">Korean</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/no.svg">
+    <span class="lang-name">Norwegian</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/no-standard.svg">
+    <span class="lang-name">Norwegian</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/pt.svg">
+    <span class="lang-name">Portuguese</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/pt-standard.svg">
+    <span class="lang-name">Portuguese</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/ru.svg">
+    <span class="lang-name">Russian</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/ru-standard.svg">
+    <span class="lang-name">Russian</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/es.svg">
+    <span class="lang-name">Spanish</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/es-standard.svg">
+    <span class="lang-name">Spanish</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/sv.svg">
+    <span class="lang-name">Swedish</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/sv-standard.svg">
+    <span class="lang-name">Swedish</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+  <a class="lang-card" href="layouts/uk.svg">
+    <span class="lang-name">Ukrainian</span>
+    <span class="lang-variant">&mdash; Optimized</span>
+  </a>
+  <a class="lang-card" href="layouts/uk-standard.svg">
+    <span class="lang-name">Ukrainian</span>
+    <span class="lang-variant">&mdash; Standard</span>
+  </a>
+</div>
+</section>
+
+<footer style="margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); color:var(--muted); font-size:0.8rem;">
+  GKOS2 &copy; 2026 Chris Burdess &middot;
+</footer>
+
+</body>
+</html>
