@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS-innstillinger</string>
+    <string name="layouts_title">Tastaturoppsett</string>
+    <string name="layouts_summary">Velg et språkoppsett. Bruk variantvelgeren for å bytte mellom GKOS Standard og Optimalisert bokstavarrangementer.</string>
+    <string name="layout_selected">Oppsett valgt: %1$s (%2$s)</string>
+</resources>

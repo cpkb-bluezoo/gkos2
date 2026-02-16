@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Paramètres GKOS</string>
+    <string name="layouts_title">Dispositions</string>
+    <string name="layouts_summary">Sélectionnez une disposition de langue. Utilisez le sélecteur de variante pour choisir entre GKOS Standard et Optimisé.</string>
+    <string name="layout_selected">Disposition choisie\u00a0: %1$s (%2$s)</string>
+</resources>

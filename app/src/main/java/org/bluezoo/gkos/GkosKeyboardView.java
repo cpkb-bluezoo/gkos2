@@ -28,10 +28,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -83,6 +86,28 @@ public class GkosKeyboardView extends View {
     private OutcomeProvider outcomeProvider;
     private GlobeClickListener globeClickListener;
     private boolean globeVisible = true;  // opens GKOS language/layout settings
+
+    // Auto-repeat for space (ABC = 0x07) and backspace (DEF = 0x38)
+    private static final int CHORD_SPACE = KEY_A | KEY_B | KEY_C;       // 0x07
+    private static final int CHORD_BACKSPACE = KEY_D | KEY_E | KEY_F;   // 0x38
+    private static final long AUTO_REPEAT_INTERVAL_MS = 80;
+    private final Handler repeatHandler = new Handler(Looper.getMainLooper());
+    private boolean autoRepeatActive = false;
+    private int autoRepeatChord = 0;
+    private final Runnable repeatRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (autoRepeatChord != 0 && outputHandler != null) {
+                if (!autoRepeatActive) {
+                    // First repeat — emit the initial chord
+                    autoRepeatActive = true;
+                    outputHandler.onChord(autoRepeatChord);
+                }
+                outputHandler.onChord(autoRepeatChord);
+                repeatHandler.postDelayed(this, AUTO_REPEAT_INTERVAL_MS);
+            }
+        }
+    };
 
     // Mode indicator — null or empty means hidden (default ABC mode)
     private String modeLabel = null;
@@ -227,6 +252,8 @@ public class GkosKeyboardView extends View {
 
     public void onStartInput(android.view.inputmethod.EditorInfo info) {
         // Reset state when starting new input
+        cancelAutoRepeat();
+        autoRepeatActive = false;
         currentChord = 0;
         activePointers.clear();
     }
@@ -328,16 +355,20 @@ public class GkosKeyboardView extends View {
                     return true;
                 }
                 // fall through
-            case MotionEvent.ACTION_POINTER_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN: {
                 int mask = hitTestKey(x, y);
                 if (mask != 0) {
                     activePointers.add(pointerId);
+                    int prevChord = currentChord;
                     currentChord |= mask;
+                    checkAutoRepeatStart(prevChord, currentChord);
                     invalidate();
                 }
                 break;
-            case MotionEvent.ACTION_MOVE:
+            }
+            case MotionEvent.ACTION_MOVE: {
                 // For swipe: ACCUMULATE keys touched (don't replace — keep keys passed through)
+                int prevChord = currentChord;
                 for (int i = 0; i < event.getPointerCount(); i++) {
                     int pid = event.getPointerId(i);
                     if (activePointers.contains(pid)) {
@@ -345,21 +376,28 @@ public class GkosKeyboardView extends View {
                         if (m != 0) currentChord |= m;
                     }
                 }
+                if (currentChord != prevChord) {
+                    checkAutoRepeatStart(prevChord, currentChord);
+                }
                 invalidate();
                 break;
+            }
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 activePointers.remove(pointerId);
                 if (event.getPointerCount() == 1 && action == MotionEvent.ACTION_UP) {
-                    // Last pointer up — emit chord
-                    if (currentChord != 0 && outputHandler != null) {
+                    // Last pointer up — emit chord (unless auto-repeat already handled it)
+                    cancelAutoRepeat();
+                    if (!autoRepeatActive && currentChord != 0 && outputHandler != null) {
                         outputHandler.onChord(currentChord);
                     }
+                    autoRepeatActive = false;
                     currentChord = 0;
                     activePointers.clear();
                     invalidate();
                 } else {
                     // Recompute chord from remaining pointers
+                    int prevChord = currentChord;
                     int remaining = 0;
                     for (int i = 0; i < event.getPointerCount(); i++) {
                         if (i != pointerIndex) {
@@ -370,16 +408,45 @@ public class GkosKeyboardView extends View {
                         }
                     }
                     currentChord = remaining;
+                    // If the chord is no longer a repeatable one, cancel
+                    if (currentChord != autoRepeatChord) {
+                        cancelAutoRepeat();
+                    }
                     invalidate();
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
+                cancelAutoRepeat();
+                autoRepeatActive = false;
                 currentChord = 0;
                 activePointers.clear();
                 invalidate();
                 break;
         }
         return true;
+    }
+
+    /**
+     * If the chord just became a repeatable one (space or backspace),
+     * schedule auto-repeat after the system long-press timeout.
+     */
+    private void checkAutoRepeatStart(int prevChord, int newChord) {
+        boolean wasRepeatable = (prevChord == CHORD_SPACE || prevChord == CHORD_BACKSPACE);
+        boolean isRepeatable = (newChord == CHORD_SPACE || newChord == CHORD_BACKSPACE);
+
+        if (isRepeatable && !wasRepeatable) {
+            autoRepeatChord = newChord;
+            autoRepeatActive = false;
+            long delay = ViewConfiguration.get(getContext()).getLongPressTimeout();
+            repeatHandler.postDelayed(repeatRunnable, delay);
+        } else if (!isRepeatable && wasRepeatable) {
+            cancelAutoRepeat();
+        }
+    }
+
+    private void cancelAutoRepeat() {
+        repeatHandler.removeCallbacks(repeatRunnable);
+        autoRepeatChord = 0;
     }
 
 

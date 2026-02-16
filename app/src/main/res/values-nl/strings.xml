@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS-instellingen</string>
+    <string name="layouts_title">Indelingen</string>
+    <string name="layouts_summary">Selecteer een taalindeling. Gebruik de variantschakelaar om te wisselen tussen GKOS Standaard en Geoptimaliseerd.</string>
+    <string name="layout_selected">Indeling gekozen: %1$s (%2$s)</string>
+</resources>

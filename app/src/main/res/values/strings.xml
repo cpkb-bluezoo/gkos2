@@ -8,23 +8,23 @@
     <string name="variant_standard">GKOS Standard</string>
     <string name="variant_optimized">Optimized</string>
     <string name="layout_selected">Layout set: %1$s (%2$s)</string>
-    <!-- Language names -->
+    <!-- Language names (native endonyms) -->
     <string name="layout_en">English</string>
-    <string name="layout_fr">French</string>
-    <string name="layout_de">German</string>
-    <string name="layout_nl">Dutch</string>
-    <string name="layout_es">Spanish</string>
-    <string name="layout_pt">Portuguese</string>
-    <string name="layout_it">Italian</string>
-    <string name="layout_da">Danish</string>
-    <string name="layout_no">Norwegian</string>
-    <string name="layout_sv">Swedish</string>
-    <string name="layout_fi">Finnish</string>
-    <string name="layout_el">Greek</string>
-    <string name="layout_ru">Russian</string>
-    <string name="layout_ko">Korean</string>
+    <string name="layout_fr">Français</string>
+    <string name="layout_de">Deutsch</string>
+    <string name="layout_nl">Nederlands</string>
+    <string name="layout_es">Español</string>
+    <string name="layout_pt">Português</string>
+    <string name="layout_it">Italiano</string>
+    <string name="layout_da">Dansk</string>
+    <string name="layout_no">Norsk</string>
+    <string name="layout_sv">Svenska</string>
+    <string name="layout_fi">Suomi</string>
+    <string name="layout_el">Ελληνικά</string>
+    <string name="layout_ru">Русский</string>
+    <string name="layout_ko">한국어</string>
     <string name="layout_eo">Esperanto</string>
-    <string name="layout_et">Estonian</string>
-    <string name="layout_is">Icelandic</string>
-    <string name="layout_uk">Ukrainian</string>
+    <string name="layout_et">Eesti</string>
+    <string name="layout_is">Íslenska</string>
+    <string name="layout_uk">Українська</string>
 </resources>

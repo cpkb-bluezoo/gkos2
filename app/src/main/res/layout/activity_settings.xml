@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/layouts_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/layouts_title"
@@ -19,6 +20,7 @@
             android:paddingBottom="4dp" />
 
         <TextView
+            android:id="@+id/layouts_summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/layouts_summary"

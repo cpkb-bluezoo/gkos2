@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS 설정</string>
+    <string name="layouts_title">키보드 레이아웃</string>
+    <string name="layouts_summary">언어 레이아웃을 선택하세요. 변형 전환기를 사용하여 GKOS 표준과 최적화 배열 사이를 전환하세요.</string>
+    <string name="layout_selected">레이아웃 설정: %1$s (%2$s)</string>
+</resources>

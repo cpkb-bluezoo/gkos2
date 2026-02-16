@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS-Einstellungen</string>
+    <string name="layouts_title">Tastaturbelegungen</string>
+    <string name="layouts_summary">Wählen Sie eine Sprachbelegung. Verwenden Sie den Variantenschalter, um zwischen GKOS Standard und Optimiert zu wechseln.</string>
+    <string name="layout_selected">Belegung gewählt: %1$s (%2$s)</string>
+</resources>

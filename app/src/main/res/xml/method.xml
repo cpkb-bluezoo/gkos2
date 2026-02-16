@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
-    android:icon="@android:drawable/ic_menu_edit"
+    android:icon="@mipmap/ic_launcher"
     android:settingsActivity="org.bluezoo.gkos.SettingsActivity">
     <subtype
         android:label="@string/layout_en"
@@ -17,6 +17,11 @@
         android:imeSubtypeLocale="de"
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="layout=de" />
+    <subtype
+        android:label="@string/layout_nl"
+        android:imeSubtypeLocale="nl"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="layout=nl" />
     <subtype
         android:label="@string/layout_es"
         android:imeSubtypeLocale="es"

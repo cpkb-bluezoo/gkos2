@@ -54,26 +54,29 @@ public class SettingsActivity extends Activity {
 
 
 
-    /** All supported languages: {iso_code, string_resource_name, has_standard} */
+    /**
+     * All supported languages.
+     * Columns: iso_code, native_name, has_standard, standard_label, optimized_label
+     */
     private static final String[][] LANGUAGES = {
-        {"en", "English",    "true"},
-        {"fr", "French",     "true"},
-        {"de", "German",     "true"},
-        {"nl", "Dutch",      "false"},
-        {"es", "Spanish",    "true"},
-        {"pt", "Portuguese", "true"},
-        {"it", "Italian",    "true"},
-        {"da", "Danish",     "true"},
-        {"no", "Norwegian",  "true"},
-        {"sv", "Swedish",    "true"},
-        {"fi", "Finnish",    "true"},
-        {"el", "Greek",      "true"},
-        {"ru", "Russian",    "true"},
-        {"ko", "Korean",     "true"},
-        {"eo", "Esperanto",  "true"},
-        {"et", "Estonian",   "true"},
-        {"is", "Icelandic",  "true"},
-        {"uk", "Ukrainian",  "true"},
+        {"en", "English",     "true",  "GKOS Standard",  "Optimized"},
+        {"fr", "Fran\u00e7ais",  "true",  "GKOS Standard",  "Optimis\u00e9"},
+        {"de", "Deutsch",     "true",  "GKOS Standard",  "Optimiert"},
+        {"nl", "Nederlands",  "false", "",                "Geoptimaliseerd"},
+        {"es", "Espa\u00f1ol",   "true",  "GKOS Est\u00e1ndar", "Optimizado"},
+        {"pt", "Portugu\u00eas", "true",  "GKOS Padr\u00e3o",   "Otimizado"},
+        {"it", "Italiano",    "true",  "GKOS Standard",  "Ottimizzato"},
+        {"da", "Dansk",       "true",  "GKOS Standard",  "Optimeret"},
+        {"no", "Norsk",       "true",  "GKOS Standard",  "Optimalisert"},
+        {"sv", "Svenska",     "true",  "GKOS Standard",  "Optimerad"},
+        {"fi", "Suomi",       "true",  "GKOS Standardi", "Optimoitu"},
+        {"el", "\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac", "true",  "GKOS \u03a4\u03c5\u03c0\u03b9\u03ba\u03cc",        "\u0392\u03b5\u03bb\u03c4\u03b9\u03c3\u03c4\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03bf"},
+        {"ru", "\u0420\u0443\u0441\u0441\u043a\u0438\u0439",       "true",  "GKOS \u0421\u0442\u0430\u043d\u0434\u0430\u0440\u0442", "\u041e\u043f\u0442\u0438\u043c\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u0430\u044f"},
+        {"ko", "\ud55c\uad6d\uc5b4",   "true",  "GKOS \ud45c\uc900", "\ucd5c\uc801\ud654"},
+        {"eo", "Esperanto",   "true",  "GKOS Norma",     "Optimumigita"},
+        {"et", "Eesti",       "true",  "GKOS Standard",  "Optimeeritud"},
+        {"is", "\u00cdslenska",  "true",  "GKOS Sta\u00f0la\u00f0", "Hagn\u00fdt"},
+        {"uk", "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430", "true", "GKOS \u0421\u0442\u0430\u043d\u0434\u0430\u0440\u0442", "\u041e\u043f\u0442\u0438\u043c\u0456\u0437\u043e\u0432\u0430\u043d\u0430"},
     };
 
     // Light mode
@@ -116,6 +119,8 @@ public class SettingsActivity extends Activity {
             String iso = lang[0];
             String name = lang[1];
             boolean hasStandard = Boolean.parseBoolean(lang[2]);
+            String standardLabel = lang[3];
+            String optimizedLabel = lang[4];
 
             // Verify the layout files actually exist in assets
             boolean standardExists = hasStandard && assetExists("layouts/" + iso + "-standard.xml");
@@ -153,22 +158,26 @@ public class SettingsActivity extends Activity {
 
             if (standardExists) {
                 RadioButton stdBtn = new RadioButton(this);
-                stdBtn.setText(R.string.variant_standard);
+                stdBtn.setText(standardLabel);
                 stdBtn.setId(View.generateViewId());
                 stdBtn.setChecked("standard".equals(currentVariant));
                 radioGroup.addView(stdBtn);
 
-                stdBtn.setOnClickListener(v -> selectVariant(iso, name, "standard"));
+                final String stdLbl = standardLabel;
+                final String optLbl = optimizedLabel;
+                stdBtn.setOnClickListener(v -> selectVariant(iso, name, "standard", stdLbl, optLbl));
             }
 
             if (optimizedExists) {
                 RadioButton optBtn = new RadioButton(this);
-                optBtn.setText(R.string.variant_optimized);
+                optBtn.setText(optimizedLabel);
                 optBtn.setId(View.generateViewId());
                 optBtn.setChecked("optimized".equals(currentVariant));
                 radioGroup.addView(optBtn);
 
-                optBtn.setOnClickListener(v -> selectVariant(iso, name, "optimized"));
+                final String stdLbl = standardLabel;
+                final String optLbl = optimizedLabel;
+                optBtn.setOnClickListener(v -> selectVariant(iso, name, "optimized", stdLbl, optLbl));
             }
 
             row.addView(radioGroup);
@@ -180,7 +189,8 @@ public class SettingsActivity extends Activity {
         }
     }
 
-    private void selectVariant(String iso, String name, String variant) {
+    private void selectVariant(String iso, String name, String variant,
+                               String standardLabel, String optimizedLabel) {
         // Save the variant preference for this language
         prefs.edit()
                 .putString(KEY_VARIANT_PREFIX + iso, variant)
@@ -194,9 +204,7 @@ public class SettingsActivity extends Activity {
             applyRowBackground(entry.getValue(), entry.getKey().equals(iso), cornerRadius);
         }
 
-        String variantLabel = "standard".equals(variant)
-                ? getString(R.string.variant_standard)
-                : getString(R.string.variant_optimized);
+        String variantLabel = "standard".equals(variant) ? standardLabel : optimizedLabel;
         Toast.makeText(this, getString(R.string.layout_selected, name, variantLabel),
                 Toast.LENGTH_SHORT).show();
     }

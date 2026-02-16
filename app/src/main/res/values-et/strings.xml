@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS seaded</string>
+    <string name="layouts_title">Paigutused</string>
+    <string name="layouts_summary">Valige keelepaigutus. Kasutage variandilülitit, et vahetada GKOS Standard ja Optimeeritud tähejärjestuse vahel.</string>
+    <string name="layout_selected">Paigutus valitud: %1$s (%2$s)</string>
+</resources>

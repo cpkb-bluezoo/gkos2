@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS-stillingar</string>
+    <string name="layouts_title">Lyklaborðsútlit</string>
+    <string name="layouts_summary">Veldu tungumálsútlit. Notaðu afbrigðisrofann til að skipta á milli GKOS Staðlað og Hágnýtt stafaröðunar.</string>
+    <string name="layout_selected">Útlit valið: %1$s (%2$s)</string>
+</resources>

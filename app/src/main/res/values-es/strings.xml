@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Ajustes de GKOS</string>
+    <string name="layouts_title">Distribuciones</string>
+    <string name="layouts_summary">Seleccione una distribución de idioma. Use el selector de variante para cambiar entre GKOS Estándar y Optimizado.</string>
+    <string name="layout_selected">Distribución elegida: %1$s (%2$s)</string>
+</resources>

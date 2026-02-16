@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS-inställningar</string>
+    <string name="layouts_title">Tangentbordslayouter</string>
+    <string name="layouts_summary">Välj en språklayout. Använd variantväljaren för att växla mellan GKOS Standard och Optimerad.</string>
+    <string name="layout_selected">Layout vald: %1$s (%2$s)</string>
+</resources>

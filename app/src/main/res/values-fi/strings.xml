@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">GKOS-asetukset</string>
+    <string name="layouts_title">Näppäimistöasettelut</string>
+    <string name="layouts_summary">Valitse kieliasettelu. Käytä varianttikytkintä vaihtaaksesi GKOS Standardi- ja Optimoitu-järjestysten välillä.</string>
+    <string name="layout_selected">Asettelu valittu: %1$s (%2$s)</string>
+</resources>

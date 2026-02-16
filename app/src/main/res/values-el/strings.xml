@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Ρυθμίσεις GKOS</string>
+    <string name="layouts_title">Διατάξεις</string>
+    <string name="layouts_summary">Επιλέξτε μια γλωσσική διάταξη. Χρησιμοποιήστε τον επιλογέα παραλλαγής για εναλλαγή μεταξύ GKOS Τυπικό και Βελτιστοποιημένο.</string>
+    <string name="layout_selected">Διάταξη: %1$s (%2$s)</string>
+</resources>

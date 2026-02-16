@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Настройки GKOS</string>
+    <string name="layouts_title">Раскладки</string>
+    <string name="layouts_summary">Выберите языковую раскладку. Используйте переключатель варианта для выбора между GKOS Стандарт и Оптимизированная.</string>
+    <string name="layout_selected">Раскладка: %1$s (%2$s)</string>
+</resources>
