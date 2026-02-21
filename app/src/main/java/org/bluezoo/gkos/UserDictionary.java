@@ -101,13 +101,43 @@ public class UserDictionary {
     /**
      * Records a completed word.  Increments its frequency count and
      * schedules a debounced save.
+     * <p>
+     * Capitalisation is preserved for proper noun detection.  If the word
+     * appears capitalised in a non-sentence-start position it is stored
+     * with its capital letter (likely a proper noun).  At sentence start
+     * the word is stored lowercase since we cannot tell whether it is a
+     * proper noun.  An existing proper-noun entry is never downgraded.
      *
-     * @param word the word (will be lowercased)
+     * @param word              the word as typed
+     * @param isFirstInSentence true if the word is at the start of a sentence
      */
-    public void recordWord(String word) {
+    public void recordWord(String word, boolean isFirstInSentence) {
         if (word == null || word.length() < MIN_WORD_LENGTH) return;
-        word = word.toLowerCase();
-        entries.merge(word, 1, Integer::sum);
+
+        String lower = word.toLowerCase();
+
+        // Find any existing entry (case-insensitive)
+        String existingKey = null;
+        for (String key : entries.keySet()) {
+            if (key.toLowerCase().equals(lower)) {
+                existingKey = key;
+                break;
+            }
+        }
+
+        if (existingKey != null) {
+            if (!isFirstInSentence && Character.isUpperCase(word.charAt(0))
+                    && !existingKey.equals(word)) {
+                // Upgrade to proper noun: re-key with capitalised form
+                int count = entries.remove(existingKey);
+                entries.put(word, count + 1);
+            } else {
+                entries.merge(existingKey, 1, Integer::sum);
+            }
+        } else {
+            String key = isFirstInSentence ? lower : word;
+            entries.put(key, 1);
+        }
         scheduleSave();
     }
 
@@ -123,9 +153,11 @@ public class UserDictionary {
         if (prefix == null || prefix.isEmpty() || maxResults <= 0) {
             return Collections.emptyList();
         }
+        String lowerPrefix = prefix.toLowerCase();
         List<Map.Entry<String, Integer>> matches = new ArrayList<>();
         for (Map.Entry<String, Integer> e : entries.entrySet()) {
-            if (e.getKey().startsWith(prefix) && !e.getKey().equals(prefix)) {
+            String keyLower = e.getKey().toLowerCase();
+            if (keyLower.startsWith(lowerPrefix) && !keyLower.equals(lowerPrefix)) {
                 matches.add(e);
             }
         }

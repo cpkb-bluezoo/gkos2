@@ -396,22 +396,10 @@ public class GkosKeyboardView extends View {
                     activePointers.clear();
                     invalidate();
                 } else {
-                    // Recompute chord from remaining pointers
-                    int prevChord = currentChord;
-                    int remaining = 0;
-                    for (int i = 0; i < event.getPointerCount(); i++) {
-                        if (i != pointerIndex) {
-                            int pid = event.getPointerId(i);
-                            if (activePointers.contains(pid)) {
-                                remaining |= hitTestKey(event.getX(i), event.getY(i));
-                            }
-                        }
-                    }
-                    currentChord = remaining;
-                    // If the chord is no longer a repeatable one, cancel
-                    if (currentChord != autoRepeatChord) {
-                        cancelAutoRepeat();
-                    }
+                    // Non-last pointer released: keep accumulated chord intact.
+                    // Keys collected by the released pointer remain in currentChord
+                    // until the final pointer is lifted and the chord is emitted.
+                    cancelAutoRepeat();
                     invalidate();
                 }
                 break;

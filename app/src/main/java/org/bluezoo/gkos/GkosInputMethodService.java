@@ -473,15 +473,15 @@ public class GkosInputMethodService extends InputMethodService
     @Override
     public void onSuggestionTapped(int index, String word) {
         if (word == null || word.isEmpty()) return;
+        // Determine sentence position before modifying the InputConnection
+        boolean firstInSentence = isFirstWordInSentence();
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && currentWord.length() > 0) {
-            // Replace the partial word with the full suggestion + trailing space
             ic.deleteSurroundingText(currentWord.length(), 0);
             ic.commitText(word + " ", 1);
         }
-        // Record the accepted word
         if (userDictionary != null) {
-            userDictionary.recordWord(word);
+            userDictionary.recordWord(word, firstInSentence);
         }
         currentWord.setLength(0);
         currentWord.append(word);
@@ -508,10 +508,15 @@ public class GkosInputMethodService extends InputMethodService
         LinkedHashSet<String> merged = new LinkedHashSet<>(userMatches);
         merged.addAll(bundledMatches);
 
+        boolean capitalise = isFirstWordInSentence();
+
         String[] result = new String[Math.min(MAX_SUGGESTIONS, merged.size())];
         int i = 0;
         for (String s : merged) {
             if (i >= MAX_SUGGESTIONS) break;
+            if (capitalise && !s.isEmpty() && Character.isLowerCase(s.charAt(0))) {
+                s = Character.toUpperCase(s.charAt(0)) + s.substring(1);
+            }
             result[i++] = s;
         }
 
@@ -521,11 +526,40 @@ public class GkosInputMethodService extends InputMethodService
     }
 
     /**
+     * Determines whether the word currently being typed is the first word in
+     * a sentence.  A word is first-in-sentence if there is no text before it,
+     * or if the nearest non-whitespace character before it is a sentence-ending
+     * punctuation mark ({@code .}, {@code !}, or {@code ?}).
+     */
+    private boolean isFirstWordInSentence() {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return true;
+
+        CharSequence before = ic.getTextBeforeCursor(currentWord.length() + 20, 0);
+        if (before == null) return true;
+
+        // Strip the current word from the end of the returned text
+        int precedingLen = before.length() - currentWord.length();
+        if (precedingLen <= 0) return true;
+
+        // Walk backwards past whitespace to find the last meaningful character
+        for (int i = precedingLen - 1; i >= 0; i--) {
+            char c = before.charAt(i);
+            if (!Character.isWhitespace(c)) {
+                return c == '.' || c == '!' || c == '?';
+            }
+        }
+        // Only whitespace before the current word — start of input
+        return true;
+    }
+
+    /**
      * Records the current word in the user dictionary and clears tracking state.
      */
     private void finishCurrentWord() {
         if (currentWord.length() >= 2 && userDictionary != null) {
-            userDictionary.recordWord(currentWord.toString());
+            boolean firstInSentence = isFirstWordInSentence();
+            userDictionary.recordWord(currentWord.toString(), firstInSentence);
         }
         currentWord.setLength(0);
         clearSuggestions();
