@@ -109,7 +109,10 @@ public class GkosInputMethodService extends InputMethodService
     // Predictive text
     private WordDictionary wordDictionary;
     private UserDictionary userDictionary;
+    private UserBigrams userBigrams;
+    private BigramDictionary bigramDictionary;
     private StringBuilder currentWord = new StringBuilder();
+    private String previousWord;
     private String currentLangId;
     private static final int MAX_SUGGESTIONS = 3;
 
@@ -123,6 +126,8 @@ public class GkosInputMethodService extends InputMethodService
         layoutEngine = new LayoutEngine();
         wordDictionary = new WordDictionary();
         userDictionary = new UserDictionary();
+        userBigrams = new UserBigrams();
+        bigramDictionary = new BigramDictionary();
         loadLayoutForCurrentSubtype();
     }
 
@@ -130,6 +135,9 @@ public class GkosInputMethodService extends InputMethodService
     public void onDestroy() {
         if (userDictionary != null) {
             userDictionary.close();
+        }
+        if (userBigrams != null) {
+            userBigrams.close();
         }
         super.onDestroy();
     }
@@ -176,8 +184,11 @@ public class GkosInputMethodService extends InputMethodService
         if (!langId.equals(currentLangId)) {
             currentLangId = langId;
             wordDictionary.loadAsync(this, langId);
+            bigramDictionary.loadAsync(this, langId);
             userDictionary.load(this, langId);
+            userBigrams.load(this, langId);
             currentWord.setLength(0);
+            previousWord = null;
             clearSuggestions();
         }
     }
@@ -341,6 +352,7 @@ public class GkosInputMethodService extends InputMethodService
     public void onStartInput(EditorInfo info, boolean restarting) {
         super.onStartInput(info, restarting);
         currentWord.setLength(0);
+        previousWord = null;
         clearSuggestions();
         if (keyboardView != null) {
             keyboardView.onStartInput(info);
@@ -368,11 +380,11 @@ public class GkosInputMethodService extends InputMethodService
             ic.commitText(text, 1);
 
             // Track the current word for predictive text
-            if (text.length() == 1 && Character.isLetter(text.charAt(0))) {
+            if (isAllLetters(text)) {
                 currentWord.append(text);
                 updateSuggestions();
             } else {
-                // Non-letter character: word boundary
+                // Contains non-letter character(s): word boundary
                 finishCurrentWord();
             }
         }
@@ -473,7 +485,6 @@ public class GkosInputMethodService extends InputMethodService
     @Override
     public void onSuggestionTapped(int index, String word) {
         if (word == null || word.isEmpty()) return;
-        // Determine sentence position before modifying the InputConnection
         boolean firstInSentence = isFirstWordInSentence();
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && currentWord.length() > 0) {
@@ -483,14 +494,47 @@ public class GkosInputMethodService extends InputMethodService
         if (userDictionary != null) {
             userDictionary.recordWord(word, firstInSentence);
         }
+        String canonical = firstInSentence ? word.toLowerCase() : word;
+        if (previousWord != null && userBigrams != null) {
+            userBigrams.recordBigram(previousWord, canonical);
+        }
+        previousWord = canonical;
         currentWord.setLength(0);
-        currentWord.append(word);
         clearSuggestions();
     }
 
     /**
-     * Queries both dictionaries and merges results (user words first,
-     * then bundled words, de-duplicated), then updates the keyboard view.
+     * Returns the previous word by falling back to the InputConnection
+     * when {@link #previousWord} is null (e.g. after cursor navigation).
+     * Walks backwards through text before the cursor to find the last
+     * complete word preceding the one currently being typed.
+     */
+    private String getEffectivePreviousWord() {
+        if (previousWord != null) return previousWord;
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return null;
+
+        CharSequence before = ic.getTextBeforeCursor(currentWord.length() + 50, 0);
+        if (before == null) return null;
+        int precedingLen = before.length() - currentWord.length();
+        if (precedingLen <= 0) return null;
+
+        // Walk backwards past whitespace to find end of previous word
+        int end = precedingLen;
+        while (end > 0 && Character.isWhitespace(before.charAt(end - 1))) end--;
+        if (end == 0) return null;
+
+        // Walk backwards to find start of previous word
+        int start = end;
+        while (start > 0 && Character.isLetter(before.charAt(start - 1))) start--;
+        if (start == end) return null;
+        return before.subSequence(start, end).toString();
+    }
+
+    /**
+     * Queries bigrams (if a previous word is known), user dictionary, and
+     * bundled dictionary, then merges results with bigram matches first,
+     * de-duplicated, and applies first-in-sentence capitalisation.
      */
     private void updateSuggestions() {
         String prefix = currentWord.toString().toLowerCase();
@@ -499,30 +543,66 @@ public class GkosInputMethodService extends InputMethodService
             return;
         }
 
+        // Bigram suggestions: contextually relevant completions
+        String prev = getEffectivePreviousWord();
+        List<String> userBigramMatches = (prev != null && userBigrams != null)
+                ? userBigrams.getFollowers(prev, prefix, MAX_SUGGESTIONS)
+                : new ArrayList<>();
+        List<String> bundledBigramMatches = (prev != null && bigramDictionary != null)
+                ? bigramDictionary.getFollowers(prev, prefix, MAX_SUGGESTIONS)
+                : new ArrayList<>();
+
+        // Unigram suggestions: user dictionary then bundled dictionary
         List<String> userMatches = userDictionary != null
                 ? userDictionary.getMatches(prefix, MAX_SUGGESTIONS) : new ArrayList<>();
         List<String> bundledMatches = wordDictionary != null
                 ? wordDictionary.getSuggestions(prefix, MAX_SUGGESTIONS) : new ArrayList<>();
 
-        // Merge: user words first (boosted priority), then bundled, de-duplicate
-        LinkedHashSet<String> merged = new LinkedHashSet<>(userMatches);
-        merged.addAll(bundledMatches);
+        // Merge in priority order: user bigrams, bundled bigrams,
+        // user unigrams, bundled unigrams; de-duplicate case-insensitively
+        LinkedHashSet<String> merged = new LinkedHashSet<>();
+        for (String s : userBigramMatches)    merged.add(s.toLowerCase());
+        for (String s : bundledBigramMatches) merged.add(s.toLowerCase());
+        for (String s : userMatches)          merged.add(s.toLowerCase());
+        for (String s : bundledMatches)       merged.add(s.toLowerCase());
+
+        // Rebuild with proper casing from the original sources
+        LinkedHashSet<String> result = new LinkedHashSet<>();
+        for (String lower : merged) {
+            String best = findOriginal(lower, userBigramMatches,
+                    bundledBigramMatches, userMatches, bundledMatches);
+            result.add(best != null ? best : lower);
+        }
 
         boolean capitalise = isFirstWordInSentence();
 
-        String[] result = new String[Math.min(MAX_SUGGESTIONS, merged.size())];
+        String[] arr = new String[Math.min(MAX_SUGGESTIONS, result.size())];
         int i = 0;
-        for (String s : merged) {
+        for (String s : result) {
             if (i >= MAX_SUGGESTIONS) break;
             if (capitalise && !s.isEmpty() && Character.isLowerCase(s.charAt(0))) {
                 s = Character.toUpperCase(s.charAt(0)) + s.substring(1);
             }
-            result[i++] = s;
+            arr[i++] = s;
         }
 
         if (keyboardView != null) {
-            keyboardView.setSuggestions(result.length > 0 ? result : null);
+            keyboardView.setSuggestions(arr.length > 0 ? arr : null);
         }
+    }
+
+    /**
+     * Finds the original (properly-cased) form of a word from the source
+     * lists, preferring the first match in priority order.
+     */
+    @SafeVarargs
+    private static String findOriginal(String lower, List<String>... sources) {
+        for (List<String> source : sources) {
+            for (String s : source) {
+                if (s.toLowerCase().equals(lower)) return s;
+            }
+        }
+        return null;
     }
 
     /**
@@ -557,9 +637,17 @@ public class GkosInputMethodService extends InputMethodService
      * Records the current word in the user dictionary and clears tracking state.
      */
     private void finishCurrentWord() {
-        if (currentWord.length() >= 2 && userDictionary != null) {
+        if (currentWord.length() >= 2) {
             boolean firstInSentence = isFirstWordInSentence();
-            userDictionary.recordWord(currentWord.toString(), firstInSentence);
+            String word = currentWord.toString();
+            String canonical = firstInSentence ? word.toLowerCase() : word;
+            if (userDictionary != null) {
+                userDictionary.recordWord(word, firstInSentence);
+            }
+            if (previousWord != null && userBigrams != null) {
+                userBigrams.recordBigram(previousWord, canonical);
+            }
+            previousWord = canonical;
         }
         currentWord.setLength(0);
         clearSuggestions();
@@ -657,6 +745,14 @@ public class GkosInputMethodService extends InputMethodService
                 keyboardView.setUnicodeHex(unicodeBuffer.toString());
             }
         }
+    }
+
+    private static boolean isAllLetters(CharSequence text) {
+        if (text == null || text.length() == 0) return false;
+        for (int i = 0; i < text.length(); i++) {
+            if (!Character.isLetter(text.charAt(i))) return false;
+        }
+        return true;
     }
 
     private static boolean isHexDigit(char c) {
