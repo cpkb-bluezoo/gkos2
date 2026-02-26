@@ -338,6 +338,8 @@ public class GkosKeyboardView extends View {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                // New touch sequence — ensure clean auto-repeat state
+                autoRepeatActive = false;
                 // Check suggestion tap first (single-finger only)
                 if (suggestions != null && suggestionTapListener != null) {
                     for (int si = 0; si < suggestions.length && si < MAX_SUGGESTIONS; si++) {
@@ -429,6 +431,10 @@ public class GkosKeyboardView extends View {
             repeatHandler.postDelayed(repeatRunnable, delay);
         } else if (!isRepeatable && wasRepeatable) {
             cancelAutoRepeat();
+            // The chord has evolved past the repeatable one (e.g. space→mode_toggle
+            // during a swipe). The new chord was never auto-repeated, so clear the
+            // flag to allow emission on finger-up.
+            autoRepeatActive = false;
         }
     }
 
