@@ -32,7 +32,7 @@
     color: var(--fg);
     line-height: 1.6;
     padding: 2rem 1rem;
-    max-width: 860px;
+    max-width: 1300px;
     margin: 0 auto;
   }
   h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
@@ -67,6 +67,39 @@
   .swatch.mode { background: #fff8f0; border: 1px solid #e0c8a0; }
   .swatch.ctrl { background: #f4f0ff; border: 1px solid #c0b0e0; }
 
+  .bilingual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.5rem;
+    row-gap: 0;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .bilingual::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: var(--border);
+  }
+  .col-header {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 800px) {
+    .bilingual {
+      grid-template-columns: 1fr;
+    }
+    .bilingual::after { display: none; }
+  }
+
   .lang-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -89,109 +122,238 @@
 <body>
 
 <h1>GKOS2 Chord Reference</h1>
-<p class="subtitle">Visual chord diagrams for every supported keyboard layout</p>
+<p class="subtitle">Visual chord diagrams for every supported keyboard layout &middot; Diagrammes d'accords visuels pour chaque disposition de clavier</p>
+
+<div class="bilingual">
+
+  <div class="col-header">English</div>
+  <div class="col-header">Français</div>
+
+  <!-- About -->
+  <section>
+  <h2>About GKOS</h2>
+  <p>
+    <a href="https://gkos.com/" style="color:var(--accent)">GKOS (Global Keyboard Open Standard)</a>
+    is a chorded keyboard system that uses just six keys &mdash; three on each side
+    of the screen &mdash; to produce the full range of letters, numbers, symbols, and
+    control actions. Each key can be pressed individually, or multiple keys can be
+    combined into a <strong>chord</strong> to select a different character.
+  </p>
+  <p>
+    On a touchscreen you don't need to press multiple keys simultaneously. Instead, you
+    can <strong>swipe</strong> across adjacent keys in a single gesture: every key your
+    finger passes through is added to the chord, and the character is emitted when you
+    lift your finger. This makes one-handed typing fast and comfortable.
+  </p>
+  <p>
+    GKOS2 is an Android keyboard app that implements this system with 18 language
+    layouts, predictive text, an emoji picker, and Unicode hex input. It requires no
+    network permissions &mdash; all data stays on your device.
+  </p>
+  </section>
+
+  <section lang="fr">
+  <h2>À propos de GKOS</h2>
+  <p>
+    <a href="https://gkos.com/" style="color:var(--accent)">GKOS (Global Keyboard Open Standard)</a>
+    est un système de clavier à accords qui n'utilise que six touches &mdash; trois
+    de chaque côté de l'écran &mdash; pour produire toute la gamme de lettres, chiffres,
+    symboles et commandes. Chaque touche peut être appuyée individuellement, ou plusieurs
+    touches peuvent être combinées en un <strong>accord</strong> pour sélectionner un
+    caractère différent.
+  </p>
+  <p>
+    Sur un écran tactile, il n'y a pas besoin d'appuyer sur plusieurs touches
+    simultanément. Vous pouvez plutôt <strong>glisser</strong> le doigt sur les touches
+    adjacentes en un seul geste&nbsp;: chaque touche traversée est ajoutée à l'accord,
+    et le caractère est émis lorsque vous relevez le doigt. Cela rend la saisie à une
+    main rapide et confortable.
+  </p>
+  <p>
+    GKOS2 est une application de clavier Android qui implémente ce système avec
+    18 dispositions linguistiques, la saisie prédictive, un sélecteur d'émojis et la
+    saisie hexadécimale Unicode. Elle ne nécessite aucune autorisation réseau &mdash;
+    toutes les données restent sur votre appareil.
+  </p>
+  </section>
+
+  <!-- How to read the diagrams -->
+  <section>
+  <h2>How to Read the Diagrams</h2>
+  <p>
+    Each diagram shows every chord combination for a given language layout. The six
+    physical keys are labelled A&ndash;F: <strong>A, B, C</strong> on the left and
+    <strong>D, E, F</strong> on the right, from top to bottom.
+  </p>
+  <p>
+    <span class="key-example">key</span> = pressed (inverted, white-on-black) &nbsp;
+    <span class="key-example off">key</span> = unpressed
+  </p>
+  <dl class="legend">
+    <dt>Centre (large keys)</dt>
+    <dd>Single-key outcomes in <strong>ABC</strong> mode, shown large on the keys themselves.</dd>
+
+    <dt><span class="swatch num"></span> Gray text</dt>
+    <dd>The outcome in <strong>ABC123 / NUM</strong> mode (e.g. digits, punctuation).</dd>
+
+    <dt><span class="swatch symb"></span> Blue text</dt>
+    <dd>The outcome in <strong>SYMB</strong> mode (e.g. symbols, accented characters).</dd>
+
+    <dt>Inner chord cells</dt>
+    <dd>Two-key chords inside the main box (AB, BC, DE, EF, AC, DF). The character
+    appears as a dark badge between the pressed keys; three-key extensions appear on the
+    opposite-side keys. Gray and blue annotations show NUM/SYMB outcomes.</dd>
+
+    <dt>Outer chord cells</dt>
+    <dd>Cross-side and multi-key chords (AE, ABEF, BCDE, etc.) shown in the panels
+    flanking the main box.</dd>
+
+    <dt><span class="swatch nav"></span> Navigation &amp; Actions</dt>
+    <dd>Arrow keys, page up/down, backspace, and space.</dd>
+
+    <dt><span class="swatch mode"></span> Mode Switches</dt>
+    <dd>SHIFT, SYMB, and ABC&#x21c4;123 mode toggles.</dd>
+
+    <dt><span class="swatch ctrl"></span> 5-Key Control Chords</dt>
+    <dd>Esc, Ctrl, Alt, Enter, Tab, and Delete.</dd>
+  </dl>
+  <p>
+    Most layouts come in two variants: <strong>Standard</strong> (the official GKOS
+    letter placement) and <strong>Optimized</strong> (letters reordered by frequency
+    for faster typing in that language).
+  </p>
+  </section>
+
+  <section lang="fr">
+  <h2>Comment lire les diagrammes</h2>
+  <p>
+    Chaque diagramme montre toutes les combinaisons d'accords pour une disposition
+    linguistique donnée. Les six touches physiques sont étiquetées A&ndash;F&nbsp;:
+    <strong>A, B, C</strong> à gauche et <strong>D, E, F</strong> à droite, de haut
+    en bas.
+  </p>
+  <p>
+    <span class="key-example">touche</span> = appuyée (inversé, blanc sur noir) &nbsp;
+    <span class="key-example off">touche</span> = non appuyée
+  </p>
+  <dl class="legend">
+    <dt>Centre (grandes touches)</dt>
+    <dd>Résultats des touches individuelles en mode <strong>ABC</strong>, affichés en grand sur les touches elles-mêmes.</dd>
+
+    <dt><span class="swatch num"></span> Texte gris</dt>
+    <dd>Le résultat en mode <strong>ABC123 / NUM</strong> (ex. chiffres, ponctuation).</dd>
+
+    <dt><span class="swatch symb"></span> Texte bleu</dt>
+    <dd>Le résultat en mode <strong>SYMB</strong> (ex. symboles, caractères accentués).</dd>
+
+    <dt>Cellules d'accords intérieures</dt>
+    <dd>Accords à deux touches à l'intérieur du cadre principal (AB, BC, DE, EF, AC, DF).
+    Le caractère apparaît comme un badge sombre entre les touches appuyées&nbsp;; les
+    extensions à trois touches apparaissent sur les touches du côté opposé. Les annotations
+    grises et bleues indiquent les résultats NUM/SYMB.</dd>
+
+    <dt>Cellules d'accords extérieures</dt>
+    <dd>Accords croisés et multi-touches (AE, ABEF, BCDE, etc.) affichés dans les
+    panneaux de chaque côté du cadre principal.</dd>
+
+    <dt><span class="swatch nav"></span> Navigation et actions</dt>
+    <dd>Touches fléchées, page haut/bas, retour arrière et espace.</dd>
+
+    <dt><span class="swatch mode"></span> Changements de mode</dt>
+    <dd>MAJ, SYMB et bascules de mode ABC&#x21c4;123.</dd>
+
+    <dt><span class="swatch ctrl"></span> Accords de contrôle à 5 touches</dt>
+    <dd>Échap, Ctrl, Alt, Entrée, Tab et Suppr.</dd>
+  </dl>
+  <p>
+    La plupart des dispositions existent en deux variantes&nbsp;: <strong>Standard</strong>
+    (le placement officiel des lettres GKOS) et <strong>Optimisé</strong> (lettres
+    réordonnées par fréquence pour une saisie plus rapide dans cette langue).
+  </p>
+  </section>
+
+  <!-- Tips -->
+  <section>
+  <h2>Tips for New Learners</h2>
+  <p>
+  When installed you can just go into phone settings and select it as your
+  default keyboard. On Samsung One UI it's under General 
+  management&#x2192;Keyboard
+  </p>
+  <p>
+  Just touch a button and swipe to gather buttons if necessary to make a 
+  chord. The non adjacent buttons you can swipe into the transparent middle 
+  bit and back to avoid the middle button. It might be frustrating at first 
+  but you get quick at it very quickly.
+  </p>
+  <p>
+  I would use an Optimized layout, because they are faster.
+  </p>
+  <p>
+  If you get annoyed with it and need to get back to the normal Android 
+  keyboard, press the little keyboard icon right at the bottom left of 
+  the screen. You can always go into Settings and change your default 
+  keyboard when you want.
+  </p>
+  <p>
+  For emojis: do [top 2 buttons + bottom 2 buttons] (swipe a Z) to get 
+  into symbol mode (@), then swipe a C. You can get out of symbol mode by 
+  doing the Z again. Number mode is all the buttons (swipe a U). Shift 
+  mode for capital letters is just the two middle ones (swipe a hyphen). 
+  Ones you will use all the time are Space (all the right hand side) and 
+  Backspace (all the left hand side).
+  </p>
+  </section>
+
+  <section lang="fr">
+  <h2>Conseils pour les débutants</h2>
+  <p>
+  Une fois installé, allez dans les paramètres du téléphone et 
+  sélectionnez-le comme clavier par défaut. Sur Samsung One UI, cela se trouve 
+  sous Gestion générale&#x2192;Clavier.
+  </p>
+  <p>
+  Il suffit de toucher un bouton et glisser pour rassembler les boutons afin 
+  de composer un accord. Pour les boutons non adjacents, glissez dans la 
+  partie transparente du milieu et revenez pour éviter le bouton central. 
+  Cela peut être frustrant au début, mais on devient rapide très vite.
+  </p>
+  <p>
+  Je recommande une disposition Optimisée, car elles sont plus rapides.
+  </p>
+  <p>
+  Si vous en avez assez et souhaitez revenir au clavier Android normal, 
+  appuyez sur la petite icône de clavier tout en bas à gauche de l'écran. 
+  Vous pouvez toujours revenir dans les Paramètres et changer votre clavier 
+  par défaut quand vous le souhaitez.
+  </p>
+  <p>
+  Pour les émojis&nbsp;: faites [2 boutons du haut + 2 boutons du bas] 
+  (glissez un Z) pour entrer en mode symbole (@), puis glissez un C. 
+  Vous pouvez sortir du mode symbole en refaisant le Z. Le mode numérique, 
+  c'est tous les boutons (glissez un U). Le mode majuscules pour les 
+  lettres capitales, ce sont les deux du milieu (glissez un tiret). 
+  Ceux que vous utiliserez tout le temps sont Espace (tout le côté droit) 
+  et Retour arrière (tout le côté gauche).
+  </p>
+  </section>
+
+</div>
 
 <section>
-<h2>About GKOS</h2>
-<p>
-  <a href="https://gkos.com/" style="color:var(--accent)">GKOS (Global Keyboard Open Standard)</a>
-  is a chorded keyboard system that uses just six keys &mdash; three on each side
-  of the screen &mdash; to produce the full range of letters, numbers, symbols, and
-  control actions. Each key can be pressed individually, or multiple keys can be
-  combined into a <strong>chord</strong> to select a different character.
-</p>
-<p>
-  On a touchscreen you don't need to press multiple keys simultaneously. Instead, you
-  can <strong>swipe</strong> across adjacent keys in a single gesture: every key your
-  finger passes through is added to the chord, and the character is emitted when you
-  lift your finger. This makes one-handed typing fast and comfortable.
-</p>
-<p>
-  GKOS2 is an Android keyboard app that implements this system with 18 language
-  layouts, predictive text, an emoji picker, and Unicode hex input. It requires no
-  network permissions &mdash; all data stays on your device.
-</p>
-</section>
-
-<section>
-<h2>How to Read the Diagrams</h2>
-<p>
-  Each diagram shows every chord combination for a given language layout. The six
-  physical keys are labelled A&ndash;F: <strong>A, B, C</strong> on the left and
-  <strong>D, E, F</strong> on the right, from top to bottom.
-</p>
-<p>
-  <span class="key-example">key</span> = pressed (inverted, white-on-black) &nbsp;
-  <span class="key-example off">key</span> = unpressed
-</p>
-<dl class="legend">
-  <dt>Centre (large keys)</dt>
-  <dd>Single-key outcomes in <strong>ABC</strong> mode, shown large on the keys themselves.</dd>
-
-  <dt><span class="swatch num"></span> Gray text</dt>
-  <dd>The outcome in <strong>ABC123 / NUM</strong> mode (e.g. digits, punctuation).</dd>
-
-  <dt><span class="swatch symb"></span> Blue text</dt>
-  <dd>The outcome in <strong>SYMB</strong> mode (e.g. symbols, accented characters).</dd>
-
-  <dt>Inner chord cells</dt>
-  <dd>Two-key chords inside the main box (AB, BC, DE, EF, AC, DF). The character
-  appears as a dark badge between the pressed keys; three-key extensions appear on the
-  opposite-side keys. Gray and blue annotations show NUM/SYMB outcomes.</dd>
-
-  <dt>Outer chord cells</dt>
-  <dd>Cross-side and multi-key chords (AE, ABEF, BCDE, etc.) shown in the panels
-  flanking the main box.</dd>
-
-  <dt><span class="swatch nav"></span> Navigation &amp; Actions</dt>
-  <dd>Arrow keys, page up/down, backspace, and space.</dd>
-
-  <dt><span class="swatch mode"></span> Mode Switches</dt>
-  <dd>SHIFT, SYMB, and ABC&#x21c4;123 mode toggles.</dd>
-
-  <dt><span class="swatch ctrl"></span> 5-Key Control Chords</dt>
-  <dd>Esc, Ctrl, Alt, Enter, Tab, and Delete.</dd>
-</dl>
-<p>
-  Most layouts come in two variants: <strong>Standard</strong> (the official GKOS
-  letter placement) and <strong>Optimized</strong> (letters reordered by frequency
-  for faster typing in that language).
-</p>
-</section>
-
-<section>
-<h2>Tips for new learners</h2>
-<p>
-When installed you can just go into phone settings and select it as your default keyboard. On Samsung One UI it's under General management&#x2192;Keyboard
-</p>
-<p>
-Just touch a button and swipe to gather buttons if necessary to make a chord. The non adjacent buttons you can swipe into the transparent middle bit and back to avoid the middle button. It might be frustrating at first but you get quick at it very quickly.
-</p>
-<p>
-I would use an Optimized layout, because they are faster.
-</p>
-<p>
-If you get annoyed with it and need to get back to the normal Android keyboard, press the little keyboard icon right at the bottom left of the screen. You can always go into Settings and change your default keyboard when you want.
-</p>
-<p>
-For emojis: do [top 2 buttons + bottom 2 buttons] (swipe a Z) to get into symbol mode (@), then swipe a C. You can get out of symbol mode by doing the Z again. Number mode is all the buttons (swipe a U). Shift mode for capital letters is just the two middle ones (swipe a hyphen). Ones you will use all the time are Space (all the right hand side) and Backspace (all the left hand side).
-</p>
-</section>
-
-<section>
-<h2>Layouts</h2>
+<h2>Layouts &middot; Dispositions</h2>
 <div class="lang-grid">
   <a class="lang-card" href="layouts/da.svg">
-    <span class="lang-name">Danish</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Dansk</span>
+    <span class="lang-variant">&mdash; Optimeret</span>
   </a>
   <a class="lang-card" href="layouts/da-standard.svg">
-    <span class="lang-name">Danish</span>
+    <span class="lang-name">Dansk</span>
     <span class="lang-variant">&mdash; Standard</span>
   </a>
   <a class="lang-card" href="layouts/nl.svg">
-    <span class="lang-name">Dutch</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Nederlands</span>
+    <span class="lang-variant">&mdash; Geoptimaliseerd</span>
   </a>
   <a class="lang-card" href="layouts/en.svg">
     <span class="lang-name">English</span>
@@ -203,123 +365,123 @@ For emojis: do [top 2 buttons + bottom 2 buttons] (swipe a Z) to get into symbol
   </a>
   <a class="lang-card" href="layouts/eo.svg">
     <span class="lang-name">Esperanto</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-variant">&mdash; Optimumigita</span>
   </a>
   <a class="lang-card" href="layouts/eo-standard.svg">
     <span class="lang-name">Esperanto</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-variant">&mdash; Norma</span>
   </a>
   <a class="lang-card" href="layouts/et.svg">
-    <span class="lang-name">Estonian</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Eesti</span>
+    <span class="lang-variant">&mdash; Optimeeritud</span>
   </a>
   <a class="lang-card" href="layouts/et-standard.svg">
-    <span class="lang-name">Estonian</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Eesti</span>
+    <span class="lang-variant">&mdash; Standardne</span>
   </a>
   <a class="lang-card" href="layouts/fi.svg">
-    <span class="lang-name">Finnish</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Suomi</span>
+    <span class="lang-variant">&mdash; Optimoitu</span>
   </a>
   <a class="lang-card" href="layouts/fi-standard.svg">
-    <span class="lang-name">Finnish</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Suomi</span>
+    <span class="lang-variant">&mdash; Vakio</span>
   </a>
   <a class="lang-card" href="layouts/fr.svg">
-    <span class="lang-name">French</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Français</span>
+    <span class="lang-variant">&mdash; Optimisé</span>
   </a>
   <a class="lang-card" href="layouts/fr-standard.svg">
-    <span class="lang-name">French</span>
+    <span class="lang-name">Français</span>
     <span class="lang-variant">&mdash; Standard</span>
   </a>
   <a class="lang-card" href="layouts/de.svg">
-    <span class="lang-name">German</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Deutsch</span>
+    <span class="lang-variant">&mdash; Optimiert</span>
   </a>
   <a class="lang-card" href="layouts/de-standard.svg">
-    <span class="lang-name">German</span>
+    <span class="lang-name">Deutsch</span>
     <span class="lang-variant">&mdash; Standard</span>
   </a>
   <a class="lang-card" href="layouts/el.svg">
-    <span class="lang-name">Greek</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Ελληνικά</span>
+    <span class="lang-variant">&mdash; Βελτιστοποιημένη</span>
   </a>
   <a class="lang-card" href="layouts/el-standard.svg">
-    <span class="lang-name">Greek</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Ελληνικά</span>
+    <span class="lang-variant">&mdash; Τυπική</span>
   </a>
   <a class="lang-card" href="layouts/is.svg">
-    <span class="lang-name">Icelandic</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Íslenska</span>
+    <span class="lang-variant">&mdash; Fínstillt</span>
   </a>
   <a class="lang-card" href="layouts/is-standard.svg">
-    <span class="lang-name">Icelandic</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Íslenska</span>
+    <span class="lang-variant">&mdash; Staðlað</span>
   </a>
   <a class="lang-card" href="layouts/it.svg">
-    <span class="lang-name">Italian</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Italiano</span>
+    <span class="lang-variant">&mdash; Ottimizzato</span>
   </a>
   <a class="lang-card" href="layouts/it-standard.svg">
-    <span class="lang-name">Italian</span>
+    <span class="lang-name">Italiano</span>
     <span class="lang-variant">&mdash; Standard</span>
   </a>
   <a class="lang-card" href="layouts/ko.svg">
-    <span class="lang-name">Korean</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">한국어</span>
+    <span class="lang-variant">&mdash; 최적화</span>
   </a>
   <a class="lang-card" href="layouts/ko-standard.svg">
-    <span class="lang-name">Korean</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">한국어</span>
+    <span class="lang-variant">&mdash; 표준</span>
   </a>
   <a class="lang-card" href="layouts/no.svg">
-    <span class="lang-name">Norwegian</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Norsk</span>
+    <span class="lang-variant">&mdash; Optimalisert</span>
   </a>
   <a class="lang-card" href="layouts/no-standard.svg">
-    <span class="lang-name">Norwegian</span>
+    <span class="lang-name">Norsk</span>
     <span class="lang-variant">&mdash; Standard</span>
   </a>
   <a class="lang-card" href="layouts/pt.svg">
-    <span class="lang-name">Portuguese</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Português</span>
+    <span class="lang-variant">&mdash; Otimizado</span>
   </a>
   <a class="lang-card" href="layouts/pt-standard.svg">
-    <span class="lang-name">Portuguese</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Português</span>
+    <span class="lang-variant">&mdash; Padrão</span>
   </a>
   <a class="lang-card" href="layouts/ru.svg">
-    <span class="lang-name">Russian</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Русский</span>
+    <span class="lang-variant">&mdash; Оптимизированная</span>
   </a>
   <a class="lang-card" href="layouts/ru-standard.svg">
-    <span class="lang-name">Russian</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Русский</span>
+    <span class="lang-variant">&mdash; Стандартная</span>
   </a>
   <a class="lang-card" href="layouts/es.svg">
-    <span class="lang-name">Spanish</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Español</span>
+    <span class="lang-variant">&mdash; Optimizado</span>
   </a>
   <a class="lang-card" href="layouts/es-standard.svg">
-    <span class="lang-name">Spanish</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Español</span>
+    <span class="lang-variant">&mdash; Estándar</span>
   </a>
   <a class="lang-card" href="layouts/sv.svg">
-    <span class="lang-name">Swedish</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Svenska</span>
+    <span class="lang-variant">&mdash; Optimerad</span>
   </a>
   <a class="lang-card" href="layouts/sv-standard.svg">
-    <span class="lang-name">Swedish</span>
+    <span class="lang-name">Svenska</span>
     <span class="lang-variant">&mdash; Standard</span>
   </a>
   <a class="lang-card" href="layouts/uk.svg">
-    <span class="lang-name">Ukrainian</span>
-    <span class="lang-variant">&mdash; Optimized</span>
+    <span class="lang-name">Українська</span>
+    <span class="lang-variant">&mdash; Оптимізована</span>
   </a>
   <a class="lang-card" href="layouts/uk-standard.svg">
-    <span class="lang-name">Ukrainian</span>
-    <span class="lang-variant">&mdash; Standard</span>
+    <span class="lang-name">Українська</span>
+    <span class="lang-variant">&mdash; Стандартна</span>
   </a>
 </div>
 </section>
