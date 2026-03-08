@@ -16,6 +16,225 @@ import sys
 from html import escape as html_escape
 
 # ════════════════════════════════════════════════════════════════════
+# Localization
+# ════════════════════════════════════════════════════════════════════
+_L10N_EN = {
+    'lang_name': 'English', 'optimized': 'Optimized', 'standard': 'Standard',
+    'nav_actions': 'Navigation & Actions',
+    'mode_switches': 'Mode Switches',
+    'control_chords': '5-Key Control Chords',
+    'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+    'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+    'SHIFT': 'SHIFT', 'SYMB': 'SYMB',
+    'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+}
+
+_L10N = {
+    'en': _L10N_EN,
+    'da': {
+        'lang_name': 'Dansk', 'optimized': 'Optimeret', 'standard': 'Standard',
+        'nav_actions': 'Navigation og handlinger',
+        'mode_switches': 'Tilstandsskift',
+        'control_chords': '5-tast kontrolakkorder',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Slet',
+        'SHIFT': 'SKIFT', 'SYMB': 'SYMB',
+        'PgUp': 'PgOp', 'PgDn': 'PgNed', 'Ins': 'Inds',
+    },
+    'de': {
+        'lang_name': 'Deutsch', 'optimized': 'Optimiert', 'standard': 'Standard',
+        'nav_actions': 'Navigation und Aktionen',
+        'mode_switches': 'Moduswechsel',
+        'control_chords': '5-Tasten-Steuerakkorde',
+        'Esc': 'Esc', 'Ctrl': 'Strg', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Entf',
+        'SHIFT': 'UMSCH', 'SYMB': 'SYMB',
+        'PgUp': 'BldAuf', 'PgDn': 'BldAb', 'Ins': 'Einfg',
+    },
+    'el': {
+        'lang_name': 'Ελληνικά',
+        'optimized': 'Βελτιστοποιημένη', 'standard': 'Τυπική',
+        'nav_actions': 'Πλοήγηση και ενέργειες',
+        'mode_switches': 'Εναλλαγή λειτουργίας',
+        'control_chords': 'Συνδυασμοί ελέγχου 5 πλήκτρων',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'SYMB',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'eo': {
+        'lang_name': 'Esperanto',
+        'optimized': 'Optimumigita', 'standard': 'Norma',
+        'nav_actions': 'Navigado kaj agoj',
+        'mode_switches': 'Reĝimŝanĝoj',
+        'control_chords': '5-klava kontrolakordoj',
+        'Esc': 'Esk', 'Ctrl': 'Stir', 'Alt': 'Alt',
+        'Enter': 'Enigu', 'Tab': 'Tab', 'Del': 'For',
+        'SHIFT': 'MAJUSK', 'SYMB': 'SIMB',
+        'PgUp': 'PĝSu', 'PgDn': 'PĝMl', 'Ins': 'Enm',
+    },
+    'es': {
+        'lang_name': 'Español',
+        'optimized': 'Optimizado', 'standard': 'Estándar',
+        'nav_actions': 'Navegación y acciones',
+        'mode_switches': 'Cambios de modo',
+        'control_chords': 'Acordes de control de 5 teclas',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Intro', 'Tab': 'Tab', 'Del': 'Supr',
+        'SHIFT': 'MAYÚS', 'SYMB': 'SÍMB',
+        'PgUp': 'RePág', 'PgDn': 'AvPág', 'Ins': 'Ins',
+    },
+    'et': {
+        'lang_name': 'Eesti',
+        'optimized': 'Optimeeritud', 'standard': 'Standardne',
+        'nav_actions': 'Navigeerimine ja toimingud',
+        'mode_switches': 'Režiimilülitid',
+        'control_chords': '5 klahvi juhtakordid',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'SÜMB',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'fi': {
+        'lang_name': 'Suomi', 'optimized': 'Optimoitu', 'standard': 'Vakio',
+        'nav_actions': 'Navigointi ja toiminnot',
+        'mode_switches': 'Tilanvaihdot',
+        'control_chords': '5 näppäimen ohjausyhdistelmät',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Sark', 'Del': 'Del',
+        'SHIFT': 'VAIHTO', 'SYMB': 'SYMB',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'fr': {
+        'lang_name': 'Français',
+        'optimized': 'Optimisé', 'standard': 'Standard',
+        'nav_actions': 'Navigation et actions',
+        'mode_switches': 'Changements de mode',
+        'control_chords': 'Accords de contrôle à 5 touches',
+        'Esc': 'Échap', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Entrée', 'Tab': 'Tab', 'Del': 'Suppr',
+        'SHIFT': 'MAJ', 'SYMB': 'SYMB',
+        'PgUp': 'PgPréc', 'PgDn': 'PgSuiv', 'Ins': 'Inser',
+    },
+    'is': {
+        'lang_name': 'Íslenska',
+        'optimized': 'Fínstillt', 'standard': 'Staðlað',
+        'nav_actions': 'Leiðsögn og aðgerðir',
+        'mode_switches': 'Stilliskipti',
+        'control_chords': '5-lykla stýrihljómar',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'TÁKN',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'it': {
+        'lang_name': 'Italiano',
+        'optimized': 'Ottimizzato', 'standard': 'Standard',
+        'nav_actions': 'Navigazione e azioni',
+        'mode_switches': 'Cambi di modalità',
+        'control_chords': 'Accordi di controllo a 5 tasti',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Invio', 'Tab': 'Tab', 'Del': 'Canc',
+        'SHIFT': 'MAIUSC', 'SYMB': 'SIMB',
+        'PgUp': 'PagSu', 'PgDn': 'PagGiù', 'Ins': 'Ins',
+    },
+    'ko': {
+        'lang_name': '한국어', 'optimized': '최적화', 'standard': '표준',
+        'nav_actions': '탐색 및 동작',
+        'mode_switches': '모드 전환',
+        'control_chords': '5키 제어 코드',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'SYMB',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'nl': {
+        'lang_name': 'Nederlands',
+        'optimized': 'Geoptimaliseerd', 'standard': 'Standaard',
+        'nav_actions': 'Navigatie en acties',
+        'mode_switches': 'Modusschakelingen',
+        'control_chords': '5-toets controleakkoorden',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'SYMB',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'no': {
+        'lang_name': 'Norsk',
+        'optimized': 'Optimalisert', 'standard': 'Standard',
+        'nav_actions': 'Navigasjon og handlinger',
+        'mode_switches': 'Modusbytte',
+        'control_chords': '5-tasts kontrollakkorder',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SKIFT', 'SYMB': 'SYMB',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'pt': {
+        'lang_name': 'Português',
+        'optimized': 'Otimizado', 'standard': 'Padrão',
+        'nav_actions': 'Navegação e ações',
+        'mode_switches': 'Mudanças de modo',
+        'control_chords': 'Acordes de controlo de 5 teclas',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'SÍMB',
+        'PgUp': 'PgAc', 'PgDn': 'PgAb', 'Ins': 'Ins',
+    },
+    'ru': {
+        'lang_name': 'Русский',
+        'optimized': 'Оптимизированная', 'standard': 'Стандартная',
+        'nav_actions': 'Навигация и действия',
+        'mode_switches': 'Переключение режимов',
+        'control_chords': '5-клавишные управляющие аккорды',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Ввод', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'СИМВ',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'sv': {
+        'lang_name': 'Svenska',
+        'optimized': 'Optimerad', 'standard': 'Standard',
+        'nav_actions': 'Navigering och åtgärder',
+        'mode_switches': 'Lägesbyten',
+        'control_chords': '5-tangent kontrollackord',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Enter', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SKIFT', 'SYMB': 'SYMB',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+    'uk': {
+        'lang_name': 'Українська',
+        'optimized': 'Оптимізована', 'standard': 'Стандартна',
+        'nav_actions': 'Навігація та дії',
+        'mode_switches': 'Перемикання режимів',
+        'control_chords': '5-клавішні керуючі акорди',
+        'Esc': 'Esc', 'Ctrl': 'Ctrl', 'Alt': 'Alt',
+        'Enter': 'Ввід', 'Tab': 'Tab', 'Del': 'Del',
+        'SHIFT': 'SHIFT', 'SYMB': 'СИМВ',
+        'PgUp': 'PgUp', 'PgDn': 'PgDn', 'Ins': 'Ins',
+    },
+}
+
+
+def get_l10n(layout_id):
+    """Get localization data for a layout, defaulting to English."""
+    return _L10N.get(layout_id, _L10N_EN)
+
+
+def build_action_map(l10n):
+    """Build a locale-specific action display map."""
+    am = dict(_ACTION)
+    am['esc'] = l10n['Esc']
+    am['PageUp'] = l10n['PgUp']
+    am['PageDown'] = l10n['PgDn']
+    am['ctrl'] = l10n['Ctrl']
+    am['alt'] = l10n['Alt']
+    am['Insert'] = l10n['Ins']
+    return am
+
+
+# ════════════════════════════════════════════════════════════════════
 # Key constants
 # ════════════════════════════════════════════════════════════════════
 A, B, C, D, E, F = 1, 2, 4, 8, 16, 32
@@ -58,11 +277,12 @@ _ACTION = {
 }
 
 
-def disp(val):
+def disp(val, action_map=None):
     """Convert layout value to a display string."""
     if not val:
         return ''
-    d = _ACTION.get(val)
+    am = action_map if action_map is not None else _ACTION
+    d = am.get(val)
     if d is not None:
         return d
     return val.rstrip()
@@ -228,7 +448,7 @@ def _draw_num_symb(svg, x, y_num, y_symb, num_char, symb_char,
                  size=symb_size, fill='#2266cc', anchor=anchor)
 
 
-def draw_center_cell(svg, cx, cy, entries):
+def draw_center_cell(svg, cx, cy, entries, action_map=None):
     """Draw the main 6-key cell with ABC chars + NUM/SYMB annotations."""
     kw, kh = 55, 42
     gx, gy = 26, 8
@@ -240,7 +460,7 @@ def draw_center_cell(svg, cx, cy, entries):
     key_info = []
     for key in KEYS:
         e = entries.get(key)
-        char = disp(e['abc']) if e else ''
+        char = disp(e['abc'], action_map) if e else ''
         key_info.append({'char': char, 'pressed': False, 'font_size': 24})
     draw_6keys(svg, ox, oy, kw, kh, gx, gy, key_info)
 
@@ -254,8 +474,8 @@ def draw_center_cell(svg, cx, cy, entries):
         kx = ox + col * (kw + gx)
         ky = oy + row * (kh + gy)
 
-        num_char = disp(e['num'])
-        symb_char = disp(e['symb'])
+        num_char = disp(e['num'], action_map)
+        symb_char = disp(e['symb'], action_map)
 
         if key in LEFT:
             _draw_num_symb(svg, kx - 7, ky + kh * 0.30, ky + kh * 0.72,
@@ -265,7 +485,7 @@ def draw_center_cell(svg, cx, cy, entries):
                            num_char, symb_char, 'start', 12, 11)
 
 
-def draw_inner_chord_cell(svg, cx, cy, entries, base_chord):
+def draw_inner_chord_cell(svg, cx, cy, entries, base_chord, action_map=None):
     """Draw a chord cell inside the main 5x3 grid.
 
     Shows the base 2-key chord character as a floating badge between
@@ -282,9 +502,9 @@ def draw_inner_chord_cell(svg, cx, cy, entries, base_chord):
 
     pressed = set(bits(base_chord))
     base_entry = entries.get(base_chord)
-    base_char = disp(base_entry['abc']) if base_entry else ''
-    base_num = disp(base_entry['num']) if base_entry else ''
-    base_symb = disp(base_entry['symb']) if base_entry else ''
+    base_char = disp(base_entry['abc'], action_map) if base_entry else ''
+    base_num = disp(base_entry['num'], action_map) if base_entry else ''
+    base_symb = disp(base_entry['symb'], action_map) if base_entry else ''
 
     # Opposite side for 3-key extensions
     pressed_on_left = pressed <= LEFT
@@ -303,9 +523,9 @@ def draw_inner_chord_cell(svg, cx, cy, entries, base_chord):
         ext_entry = entries.get(ext_chord)
         if ext_entry:
             ext_data[key] = (
-                disp(ext_entry['abc']),
-                disp(ext_entry['num']),
-                disp(ext_entry['symb']),
+                disp(ext_entry['abc'], action_map),
+                disp(ext_entry['num'], action_map),
+                disp(ext_entry['symb'], action_map),
             )
 
     # Detect non-adjacent pair (AC or DF) for badge offset
@@ -375,16 +595,16 @@ def draw_inner_chord_cell(svg, cx, cy, entries, base_chord):
 
 
 def draw_outer_chord_cell(svg, cx, cy, entries, chord_mask,
-                          cell_w=95, cell_h=116):
+                          cell_w=95, cell_h=116, action_map=None):
     """Draw a chord cell outside the main box.
 
     Taller cell with ABC char at top, mini keyboard in middle,
     and gray NUM / blue SYMB at bottom.
     """
     entry = entries.get(chord_mask)
-    char = disp(entry['abc']) if entry else ''
-    num_char = disp(entry['num']) if entry else ''
-    symb_char = disp(entry['symb']) if entry else ''
+    char = disp(entry['abc'], action_map) if entry else ''
+    num_char = disp(entry['num'], action_map) if entry else ''
+    symb_char = disp(entry['symb'], action_map) if entry else ''
 
     svg.rect(cx - cell_w / 2, cy - cell_h / 2, cell_w, cell_h,
              fill='#fafafa', stroke='#ddd', stroke_width=1, rx=7)
@@ -419,12 +639,12 @@ def draw_outer_chord_cell(svg, cx, cy, entries, chord_mask,
 
 
 def draw_direction_cell(svg, cx, cy, entries, chord_mask,
-                        cell_w=82, cell_h=95):
+                        cell_w=82, cell_h=95, action_map=None):
     """Draw a navigation/action chord cell."""
     entry = entries.get(chord_mask)
-    char = disp(entry['abc']) if entry else ''
-    num_char = disp(entry['num']) if entry else ''
-    symb_char = disp(entry['symb']) if entry else ''
+    char = disp(entry['abc'], action_map) if entry else ''
+    num_char = disp(entry['num'], action_map) if entry else ''
+    symb_char = disp(entry['symb'], action_map) if entry else ''
 
     svg.rect(cx - cell_w / 2, cy - cell_h / 2, cell_w, cell_h,
              fill='#f0f4ff', stroke='#b0c0e0', stroke_width=1, rx=7)
@@ -458,11 +678,11 @@ def draw_direction_cell(svg, cx, cy, entries, chord_mask,
 
 
 def draw_mode_cell(svg, cx, cy, entries, chord_mask, label,
-                   cell_w=95, cell_h=95):
+                   cell_w=95, cell_h=95, action_map=None):
     """Draw a mode switch chord cell."""
     entry = entries.get(chord_mask)
-    num_char = disp(entry['num']) if entry else ''
-    symb_char = disp(entry['symb']) if entry else ''
+    num_char = disp(entry['num'], action_map) if entry else ''
+    symb_char = disp(entry['symb'], action_map) if entry else ''
 
     svg.rect(cx - cell_w / 2, cy - cell_h / 2, cell_w, cell_h,
              fill='#fff8f0', stroke='#e0c8a0', stroke_width=1, rx=7)
@@ -493,11 +713,11 @@ def draw_mode_cell(svg, cx, cy, entries, chord_mask, label,
 
 
 def draw_control_cell(svg, cx, cy, entries, chord_mask, label,
-                      cell_w=95, cell_h=95):
+                      cell_w=95, cell_h=95, action_map=None):
     """Draw a 5-key control chord cell (Esc, Enter, Tab, etc.)."""
     entry = entries.get(chord_mask)
-    num_char = disp(entry['num']) if entry else ''
-    symb_char = disp(entry['symb']) if entry else ''
+    num_char = disp(entry['num'], action_map) if entry else ''
+    symb_char = disp(entry['symb'], action_map) if entry else ''
 
     svg.rect(cx - cell_w / 2, cy - cell_h / 2, cell_w, cell_h,
              fill='#f4f0ff', stroke='#c0b0e0', stroke_width=1, rx=7)
@@ -534,6 +754,8 @@ def draw_control_cell(svg, cx, cy, entries, chord_mask, label,
 def generate_svg(layout_id, layout_name, entries, variant=''):
     """Generate the complete SVG chord reference diagram."""
     svg = Svg()
+    l10n = get_l10n(layout_id)
+    action_map = build_action_map(l10n)
 
     # ── Layout geometry ───────────────────────────────────────────
     col_w = [130, 125, 175, 125, 130]
@@ -583,9 +805,13 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
     total_h = int(ctrl_row_y + dir_ch + 20)
 
     # ── Title ─────────────────────────────────────────────────────
-    title = layout_name or layout_id
+    localized_variant = ''
     if variant:
-        title += f' ({variant})'
+        variant_key = variant.lower()
+        localized_variant = l10n.get(variant_key, variant)
+    title = l10n['lang_name']
+    if localized_variant:
+        title += f' ({localized_variant})'
     svg.text(total_w / 2, 30, title, size=22, fill='#222', weight='bold')
 
     # ── Main box outline ──────────────────────────────────────────
@@ -600,7 +826,7 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
     ccx = main_box_x + col_x[2] + col_w[2] / 2
     ccy = main_box_y + row_y[1] + row_h[1] / 2
     svg.comment('Center: single keys')
-    draw_center_cell(svg, ccx, ccy, entries)
+    draw_center_cell(svg, ccx, ccy, entries, action_map)
 
     # ── Inner chord cells ─────────────────────────────────────────
     inner_chords = [
@@ -615,7 +841,7 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
         icx = main_box_x + col_x[col] + col_w[col] / 2
         icy = main_box_y + row_y[row] + row_h[row] / 2
         svg.comment(f'Inner chord: {chord_label(chord)}')
-        draw_inner_chord_cell(svg, icx, icy, entries, chord)
+        draw_inner_chord_cell(svg, icx, icy, entries, chord, action_map)
 
     # ── Outer chord cells (left panel) ────────────────────────────
     left_outer = [
@@ -633,7 +859,8 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
         ocy = main_box_y - main_pad + row * (outer_ch + outer_v_gap) + outer_ch / 2
         svg.comment(f'Left outer: {chord_label(chord)}')
         draw_outer_chord_cell(svg, ocx, ocy, entries, chord,
-                              cell_w=outer_cw - 2, cell_h=outer_ch - 2)
+                              cell_w=outer_cw - 2, cell_h=outer_ch - 2,
+                              action_map=action_map)
 
     # ── Outer chord cells (right panel) ───────────────────────────
     right_outer = [
@@ -649,7 +876,8 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
         ocy = main_box_y - main_pad + row * (outer_ch + outer_v_gap) + outer_ch / 2
         svg.comment(f'Right outer: {chord_label(chord)}')
         draw_outer_chord_cell(svg, ocx, ocy, entries, chord,
-                              cell_w=outer_cw - 2, cell_h=outer_ch - 2)
+                              cell_w=outer_cw - 2, cell_h=outer_ch - 2,
+                              action_map=action_map)
 
     # ── Below: Directions ─────────────────────────────────────────
     svg.comment('Directions section')
@@ -669,7 +897,8 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
         dcx = dir_ox + col * (dir_cw + dir_gx) + dir_cw / 2
         dcy = below_y + row * (dir_ch + dir_gy) + dir_ch / 2
         draw_direction_cell(svg, dcx, dcy, entries, chord,
-                            cell_w=dir_cw, cell_h=dir_ch)
+                            cell_w=dir_cw, cell_h=dir_ch,
+                            action_map=action_map)
 
     dir_block_h = 2 * dir_ch + dir_gy
     dir_mid_y = below_y + dir_block_h / 2
@@ -677,12 +906,14 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
     # ABC (backspace) left of 2x2
     abc_cx = dir_ox - dir_cw / 2 - 12
     draw_direction_cell(svg, abc_cx, dir_mid_y, entries, A | B | C,
-                        cell_w=dir_cw, cell_h=dir_ch)
+                        cell_w=dir_cw, cell_h=dir_ch,
+                        action_map=action_map)
 
     # DEF (space) right of 2x2
     def_cx = dir_ox + dir_block_w + dir_cw / 2 + 12
     draw_direction_cell(svg, def_cx, dir_mid_y, entries, D | E | F,
-                        cell_w=dir_cw, cell_h=dir_ch)
+                        cell_w=dir_cw, cell_h=dir_ch,
+                        action_map=action_map)
 
     # ── Mode switches ─────────────────────────────────────────────
     svg.comment('Mode switches')
@@ -691,21 +922,22 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
     mode_start_x = def_cx + dir_cw / 2 + 28
 
     modes = [
-        (B | E, 'SHIFT'),
-        (A | C | D | F, 'SYMB'),
+        (B | E, l10n['SHIFT']),
+        (A | C | D | F, l10n['SYMB']),
         (A | B | C | D | E | F, 'ABC\u21c4123'),
     ]
     for i, (chord, label) in enumerate(modes):
         mcx = mode_start_x + i * (mode_cw + mode_gap) + mode_cw / 2
         draw_mode_cell(svg, mcx, dir_mid_y, entries, chord, label,
-                       cell_w=mode_cw, cell_h=dir_ch)
+                       cell_w=mode_cw, cell_h=dir_ch,
+                       action_map=action_map)
 
     # ── Section labels ────────────────────────────────────────────
     nav_center_x = (abc_cx + def_cx) / 2
-    svg.text(nav_center_x, below_y - 10, 'Navigation & Actions',
+    svg.text(nav_center_x, below_y - 10, l10n['nav_actions'],
              size=10, fill='#aaa')
     svg.text(mode_start_x + (3 * mode_cw + 2 * mode_gap) / 2,
-             below_y - 10, 'Mode Switches',
+             below_y - 10, l10n['mode_switches'],
              size=10, fill='#aaa')
 
     # ── 5-key control chords ──────────────────────────────────────
@@ -713,24 +945,25 @@ def generate_svg(layout_id, layout_name, entries, variant=''):
     ctrl_cw = 95
     ctrl_gap = 8
     ctrl_chords = [
-        (A | B | C | D | E, 'Esc'),          # ABCDE
-        (A | B | C | D | F, 'Ctrl'),         # ABCDF
-        (A | B | C | E | F, 'Alt'),          # ABCEF
-        (A | B | D | E | F, '\u23ce Enter'), # ABDEF
-        (A | C | D | E | F, '\u21e5 Tab'),   # ACDEF
-        (B | C | D | E | F, '\u2326 Del'),   # BCDEF
+        (A | B | C | D | E, l10n['Esc']),
+        (A | B | C | D | F, l10n['Ctrl']),
+        (A | B | C | E | F, l10n['Alt']),
+        (A | B | D | E | F, f'\u23ce {l10n["Enter"]}'),
+        (A | C | D | E | F, f'\u21e5 {l10n["Tab"]}'),
+        (B | C | D | E | F, f'\u2326 {l10n["Del"]}'),
     ]
     ctrl_total_w = len(ctrl_chords) * ctrl_cw + (len(ctrl_chords) - 1) * ctrl_gap
     ctrl_start_x = main_box_x + main_w / 2 + main_pad - ctrl_total_w / 2
 
     svg.text(ctrl_start_x + ctrl_total_w / 2, ctrl_row_y - 8,
-             '5-Key Control Chords', size=10, fill='#aaa')
+             l10n['control_chords'], size=10, fill='#aaa')
 
     for i, (chord, label) in enumerate(ctrl_chords):
         ccx = ctrl_start_x + i * (ctrl_cw + ctrl_gap) + ctrl_cw / 2
         ccy = ctrl_row_y + dir_ch / 2
         draw_control_cell(svg, ccx, ccy, entries, chord, label,
-                          cell_w=ctrl_cw, cell_h=dir_ch)
+                          cell_w=ctrl_cw, cell_h=dir_ch,
+                          action_map=action_map)
 
     return svg.build(total_w, total_h)
 
