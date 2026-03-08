@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- GKOS Optimized layout (Korean). Source: Frequency-optimized from APK v1.1.0b experimental -->
-<layout id="ko" name="Korean">
+<layout id="ko" name="Korean" caps="false">
   <!-- Single keys A-F: ref 1-6 -->
   <entry chord="1" ref="1" abc="ㅏ" abc_shift="ㄾ" num="1" num_shift="1" symb="1" symb_shift="1"/>
   <entry chord="2" ref="2" abc="ㅡ" abc_shift="ㄽ" num="2" num_shift="2" symb="2" symb_shift="2"/>

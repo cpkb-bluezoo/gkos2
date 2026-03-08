@@ -33,11 +33,13 @@ public final class Layout {
 
     private final String id;
     private final String name;
+    private final boolean supportsCaps;
     private final LayoutEntry[] entries; // index 0 unused, index 1-63 = combo bitmask
 
-    public Layout(String id, String name, LayoutEntry[] entries) {
+    public Layout(String id, String name, boolean supportsCaps, LayoutEntry[] entries) {
         this.id = id;
         this.name = name;
+        this.supportsCaps = supportsCaps;
         this.entries = new LayoutEntry[64]; // indices 0-63, 0 unused
         if (entries != null) {
             for (LayoutEntry e : entries) {
@@ -54,6 +56,11 @@ public final class Layout {
 
     public String getName() {
         return name;
+    }
+
+    /** Whether this layout's script supports capitalization (false for Korean, CJK, etc.). */
+    public boolean supportsCaps() {
+        return supportsCaps;
     }
 
     /**

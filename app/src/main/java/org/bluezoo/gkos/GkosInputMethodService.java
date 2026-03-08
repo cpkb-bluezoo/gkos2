@@ -111,8 +111,6 @@ public class GkosInputMethodService extends InputMethodService
     private UserDictionary userDictionary;
     private UserBigrams userBigrams;
     private BigramDictionary bigramDictionary;
-    private StringBuilder currentWord = new StringBuilder();
-    private String previousWord;
     private String currentLangId;
     private static final int MAX_SUGGESTIONS = 3;
 
@@ -187,8 +185,6 @@ public class GkosInputMethodService extends InputMethodService
             bigramDictionary.loadAsync(this, langId);
             userDictionary.load(this, langId);
             userBigrams.load(this, langId);
-            currentWord.setLength(0);
-            previousWord = null;
             clearSuggestions();
         }
     }
@@ -351,9 +347,8 @@ public class GkosInputMethodService extends InputMethodService
     @Override
     public void onStartInput(EditorInfo info, boolean restarting) {
         super.onStartInput(info, restarting);
-        currentWord.setLength(0);
-        previousWord = null;
         clearSuggestions();
+        maybeAutoShift();
         if (keyboardView != null) {
             keyboardView.onStartInput(info);
         }
@@ -365,9 +360,23 @@ public class GkosInputMethodService extends InputMethodService
         // Reload the layout every time the keyboard appears, so changes
         // made in SettingsActivity take effect immediately.
         loadLayoutForCurrentSubtype();
+        maybeAutoShift();
         updateModeIndicator();
         if (keyboardView != null) {
             keyboardView.invalidate();
+        }
+    }
+
+    @Override
+    public void onUpdateSelection(int oldSelStart, int oldSelEnd,
+                                  int newSelStart, int newSelEnd,
+                                  int candidatesStart, int candidatesEnd) {
+        super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
+                candidatesStart, candidatesEnd);
+        if (newSelStart == newSelEnd) {
+            updateSuggestions();
+        } else {
+            clearSuggestions();
         }
     }
 
@@ -377,15 +386,20 @@ public class GkosInputMethodService extends InputMethodService
     public void commitChordOutput(CharSequence text) {
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && text != null && text.length() > 0) {
+            if (!isAllLetters(text)) {
+                finishCurrentWord();
+            }
+
             ic.commitText(text, 1);
 
-            // Track the current word for predictive text
+            if (layoutEngine != null
+                    && layoutEngine.getShiftState() == LayoutEngine.ShiftState.ONE_SHOT) {
+                layoutEngine.setShiftState(LayoutEngine.ShiftState.OFF);
+                updateModeIndicator();
+            }
+
             if (isAllLetters(text)) {
-                currentWord.append(text);
                 updateSuggestions();
-            } else {
-                // Contains non-letter character(s): word boundary
-                finishCurrentWord();
             }
         }
     }
@@ -400,22 +414,17 @@ public class GkosInputMethodService extends InputMethodService
         switch (action) {
             case "backspace":
                 ic.deleteSurroundingText(1, 0);
-                if (currentWord.length() > 0) {
-                    currentWord.deleteCharAt(currentWord.length() - 1);
-                    if (currentWord.length() > 0) {
-                        updateSuggestions();
-                    } else {
-                        clearSuggestions();
-                    }
-                }
+                updateSuggestions();
                 break;
             case "enter":
                 finishCurrentWord();
                 performEnterAction(ic);
+                maybeAutoShift();
                 break;
             case "space":
                 finishCurrentWord();
                 ic.commitText(" ", 1);
+                maybeAutoShift();
                 break;
             case "mode_toggle":
                 if (layoutEngine != null) {
@@ -425,7 +434,17 @@ public class GkosInputMethodService extends InputMethodService
                 updateModeIndicator();
                 break;
             case "shift":
-                if (layoutEngine != null) layoutEngine.setShift(!layoutEngine.getShift());
+                if (layoutEngine != null) {
+                    switch (layoutEngine.getShiftState()) {
+                        case OFF:
+                            layoutEngine.setShiftState(LayoutEngine.ShiftState.ON);
+                            break;
+                        case ONE_SHOT:
+                        case ON:
+                            layoutEngine.setShiftState(LayoutEngine.ShiftState.OFF);
+                            break;
+                    }
+                }
                 updateModeIndicator();
                 break;
             case "symb":
@@ -482,52 +501,82 @@ public class GkosInputMethodService extends InputMethodService
 
     // ── Predictive text ──────────────────────────────────────────────
 
+    /**
+     * Returns the word immediately before the cursor by reading the
+     * InputConnection buffer. This is the single source of truth for
+     * the "current word" being typed, replacing keystroke tracking.
+     */
+    private String getWordBeforeCursor() {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return "";
+        CharSequence before = ic.getTextBeforeCursor(50, 0);
+        if (before == null || before.length() == 0) return "";
+        int end = before.length();
+        int start = end;
+        while (start > 0 && Character.isLetter(before.charAt(start - 1))) {
+            start--;
+        }
+        return before.subSequence(start, end).toString();
+    }
+
+    /**
+     * Returns true if the cursor is at the end of a word (or in whitespace/
+     * empty space), meaning completions are appropriate. Returns false if
+     * the character immediately after the cursor is a letter, indicating
+     * the cursor is in the middle of a word.
+     */
+    private boolean isCursorAtEndOfWord() {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return true;
+        CharSequence after = ic.getTextAfterCursor(1, 0);
+        if (after == null || after.length() == 0) return true;
+        return !Character.isLetter(after.charAt(0));
+    }
+
     @Override
     public void onSuggestionTapped(int index, String word) {
         if (word == null || word.isEmpty()) return;
         boolean firstInSentence = isFirstWordInSentence();
+        String prev = getEffectivePreviousWord();
+        String partial = getWordBeforeCursor();
         InputConnection ic = getCurrentInputConnection();
-        if (ic != null && currentWord.length() > 0) {
-            ic.deleteSurroundingText(currentWord.length(), 0);
+        if (ic != null && partial.length() > 0) {
+            ic.deleteSurroundingText(partial.length(), 0);
             ic.commitText(word + " ", 1);
         }
         if (userDictionary != null) {
             userDictionary.recordWord(word, firstInSentence);
         }
         String canonical = firstInSentence ? word.toLowerCase() : word;
-        if (previousWord != null && userBigrams != null) {
-            userBigrams.recordBigram(previousWord, canonical);
+        if (prev != null && userBigrams != null) {
+            userBigrams.recordBigram(prev.toLowerCase(), canonical);
         }
-        previousWord = canonical;
-        currentWord.setLength(0);
         clearSuggestions();
+        maybeAutoShift();
     }
 
     /**
-     * Returns the previous word by falling back to the InputConnection
-     * when {@link #previousWord} is null (e.g. after cursor navigation).
-     * Walks backwards through text before the cursor to find the last
-     * complete word preceding the one currently being typed.
+     * Returns the complete word preceding the word currently at the cursor,
+     * derived entirely from the InputConnection buffer.
      */
     private String getEffectivePreviousWord() {
-        if (previousWord != null) return previousWord;
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return null;
 
-        CharSequence before = ic.getTextBeforeCursor(currentWord.length() + 50, 0);
-        if (before == null) return null;
-        int precedingLen = before.length() - currentWord.length();
-        if (precedingLen <= 0) return null;
+        CharSequence before = ic.getTextBeforeCursor(100, 0);
+        if (before == null || before.length() == 0) return null;
 
-        // Walk backwards past whitespace to find end of previous word
-        int end = precedingLen;
-        while (end > 0 && Character.isWhitespace(before.charAt(end - 1))) end--;
-        if (end == 0) return null;
-
-        // Walk backwards to find start of previous word
+        int i = before.length() - 1;
+        // Skip past current word (letters at cursor)
+        while (i >= 0 && Character.isLetter(before.charAt(i))) i--;
+        // Skip whitespace between words
+        while (i >= 0 && Character.isWhitespace(before.charAt(i))) i--;
+        if (i < 0) return null;
+        // i now points to last char of previous word — must be a letter
+        if (!Character.isLetter(before.charAt(i))) return null;
+        int end = i + 1;
         int start = end;
         while (start > 0 && Character.isLetter(before.charAt(start - 1))) start--;
-        if (start == end) return null;
         return before.subSequence(start, end).toString();
     }
 
@@ -537,7 +586,13 @@ public class GkosInputMethodService extends InputMethodService
      * de-duplicated, and applies first-in-sentence capitalisation.
      */
     private void updateSuggestions() {
-        String prefix = currentWord.toString().toLowerCase();
+        if (!isCursorAtEndOfWord()) {
+            clearSuggestions();
+            return;
+        }
+
+        String wordAtCursor = getWordBeforeCursor();
+        String prefix = wordAtCursor.toLowerCase();
         if (prefix.isEmpty()) {
             clearSuggestions();
             return;
@@ -545,11 +600,12 @@ public class GkosInputMethodService extends InputMethodService
 
         // Bigram suggestions: contextually relevant completions
         String prev = getEffectivePreviousWord();
-        List<String> userBigramMatches = (prev != null && userBigrams != null)
-                ? userBigrams.getFollowers(prev, prefix, MAX_SUGGESTIONS)
+        String prevLower = prev != null ? prev.toLowerCase() : null;
+        List<String> userBigramMatches = (prevLower != null && userBigrams != null)
+                ? userBigrams.getFollowers(prevLower, prefix, MAX_SUGGESTIONS)
                 : new ArrayList<>();
-        List<String> bundledBigramMatches = (prev != null && bigramDictionary != null)
-                ? bigramDictionary.getFollowers(prev, prefix, MAX_SUGGESTIONS)
+        List<String> bundledBigramMatches = (prevLower != null && bigramDictionary != null)
+                ? bigramDictionary.getFollowers(prevLower, prefix, MAX_SUGGESTIONS)
                 : new ArrayList<>();
 
         // Unigram suggestions: user dictionary then bundled dictionary
@@ -577,13 +633,13 @@ public class GkosInputMethodService extends InputMethodService
         boolean capitalise = isFirstWordInSentence();
 
         String[] arr = new String[Math.min(MAX_SUGGESTIONS, result.size())];
-        int i = 0;
+        int idx = 0;
         for (String s : result) {
-            if (i >= MAX_SUGGESTIONS) break;
+            if (idx >= MAX_SUGGESTIONS) break;
             if (capitalise && !s.isEmpty() && Character.isLowerCase(s.charAt(0))) {
                 s = Character.toUpperCase(s.charAt(0)) + s.substring(1);
             }
-            arr[i++] = s;
+            arr[idx++] = s;
         }
 
         if (keyboardView != null) {
@@ -607,55 +663,72 @@ public class GkosInputMethodService extends InputMethodService
 
     /**
      * Determines whether the word currently being typed is the first word in
-     * a sentence.  A word is first-in-sentence if there is no text before it,
-     * or if the nearest non-whitespace character before it is a sentence-ending
-     * punctuation mark ({@code .}, {@code !}, or {@code ?}).
+     * a sentence.  Reads the buffer directly: walks backwards past any letters
+     * (the current word), then past whitespace, and checks for sentence-ending
+     * punctuation ({@code .}, {@code !}, or {@code ?}).  Returns true if there
+     * is no text before the current word (start of input).
      */
     private boolean isFirstWordInSentence() {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return true;
 
-        CharSequence before = ic.getTextBeforeCursor(currentWord.length() + 20, 0);
-        if (before == null) return true;
+        CharSequence before = ic.getTextBeforeCursor(70, 0);
+        if (before == null || before.length() == 0) return true;
 
-        // Strip the current word from the end of the returned text
-        int precedingLen = before.length() - currentWord.length();
-        if (precedingLen <= 0) return true;
-
-        // Walk backwards past whitespace to find the last meaningful character
-        for (int i = precedingLen - 1; i >= 0; i--) {
-            char c = before.charAt(i);
-            if (!Character.isWhitespace(c)) {
-                return c == '.' || c == '!' || c == '?';
-            }
-        }
-        // Only whitespace before the current word — start of input
-        return true;
+        int i = before.length() - 1;
+        // Skip past current word (letters at cursor)
+        while (i >= 0 && Character.isLetter(before.charAt(i))) i--;
+        // Skip whitespace
+        while (i >= 0 && Character.isWhitespace(before.charAt(i))) i--;
+        if (i < 0) return true;
+        char c = before.charAt(i);
+        return c == '.' || c == '!' || c == '?';
     }
 
     /**
-     * Records the current word in the user dictionary and clears tracking state.
+     * Records the word at the cursor in the user dictionary and bigrams.
+     * Must be called while the word is still at the cursor (before the
+     * word-boundary character is committed).
      */
     private void finishCurrentWord() {
-        if (currentWord.length() >= 2) {
+        String word = getWordBeforeCursor();
+        if (word.length() >= 2) {
             boolean firstInSentence = isFirstWordInSentence();
-            String word = currentWord.toString();
             String canonical = firstInSentence ? word.toLowerCase() : word;
             if (userDictionary != null) {
                 userDictionary.recordWord(word, firstInSentence);
             }
-            if (previousWord != null && userBigrams != null) {
-                userBigrams.recordBigram(previousWord, canonical);
+            String prev = getEffectivePreviousWord();
+            if (prev != null && userBigrams != null) {
+                userBigrams.recordBigram(prev.toLowerCase(), canonical);
             }
-            previousWord = canonical;
         }
-        currentWord.setLength(0);
         clearSuggestions();
     }
 
     private void clearSuggestions() {
         if (keyboardView != null) {
             keyboardView.setSuggestions(null);
+        }
+    }
+
+    // ── Auto-capitalization ─────────────────────────────────────────
+
+    /**
+     * Engages one-shot shift if conditions are met: layout supports caps,
+     * we're in ABC mode (not SYMB), shift is currently off, and the cursor
+     * is at the start of a sentence.
+     */
+    private void maybeAutoShift() {
+        if (layoutEngine == null) return;
+        Layout layout = layoutEngine.getLayout();
+        if (layout == null || !layout.supportsCaps()) return;
+        if (layoutEngine.getMode() != LayoutEngine.Mode.ABC) return;
+        if (layoutEngine.getSymb()) return;
+        if (layoutEngine.getShiftState() != LayoutEngine.ShiftState.OFF) return;
+        if (isFirstWordInSentence()) {
+            layoutEngine.setShiftState(LayoutEngine.ShiftState.ONE_SHOT);
+            updateModeIndicator();
         }
     }
 

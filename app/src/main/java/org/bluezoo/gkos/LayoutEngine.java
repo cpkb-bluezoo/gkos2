@@ -48,9 +48,16 @@ public class LayoutEngine {
         NUM
     }
 
+    /** Shift key state: off, one-shot (auto-cap), or sticky (manual toggle). */
+    public enum ShiftState {
+        OFF,
+        ONE_SHOT,
+        ON
+    }
+
     private Layout layout;
     private Mode mode = Mode.ABC;
-    private boolean shift;
+    private ShiftState shiftState = ShiftState.OFF;
     private boolean symb;
 
     /**
@@ -94,12 +101,22 @@ public class LayoutEngine {
         return mode;
     }
 
-    public void setShift(boolean shift) {
-        this.shift = shift;
+    public void setShiftState(ShiftState state) {
+        this.shiftState = state;
     }
 
+    public ShiftState getShiftState() {
+        return shiftState;
+    }
+
+    /** Maps boolean to sticky ON / OFF for manual toggle use. */
+    public void setShift(boolean shift) {
+        this.shiftState = shift ? ShiftState.ON : ShiftState.OFF;
+    }
+
+    /** Returns true when shifted (either ONE_SHOT or ON). */
     public boolean getShift() {
-        return shift;
+        return shiftState != ShiftState.OFF;
     }
 
     public void setSymb(boolean symb) {
@@ -134,16 +151,17 @@ public class LayoutEngine {
     }
 
     private String pickValue(LayoutEntry e) {
+        boolean shifted = getShift();
         if (symb) {
-            if (shift && e.getSymbShift() != null) return e.getSymbShift();
+            if (shifted && e.getSymbShift() != null) return e.getSymbShift();
             if (e.getSymb() != null) return e.getSymb();
         }
         if (mode == Mode.ABC) {
-            if (shift && e.getAbcShift() != null) return e.getAbcShift();
+            if (shifted && e.getAbcShift() != null) return e.getAbcShift();
             return e.getAbc();
         }
         if (mode == Mode.NUM) {
-            if (shift && e.getNumShift() != null) return e.getNumShift();
+            if (shifted && e.getNumShift() != null) return e.getNumShift();
             return e.getNum();
         }
         return null;
@@ -176,6 +194,7 @@ public class LayoutEngine {
 
         String id = null;
         String name = null;
+        boolean supportsCaps = true;
         List<LayoutEntry> entries = new ArrayList<>();
 
         int event = parser.getEventType();
@@ -185,6 +204,10 @@ public class LayoutEngine {
                 if ("layout".equals(tag)) {
                     id = parser.getAttributeValue(null, "id");
                     name = parser.getAttributeValue(null, "name");
+                    String capsAttr = parser.getAttributeValue(null, "caps");
+                    if ("false".equalsIgnoreCase(capsAttr)) {
+                        supportsCaps = false;
+                    }
                 } else if ("entry".equals(tag)) {
                     int chord = parseInt(parser.getAttributeValue(null, "chord"), 0);
                     if (chord >= 1 && chord <= 63) {
@@ -201,8 +224,8 @@ public class LayoutEngine {
             event = parser.next();
         }
 
-        return new Layout(id != null ? id : "unknown", name != null ? name : "Unknown", 
-                entries.toArray(new LayoutEntry[0]));
+        return new Layout(id != null ? id : "unknown", name != null ? name : "Unknown",
+                supportsCaps, entries.toArray(new LayoutEntry[0]));
     }
 
     private static int parseInt(String s, int def) {
