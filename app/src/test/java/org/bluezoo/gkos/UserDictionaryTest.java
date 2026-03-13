@@ -37,8 +37,8 @@ public class UserDictionaryTest {
     @Test
     public void recordWord_thenGetMatches() {
         UserDictionary dict = freshDictionary("test_basic");
-        dict.recordWord("hello");
-        dict.recordWord("help");
+        dict.recordWord("hello", false);
+        dict.recordWord("help", false);
 
         List<String> matches = dict.getMatches("hel", 5);
         assertEquals(2, matches.size());
@@ -49,8 +49,8 @@ public class UserDictionaryTest {
     @Test
     public void getMatches_excludesExactPrefix() {
         UserDictionary dict = freshDictionary("test_exact");
-        dict.recordWord("test");
-        dict.recordWord("testing");
+        dict.recordWord("test", false);
+        dict.recordWord("testing", false);
 
         List<String> matches = dict.getMatches("test", 5);
         assertFalse("Exact prefix 'test' should be excluded", matches.contains("test"));
@@ -60,11 +60,11 @@ public class UserDictionaryTest {
     @Test
     public void frequencyOrdering_higherCountFirst() {
         UserDictionary dict = freshDictionary("test_freq");
-        dict.recordWord("apple");
-        dict.recordWord("application");
+        dict.recordWord("apple", false);
+        dict.recordWord("application", false);
         // Record "apple" 4 more times (total 5)
         for (int i = 0; i < 4; i++) {
-            dict.recordWord("apple");
+            dict.recordWord("apple", false);
         }
 
         List<String> matches = dict.getMatches("app", 5);
@@ -79,8 +79,8 @@ public class UserDictionaryTest {
     @Test
     public void recordWord_shortWord_ignored() {
         UserDictionary dict = freshDictionary("test_short");
-        dict.recordWord("a");  // single char, should be ignored
-        dict.recordWord("I");  // single char
+        dict.recordWord("a", false);  // single char, should be ignored
+        dict.recordWord("I", false);  // single char
 
         List<String> matches = dict.getMatches("a", 5);
         assertTrue("Single-char words should not be recorded", matches.isEmpty());
@@ -89,7 +89,7 @@ public class UserDictionaryTest {
     @Test
     public void recordWord_nullWord_ignored() {
         UserDictionary dict = freshDictionary("test_null");
-        dict.recordWord(null);
+        dict.recordWord(null, false);
         // No crash, no entries
         List<String> matches = dict.getMatches("", 5);
         assertTrue(matches.isEmpty());
@@ -98,24 +98,24 @@ public class UserDictionaryTest {
     @Test
     public void getMatches_nullPrefix_returnsEmpty() {
         UserDictionary dict = freshDictionary("test_nullpfx");
-        dict.recordWord("hello");
+        dict.recordWord("hello", false);
         assertTrue(dict.getMatches(null, 5).isEmpty());
     }
 
     @Test
     public void getMatches_emptyPrefix_returnsEmpty() {
         UserDictionary dict = freshDictionary("test_emptypfx");
-        dict.recordWord("hello");
+        dict.recordWord("hello", false);
         assertTrue(dict.getMatches("", 5).isEmpty());
     }
 
     @Test
     public void getMatches_respectsMaxResults() {
         UserDictionary dict = freshDictionary("test_max");
-        dict.recordWord("test1x");
-        dict.recordWord("test2x");
-        dict.recordWord("test3x");
-        dict.recordWord("test4x");
+        dict.recordWord("test1x", false);
+        dict.recordWord("test2x", false);
+        dict.recordWord("test3x", false);
+        dict.recordWord("test4x", false);
 
         List<String> matches = dict.getMatches("test", 2);
         assertEquals(2, matches.size());
@@ -124,7 +124,7 @@ public class UserDictionaryTest {
     @Test
     public void getMatches_noMatch_returnsEmpty() {
         UserDictionary dict = freshDictionary("test_nomatch");
-        dict.recordWord("hello");
+        dict.recordWord("hello", false);
         assertTrue(dict.getMatches("xyz", 5).isEmpty());
     }
 
@@ -134,8 +134,8 @@ public class UserDictionaryTest {
 
         // Write some words and close
         UserDictionary dict1 = freshDictionary(lang);
-        dict1.recordWord("persistent");
-        dict1.recordWord("persistently");
+        dict1.recordWord("persistent", false);
+        dict1.recordWord("persistently", false);
         dict1.close();
 
         // Load fresh and verify
@@ -149,8 +149,8 @@ public class UserDictionaryTest {
     @Test
     public void recordWord_lowercasesInput() {
         UserDictionary dict = freshDictionary("test_case");
-        dict.recordWord("Hello");
-        dict.recordWord("WORLD");
+        dict.recordWord("Hello", true);
+        dict.recordWord("WORLD", true);
 
         List<String> matches1 = dict.getMatches("hel", 5);
         assertTrue(matches1.contains("hello"));

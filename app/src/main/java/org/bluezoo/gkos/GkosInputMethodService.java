@@ -114,6 +114,10 @@ public class GkosInputMethodService extends InputMethodService
     private String currentLangId;
     private static final int MAX_SUGGESTIONS = 3;
 
+    // Auto-space tracking for punctuation handling
+    private boolean lastSpaceWasAuto = false;
+    private boolean suppressNextSelectionReset = false;
+
     // Unicode hex input mode
     private boolean unicodeInputMode = false;
     private StringBuilder unicodeBuffer = new StringBuilder();
@@ -347,6 +351,8 @@ public class GkosInputMethodService extends InputMethodService
     @Override
     public void onStartInput(EditorInfo info, boolean restarting) {
         super.onStartInput(info, restarting);
+        lastSpaceWasAuto = false;
+        suppressNextSelectionReset = false;
         clearSuggestions();
         maybeAutoShift();
         if (keyboardView != null) {
@@ -373,6 +379,11 @@ public class GkosInputMethodService extends InputMethodService
                                   int candidatesStart, int candidatesEnd) {
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
                 candidatesStart, candidatesEnd);
+        if (suppressNextSelectionReset) {
+            suppressNextSelectionReset = false;
+        } else {
+            lastSpaceWasAuto = false;
+        }
         if (newSelStart == newSelEnd) {
             updateSuggestions();
         } else {
@@ -386,6 +397,15 @@ public class GkosInputMethodService extends InputMethodService
     public void commitChordOutput(CharSequence text) {
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && text != null && text.length() > 0) {
+            if (lastSpaceWasAuto && text.length() == 1
+                    && isClosingPunctuation(text.charAt(0))
+                    && shouldDeleteAutoSpaceBefore(ic, text.charAt(0))) {
+                CharSequence before = ic.getTextBeforeCursor(1, 0);
+                if (before != null && before.length() == 1 && before.charAt(0) == ' ') {
+                    ic.deleteSurroundingText(1, 0);
+                }
+            }
+
             if (!isAllLetters(text)) {
                 finishCurrentWord();
             }
@@ -396,6 +416,12 @@ public class GkosInputMethodService extends InputMethodService
                     && layoutEngine.getShiftState() == LayoutEngine.ShiftState.ONE_SHOT) {
                 layoutEngine.setShiftState(LayoutEngine.ShiftState.OFF);
                 updateModeIndicator();
+            }
+
+            boolean endsWithSpace = text.charAt(text.length() - 1) == ' ';
+            lastSpaceWasAuto = endsWithSpace;
+            if (endsWithSpace) {
+                suppressNextSelectionReset = true;
             }
 
             if (isAllLetters(text)) {
@@ -413,10 +439,12 @@ public class GkosInputMethodService extends InputMethodService
 
         switch (action) {
             case "backspace":
+                lastSpaceWasAuto = false;
                 ic.deleteSurroundingText(1, 0);
                 updateSuggestions();
                 break;
             case "enter":
+                lastSpaceWasAuto = false;
                 finishCurrentWord();
                 performEnterAction(ic);
                 maybeAutoShift();
@@ -424,6 +452,7 @@ public class GkosInputMethodService extends InputMethodService
             case "space":
                 finishCurrentWord();
                 ic.commitText(" ", 1);
+                lastSpaceWasAuto = false;
                 maybeAutoShift();
                 break;
             case "mode_toggle":
@@ -543,6 +572,8 @@ public class GkosInputMethodService extends InputMethodService
         if (ic != null && partial.length() > 0) {
             ic.deleteSurroundingText(partial.length(), 0);
             ic.commitText(word + " ", 1);
+            lastSpaceWasAuto = true;
+            suppressNextSelectionReset = true;
         }
         if (userDictionary != null) {
             userDictionary.recordWord(word, firstInSentence);
@@ -818,6 +849,43 @@ public class GkosInputMethodService extends InputMethodService
                 keyboardView.setUnicodeHex(unicodeBuffer.toString());
             }
         }
+    }
+
+    // ── Punctuation auto-space helpers ────────────────────────────────
+
+    private static final String CLOSING_PUNCTUATION = ".,!?;:'/" + '"';
+
+    private static boolean isClosingPunctuation(char c) {
+        return CLOSING_PUNCTUATION.indexOf(c) >= 0;
+    }
+
+    private boolean isSpacedPunctuation(char c) {
+        if (layoutEngine == null) return false;
+        Layout layout = layoutEngine.getLayout();
+        if (layout == null) return false;
+        String spaced = layout.getSpacedPunctuation();
+        return spaced != null && spaced.indexOf(c) >= 0;
+    }
+
+    /**
+     * Decides whether an auto-inserted space should be deleted before the
+     * given punctuation character, taking language rules and quote context
+     * into account.
+     */
+    private boolean shouldDeleteAutoSpaceBefore(InputConnection ic, char c) {
+        if (isSpacedPunctuation(c)) return false;
+        if (c == '"') {
+            CharSequence prior = ic.getTextBeforeCursor(500, 0);
+            if (prior != null) {
+                int count = 0;
+                for (int i = 0; i < prior.length(); i++) {
+                    if (prior.charAt(i) == '"') count++;
+                }
+                return count % 2 == 1;
+            }
+            return false;
+        }
+        return true;
     }
 
     private static boolean isAllLetters(CharSequence text) {

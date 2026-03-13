@@ -34,12 +34,20 @@ public final class Layout {
     private final String id;
     private final String name;
     private final boolean supportsCaps;
+    private final String spacedPunctuation;
     private final LayoutEntry[] entries; // index 0 unused, index 1-63 = combo bitmask
 
-    public Layout(String id, String name, boolean supportsCaps, LayoutEntry[] entries) {
+    /** Convenience constructor: supportsCaps=true, no spacedPunctuation. */
+    public Layout(String id, String name, LayoutEntry[] entries) {
+        this(id, name, true, null, entries);
+    }
+
+    public Layout(String id, String name, boolean supportsCaps,
+                  String spacedPunctuation, LayoutEntry[] entries) {
         this.id = id;
         this.name = name;
         this.supportsCaps = supportsCaps;
+        this.spacedPunctuation = spacedPunctuation;
         this.entries = new LayoutEntry[64]; // indices 0-63, 0 unused
         if (entries != null) {
             for (LayoutEntry e : entries) {
@@ -61,6 +69,15 @@ public final class Layout {
     /** Whether this layout's script supports capitalization (false for Korean, CJK, etc.). */
     public boolean supportsCaps() {
         return supportsCaps;
+    }
+
+    /**
+     * Punctuation characters that should keep a preceding auto-inserted space
+     * (e.g. French {@code "!?;:"}). Returns null or empty for languages where
+     * all punctuation follows the word directly.
+     */
+    public String getSpacedPunctuation() {
+        return spacedPunctuation;
     }
 
     /**

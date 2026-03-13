@@ -89,4 +89,22 @@ public class LayoutTest {
         Layout layout = new Layout("dup", "Dup Test", entries);
         assertEquals("second", layout.getEntry(10).getAbc());
     }
+
+    @Test
+    public void spacedPunctuation_defaultsToNull() {
+        Layout layout = new Layout("en", "English", new LayoutEntry[0]);
+        assertNull(layout.getSpacedPunctuation());
+    }
+
+    @Test
+    public void spacedPunctuation_returnsValue() {
+        Layout layout = new Layout("fr", "French", true, "!?;:", new LayoutEntry[0]);
+        assertEquals("!?;:", layout.getSpacedPunctuation());
+    }
+
+    @Test
+    public void spacedPunctuation_nullWhenEmpty() {
+        Layout layout = new Layout("de", "German", true, null, new LayoutEntry[0]);
+        assertNull(layout.getSpacedPunctuation());
+    }
 }

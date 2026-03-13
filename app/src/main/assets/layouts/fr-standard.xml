@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- GKOS GKOS Standard layout (French). Source: gkos.com APK v1.1.0b (french_optimized) -->
-<layout id="fr" name="French">
+<layout id="fr" name="French" spacedPunctuation="!?;:">
   <!-- Single keys A-F: ref 1-6 -->
   <entry chord="1" ref="1" abc="a" abc_shift="A" num="1" num_shift="1" symb="1" symb_shift="1"/>
   <entry chord="2" ref="2" abc="u" abc_shift="U" num="2" num_shift="2" symb="2" symb_shift="2"/>

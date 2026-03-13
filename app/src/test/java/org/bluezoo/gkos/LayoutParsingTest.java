@@ -180,6 +180,36 @@ public class LayoutParsingTest {
     }
 
     /**
+     * French layout must declare spacedPunctuation="!?;:".
+     */
+    @Test
+    public void french_hasSpacedPunctuation() throws Exception {
+        Layout fr = engine.loadFromAssets(context, "fr.xml");
+        assertNotNull(fr.getSpacedPunctuation());
+        assertEquals("!?;:", fr.getSpacedPunctuation());
+    }
+
+    @Test
+    public void frenchStandard_hasSpacedPunctuation() throws Exception {
+        Layout fr = engine.loadFromAssets(context, "fr-standard.xml");
+        assertNotNull(fr.getSpacedPunctuation());
+        assertEquals("!?;:", fr.getSpacedPunctuation());
+    }
+
+    /**
+     * Non-French layouts should have no spacedPunctuation attribute.
+     */
+    @Test
+    public void nonFrench_noSpacedPunctuation() throws Exception {
+        for (String filename : ALL_LAYOUTS) {
+            if (filename.startsWith("fr")) continue;
+            Layout layout = engine.loadFromAssets(context, filename);
+            assertNull("Unexpected spacedPunctuation in " + filename,
+                    layout.getSpacedPunctuation());
+        }
+    }
+
+    /**
      * The space chord (56) must always be an action in all layouts.
      */
     @Test

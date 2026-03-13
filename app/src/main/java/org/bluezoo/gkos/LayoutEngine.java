@@ -195,6 +195,7 @@ public class LayoutEngine {
         String id = null;
         String name = null;
         boolean supportsCaps = true;
+        String spacedPunctuation = null;
         List<LayoutEntry> entries = new ArrayList<>();
 
         int event = parser.getEventType();
@@ -208,6 +209,7 @@ public class LayoutEngine {
                     if ("false".equalsIgnoreCase(capsAttr)) {
                         supportsCaps = false;
                     }
+                    spacedPunctuation = parser.getAttributeValue(null, "spacedPunctuation");
                 } else if ("entry".equals(tag)) {
                     int chord = parseInt(parser.getAttributeValue(null, "chord"), 0);
                     if (chord >= 1 && chord <= 63) {
@@ -225,7 +227,7 @@ public class LayoutEngine {
         }
 
         return new Layout(id != null ? id : "unknown", name != null ? name : "Unknown",
-                supportsCaps, entries.toArray(new LayoutEntry[0]));
+                supportsCaps, spacedPunctuation, entries.toArray(new LayoutEntry[0]));
     }
 
     private static int parseInt(String s, int def) {
