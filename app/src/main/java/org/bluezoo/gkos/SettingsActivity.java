@@ -22,6 +22,7 @@
 package org.bluezoo.gkos;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -93,6 +95,9 @@ public class SettingsActivity extends Activity {
     /** Maps language ISO code to its row container, for highlight updates. */
     private final Map<String, LinearLayout> languageRows = new HashMap<>();
 
+    /** True on first launch when the tutorial hasn't been completed yet. */
+    private boolean pendingFirstTutorial = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +110,73 @@ public class SettingsActivity extends Activity {
         colorSelectedBg = dark ? COLOR_SELECTED_BG_DARK : COLOR_SELECTED_BG_LIGHT;
         colorSelectedBorder = dark ? COLOR_SELECTED_BORDER_DARK : COLOR_SELECTED_BORDER_LIGHT;
 
+        ensureDefaultLayout();
+
         LinearLayout container = findViewById(R.id.layouts_container);
         buildLayoutList(container);
+        addReplayTutorialButton(container);
+
+        // Note whether this is the first launch — tutorial will fire when
+        // the user leaves this screen (giving them a chance to pick a layout).
+        pendingFirstTutorial = !prefs.getBoolean("tutorial_completed", false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (pendingFirstTutorial) {
+            pendingFirstTutorial = false;
+            startActivity(new Intent(this, TutorialActivity.class));
+        }
+    }
+
+    private void addReplayTutorialButton(LinearLayout container) {
+        float density = getResources().getDisplayMetrics().density;
+        int pad = (int) (16 * density);
+
+        TextView btn = new TextView(this);
+        btn.setText(R.string.tutorial_replay);
+        btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        btn.setTypeface(null, Typeface.BOLD);
+        btn.setTextColor(colorSelectedBorder);
+        btn.setPadding(pad, pad, pad, pad);
+        btn.setBackgroundResource(android.R.drawable.list_selector_background);
+        btn.setOnClickListener(v -> {
+            pendingFirstTutorial = false;
+            startActivity(new Intent(this, TutorialActivity.class));
+        });
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, (int) (16 * density), 0, (int) (8 * density));
+        btn.setLayoutParams(params);
+
+        container.addView(btn);
+    }
+
+    /**
+     * On first launch (no saved preference), selects a default layout
+     * matching the system language, falling back to English.
+     * Variant defaults to "optimized" in all cases.
+     */
+    private void ensureDefaultLayout() {
+        if (prefs.contains(KEY_PREFERRED_LAYOUT)) return;
+
+        String systemLang = Locale.getDefault().getLanguage();
+        String defaultLang = "en";
+        for (String[] lang : LANGUAGES) {
+            if (lang[0].equals(systemLang)
+                    && (assetExists("layouts/" + systemLang + ".xml")
+                        || assetExists("layouts/" + systemLang + "-standard.xml"))) {
+                defaultLang = systemLang;
+                break;
+            }
+        }
+        prefs.edit()
+                .putString(KEY_PREFERRED_LAYOUT, defaultLang)
+                .putString(KEY_VARIANT_PREFIX + defaultLang, "optimized")
+                .apply();
     }
 
     private void buildLayoutList(LinearLayout container) {

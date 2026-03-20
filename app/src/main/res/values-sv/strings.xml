@@ -2,6 +2,29 @@
 <resources>
     <string name="settings_title">GKOS-inställningar</string>
     <string name="layouts_title">Tangentbordslayouter</string>
-    <string name="layouts_summary">Välj en språklayout. Använd variantväljaren för att växla mellan GKOS Standard och Optimerad.</string>
-    <string name="layout_selected">Layout vald: %1$s (%2$s)</string>
+    <string name="layouts_summary">Välj en språklayout. Använd variantväljaren för att byta mellan GKOS Standard och Optimerad.</string>
+    <string name="layout_selected">Layout: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Välkommen till GKOS! Den här guiden lär dig ackordskrivning — varje knapp eller kombination producerar ett olika tecken.\n\nRör vid denna markerade knapp och lyft fingret för att skriva \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Bra! Rör vid den här knappen för att skriva \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Dra fingret över två intilliggande knappar för att skriva \'%1$s\'.\n\nMedan du håller nere, se hur symbolerna på knapparna ändras — de visar vad du producerar om du släpper. Dra till nästa knapp och de uppdateras igen. Släpp för att slutföra ackordet.</string>
+    <string name="tutorial_non_adjacent">Dra uppifrån och ner, med en båge genom mittområdet för att undvika mittenknappen. Detta skriver \'%1$s\'.\n\nLägg märke till hur symbolerna uppdateras medan ditt ackord byggs upp — de vägleder dig alltid till vad som kommer härnäst.</string>
+    <string name="tutorial_space">Dra neråt över alla tre högra knapparna för Mellanslag. Du kommer använda detta hela tiden!\n\nBacksteg är spegelrörelsen — alla tre vänstra knapparna. Den använder du också jämt!</string>
+    <string name="tutorial_cross_side">Börja på ena sidan och korsa till den andra. Följ pilen för att skriva \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Svep från den övre högra knappen ner till mitten vänster — som om du ritade en apostrof med en penna.</string>
+    <string name="tutorial_question_mark">Dra från den övre vänstra knappen till den nedre högra för att skriva \'?\'.</string>
+    <string name="tutorial_enter">Följ pilen över fem knappar för Enter. Börja från mitten vänster, uppåt, över till höger sida och neråt.</string>
+    <string name="tutorial_shift_on">Rör vid båda mittknapparna samtidigt för att slå på Versaler. Lägg märke till ⇧-indikatorn som visas.</string>
+    <string name="tutorial_shift_off">Tryck på samma två mittknappar igen för att stänga av Versaler.</string>
+    <string name="tutorial_numeric_switch">Svep över alla sex knapparna för att byta till sifferläge. Lägg märke till 123-indikatorn.</string>
+    <string name="tutorial_numeric_digit">I sifferläge producerar samma knappar siffror. Rör vid den här knappen för att skriva \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Siffrorna 7–9 använder korsade ackord. Följ pilen för att skriva \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Dra över dessa två knappar för att skriva \'0\'.</string>
+    <string name="tutorial_numeric_back">Svep över alla sex knapparna igen för att återgå till bokstavsläge.</string>
+    <string name="tutorial_complete">Grattis! Du har lärt dig grunderna i GKOS-ackordskrivning. De små symbolerna på och mellan knapparna vägleder dig när du lär dig fler ackord.\n\nFör att använda GKOS som tangentbord, gå till Inställningar på din enhet (vanligtvis under Allmänt eller System), aktivera GKOS i tangentbordslistan och ange det som standardinmatningsmetod. Du kan byta tillbaka till ditt ursprungliga tangentbord när som helst.</string>
+    <string name="tutorial_skip">Hoppa över</string>
+    <string name="tutorial_done">Klar</string>
+    <string name="tutorial_step_of">Steg %1$d av %2$d</string>
+    <string name="tutorial_word_typed">Du skrev \'%1$s\'!</string>
+    <string name="tutorial_replay">Spela om guide</string>
 </resources>

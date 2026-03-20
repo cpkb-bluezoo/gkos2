@@ -2,6 +2,29 @@
 <resources>
     <string name="settings_title">GKOS-stillingar</string>
     <string name="layouts_title">Lyklaborðsútlit</string>
-    <string name="layouts_summary">Veldu tungumálsútlit. Notaðu afbrigðisrofann til að skipta á milli GKOS Staðlað og Hágnýtt stafaröðunar.</string>
-    <string name="layout_selected">Útlit valið: %1$s (%2$s)</string>
+    <string name="layouts_summary">Veldu tungumálsútlit. Notaðu afbrigðaveljarann til að skipta á milli GKOS Staðlað og Bestun.</string>
+    <string name="layout_selected">Útlit: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Velkomin í GKOS! Þessi kennsla mun kenna þér hljómritun — hver hnappur eða samsetning framleiðir annan staf.\n\nSnertu þennan auðkennda hnapp og lyftu fingri til að slá inn \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Gott! Snertu nú þennan hnapp til að slá inn \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Renndu fingri yfir tvo aðliggjandi hnappa til að slá inn \'%1$s\'.\n\nMeðan þú heldur niðri, fylgstu með hvernig táknin á hnöppunum breytast — þau sýna hvað þú framleiðir ef þú sleppir. Renndu á næsta hnapp og þau uppfærast aftur. Slepptu til að ljúka hljómnum.</string>
+    <string name="tutorial_non_adjacent">Renndu frá toppi til botns og beygjast inn á miðsvæðið til að forðast miðhnappinn. Þetta slær inn \'%1$s\'.\n\nTaktu eftir hvernig táknin uppfærast meðan hljómurinn byggist upp — þau leiðbeina þér alltaf um næsta skref.</string>
+    <string name="tutorial_space">Renndu niður yfir alla þrjá hnappana til hægri fyrir Bil. Þú munt nota þetta stöðugt!\n\nBaklykill er spegilhreyfingin — allir þrír hnapparnir til vinstri. Þann muntu líka nota allan tímann!</string>
+    <string name="tutorial_cross_side">Byrjaðu á annarri hliðinni og farðu yfir á hina. Fylgdu örinni til að slá inn \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Strjúktu frá efsta hægri hnappnum niður á miðjann vinstra — eins og þú teiknaðir úrfellu með penna.</string>
+    <string name="tutorial_question_mark">Renndu frá efsta vinstra hnappnum á neðsta hægri til að slá inn \'?\'.</string>
+    <string name="tutorial_enter">Fylgdu örinni yfir fimm hnappa fyrir Enter. Byrjaðu frá miðju til vinstri, upp, yfir á hægri hlið og niður.</string>
+    <string name="tutorial_shift_on">Snertu báða miðhnappana samtímis til að kveikja á Hástöfum. Taktu eftir ⇧-vísinum sem birtist.</string>
+    <string name="tutorial_shift_off">Ýttu á sömu tvo miðhnappana aftur til að slökkva á Hástöfum.</string>
+    <string name="tutorial_numeric_switch">Strjúktu yfir alla sex hnappana til að skipta í tölustillingu. Taktu eftir 123-vísinum.</string>
+    <string name="tutorial_numeric_digit">Í tölustillingu framleiða sömu hnapparnir tölustafi. Snertu þennan hnapp til að slá inn \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Tölurnar 7–9 nota krosshljóma. Fylgdu örinni til að slá inn \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Renndu yfir þessa tvo hnappa til að slá inn \'0\'.</string>
+    <string name="tutorial_numeric_back">Strjúktu yfir alla sex hnappana aftur til að fara aftur í stafastillingu.</string>
+    <string name="tutorial_complete">Til hamingju! Þú hefur lært grunnatriði GKOS-hljómritunar. Litlu táknin á og milli hnappanna munu leiðbeina þér eftir því sem þú lærir fleiri hljóma.\n\nTil að nota GKOS sem lyklaborð, farðu í Stillingar tækisins (venjulega undir Almennt eða Kerfi), virkjaðu GKOS í lyklaborðslistanum og stilltu það sem sjálfgefna innsláttaraðferð. Þú getur skipt aftur í upprunalega lyklaborðið þitt hvenær sem er.</string>
+    <string name="tutorial_skip">Sleppa</string>
+    <string name="tutorial_done">Lokið</string>
+    <string name="tutorial_step_of">Skref %1$d af %2$d</string>
+    <string name="tutorial_word_typed">Þú sláðir inn \'%1$s\'!</string>
+    <string name="tutorial_replay">Endurtaka kennslu</string>
 </resources>

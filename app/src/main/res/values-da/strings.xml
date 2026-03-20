@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_title">GKOS-indstillinger</string>
-    <string name="layouts_title">Tastaturlayouts</string>
-    <string name="layouts_summary">Vælg et sproglayout. Brug variantskifteren til at skifte mellem GKOS Standard og Optimeret bogstavarrangementer.</string>
-    <string name="layout_selected">Layout valgt: %1$s (%2$s)</string>
+    <string name="layouts_title">Tastaturlayout</string>
+    <string name="layouts_summary">Vælg et sproglayout. Brug variantvælgeren til at skifte mellem GKOS Standard og Optimeret.</string>
+    <string name="layout_selected">Layout: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Velkommen til GKOS! Denne guide lærer dig akkordskrivning — hver knap eller kombination producerer et andet tegn.\n\nBerør denne fremhævede knap og løft fingeren for at skrive \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Godt! Berør nu denne knap for at skrive \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Glid med fingeren over to naboknapper for at skrive \'%1$s\'.\n\nMens du holder fingeren nede, se hvordan symbolerne på knapperne ændrer sig — de viser hvad du vil producere, hvis du slipper. Glid til den næste knap, og de opdateres igen. Slip for at fuldføre akkorden.</string>
+    <string name="tutorial_non_adjacent">Glid fra top til bund med en bue gennem midterområdet for at undgå den midterste knap. Dette skriver \'%1$s\'.\n\nLæg mærke til, hvordan symbolerne opdateres, mens din akkord bygges op — de guider dig altid til det næste.</string>
+    <string name="tutorial_space">Glid ned over alle tre højre knapper for Mellemrum. Det bruger du konstant!\n\nSlettetasten er spejlbevægelsen — alle tre venstre knapper. Den bruger du også hele tiden!</string>
+    <string name="tutorial_cross_side">Start på den ene side og kryds over til den anden. Følg pilen for at skrive \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Stryg fra den øverste højre knap ned til den midterste venstre — som om du tegnede en apostrof med en pen.</string>
+    <string name="tutorial_question_mark">Glid fra den øverste venstre knap til den nederste højre for at skrive \'?\'.</string>
+    <string name="tutorial_enter">Følg pilen over fem knapper for Enter. Start fra midten til venstre, op, over til højre side og ned.</string>
+    <string name="tutorial_shift_on">Berør begge midterknapper samtidig for at slå Store bogstaver til. Bemærk ⇧-indikatoren, der vises.</string>
+    <string name="tutorial_shift_off">Tryk på de samme to midterknapper igen for at slå Store bogstaver fra.</string>
+    <string name="tutorial_numeric_switch">Stryg over alle seks knapper for at skifte til taltilstand. Bemærk 123-indikatoren.</string>
+    <string name="tutorial_numeric_digit">I taltilstand producerer de samme knapper cifre. Berør denne knap for at skrive \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Tallene 7–9 bruger krydsakkorder. Følg pilen for at skrive \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Glid over disse to knapper for at skrive \'0\'.</string>
+    <string name="tutorial_numeric_back">Stryg over alle seks knapper igen for at vende tilbage til bogstavtilstand.</string>
+    <string name="tutorial_complete">Tillykke! Du har lært det grundlæggende i GKOS-akkordskrivning. De små symboler på og mellem knapperne vil guide dig, efterhånden som du lærer flere akkorder.\n\nFor at bruge GKOS som tastatur skal du gå til Indstillinger på din enhed (normalt under Generelt eller System), aktivere GKOS i tastaturlisten og indstille det som standard indtastningsmetode. Du kan til enhver tid skifte tilbage til dit originale tastatur.</string>
+    <string name="tutorial_skip">Spring over</string>
+    <string name="tutorial_done">Færdig</string>
+    <string name="tutorial_step_of">Trin %1$d af %2$d</string>
+    <string name="tutorial_word_typed">Du skrev \'%1$s\'!</string>
+    <string name="tutorial_replay">Gentag guide</string>
 </resources>

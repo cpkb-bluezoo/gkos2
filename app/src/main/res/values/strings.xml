@@ -8,6 +8,30 @@
     <string name="variant_standard">GKOS Standard</string>
     <string name="variant_optimized">Optimized</string>
     <string name="layout_selected">Layout set: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Welcome to GKOS! This tutorial will teach you chord typing — each button or combination produces a different character.\n\nTouch this highlighted button and lift your finger to type \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Good! Now touch this button to type \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Now slide your finger across two adjacent buttons to type \'%1$s\'.\n\nAs you touch and hold, watch how the symbols on the buttons change — they show what you\'ll produce if you release. Slide to the next button and they update again. Release to complete the chord.</string>
+    <string name="tutorial_non_adjacent">Slide from top to bottom, curving into the centre gap to skip the middle button. This types \'%1$s\'.\n\nNotice how the outcome symbols update as your chord builds — they always guide you to what comes next.</string>
+    <string name="tutorial_space">Slide down all three right-side buttons for Space. You\'ll use this constantly!\n\nBackspace is the mirror image — all three left-side buttons. You\'ll use that all the time too!</string>
+    <string name="tutorial_cross_side">Start on one side and reach across to the other. Follow the arrow to type \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Flick from the top-right button down to the middle-left — like drawing an apostrophe with a pen.</string>
+    <string name="tutorial_question_mark">Slide from the top-left button to the bottom-right to type \'?\'.</string>
+    <string name="tutorial_enter">Follow the arrow path across five buttons to press Enter. Start from the middle-left, sweep up, across to the right side, and down.</string>
+    <string name="tutorial_shift_on">Touch both middle buttons together to turn on Shift. Notice the ⇧ indicator that appears.</string>
+    <string name="tutorial_shift_off">Press the same two middle buttons again to turn Shift off.</string>
+    <string name="tutorial_numeric_switch">Sweep across all six buttons to switch to number mode. Notice the 123 indicator.</string>
+    <string name="tutorial_numeric_digit">In number mode, the same buttons produce digits. Touch this button to type \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Numbers 7–9 use cross-side chords. Follow the arrow to type \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Slide across these two buttons to type \'0\'.</string>
+    <string name="tutorial_numeric_back">Sweep all six buttons again to return to letter mode.</string>
+    <string name="tutorial_complete">Congratulations! You\'ve learned the basics of GKOS chord typing. The small symbols on and between the buttons will guide you as you learn more chords.\n\nTo use GKOS as your keyboard, go to your device Settings (usually under General or System), enable GKOS in the keyboard list, and set it as your default input method. You can switch back to your original keyboard at any time.</string>
+    <string name="tutorial_skip">Skip</string>
+    <string name="tutorial_done">Done</string>
+    <string name="tutorial_step_of">Step %1$d of %2$d</string>
+    <string name="tutorial_word_typed">You typed \'%1$s\'!</string>
+    <string name="tutorial_replay">Replay Tutorial</string>
+
     <!-- Language names (native endonyms) -->
     <string name="layout_en">English</string>
     <string name="layout_fr">Français</string>

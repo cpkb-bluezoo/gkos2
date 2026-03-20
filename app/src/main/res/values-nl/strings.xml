@@ -2,6 +2,29 @@
 <resources>
     <string name="settings_title">GKOS-instellingen</string>
     <string name="layouts_title">Indelingen</string>
-    <string name="layouts_summary">Selecteer een taalindeling. Gebruik de variantschakelaar om te wisselen tussen GKOS Standaard en Geoptimaliseerd.</string>
-    <string name="layout_selected">Indeling gekozen: %1$s (%2$s)</string>
+    <string name="layouts_summary">Kies een taalindeling. Gebruik de variantkiezer om te schakelen tussen GKOS Standaard en Geoptimaliseerd.</string>
+    <string name="layout_selected">Indeling: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Welkom bij GKOS! Deze tutorial leert je akkoordtypen — elke toets of combinatie produceert een ander teken.\n\nRaak deze gemarkeerde toets aan en til je vinger op om \'%1$s\' te typen.</string>
+    <string name="tutorial_single_key_2">Goed! Raak nu deze toets aan om \'%1$s\' te typen.</string>
+    <string name="tutorial_adjacent">Schuif je vinger over twee naast elkaar liggende toetsen om \'%1$s\' te typen.\n\nTerwijl je ingedrukt houdt, kijk hoe de symbolen op de toetsen veranderen — ze laten zien wat je produceert als je loslaat. Schuif naar de volgende toets en ze worden opnieuw bijgewerkt. Laat los om het akkoord te voltooien.</string>
+    <string name="tutorial_non_adjacent">Schuif van boven naar beneden en maak een boog door het centrale gebied om de middelste toets te vermijden. Dit typt \'%1$s\'.\n\nMerk op hoe de symbolen bijwerken terwijl je akkoord zich opbouwt — ze begeleiden je altijd naar wat er volgt.</string>
+    <string name="tutorial_space">Schuif omlaag over alle drie rechter toetsen voor Spatie. Dit gebruik je voortdurend!\n\nBackspace is de spiegelbeweging — alle drie linker toetsen. Ook die gebruik je heel vaak!</string>
+    <string name="tutorial_cross_side">Begin aan één kant en ga naar de andere. Volg de pijl om \'%1$s\' te typen.</string>
+    <string name="tutorial_apostrophe">Veeg van de rechterboventoets naar het linkermidden — alsof je een apostrof tekent met een pen.</string>
+    <string name="tutorial_question_mark">Schuif van de linkerboventoets naar rechtsonder om \'?\' te typen.</string>
+    <string name="tutorial_enter">Volg de pijl over vijf toetsen voor Enter. Begin linksmidden, omhoog, over naar de rechterkant en omlaag.</string>
+    <string name="tutorial_shift_on">Raak beide middelste toetsen tegelijk aan om Hoofdletters in te schakelen. Let op de ⇧-indicator die verschijnt.</string>
+    <string name="tutorial_shift_off">Druk opnieuw op dezelfde twee middelste toetsen om Hoofdletters uit te schakelen.</string>
+    <string name="tutorial_numeric_switch">Veeg over alle zes toetsen om naar de cijfermodus te schakelen. Let op de 123-indicator.</string>
+    <string name="tutorial_numeric_digit">In cijfermodus produceren dezelfde toetsen cijfers. Raak deze toets aan om \'%1$s\' te typen.</string>
+    <string name="tutorial_numeric_789">De cijfers 7–9 gebruiken kruislingse akkoorden. Volg de pijl om \'%1$s\' te typen.</string>
+    <string name="tutorial_numeric_0">Schuif over deze twee toetsen om \'0\' te typen.</string>
+    <string name="tutorial_numeric_back">Veeg opnieuw over alle zes toetsen om terug te keren naar de lettermodus.</string>
+    <string name="tutorial_complete">Gefeliciteerd! Je hebt de basis van GKOS-akkoordtypen geleerd. De kleine symbolen op en tussen de toetsen begeleiden je terwijl je meer akkoorden leert.\n\nOm GKOS als toetsenbord te gebruiken, ga naar de Instellingen van je apparaat (meestal onder Algemeen of Systeem), schakel GKOS in de toetsenbordlijst in en stel het in als standaard invoermethode. Je kunt op elk moment terugkeren naar je oorspronkelijke toetsenbord.</string>
+    <string name="tutorial_skip">Overslaan</string>
+    <string name="tutorial_done">Klaar</string>
+    <string name="tutorial_step_of">Stap %1$d van %2$d</string>
+    <string name="tutorial_word_typed">Je hebt \'%1$s\' getypt!</string>
+    <string name="tutorial_replay">Tutorial opnieuw</string>
 </resources>

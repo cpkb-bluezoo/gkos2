@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_title">GKOS seaded</string>
-    <string name="layouts_title">Paigutused</string>
-    <string name="layouts_summary">Valige keelepaigutus. Kasutage variandilülitit, et vahetada GKOS Standard ja Optimeeritud tähejärjestuse vahel.</string>
-    <string name="layout_selected">Paigutus valitud: %1$s (%2$s)</string>
+    <string name="layouts_title">Klaviatuuripaigutused</string>
+    <string name="layouts_summary">Valige keelepaigutus. Kasutage variandivalijat, et vahetada GKOS Standardse ja Optimeeritud vahel.</string>
+    <string name="layout_selected">Paigutus: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Tere tulemast GKOS-i! See õpetus õpetab sulle akordiga tippimist — iga nupp või kombinatsioon toodab erineva tähemärgi.\n\nPuuduta seda esiletõstetud nuppu ja tõsta sõrm, et tippida \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Tubli! Nüüd puuduta seda nuppu, et tippida \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Libista sõrme üle kahe kõrvuti asuva nupu, et tippida \'%1$s\'.\n\nHoides sõrme all, jälgi kuidas sümbolid nuppudel muutuvad — need näitavad, mida sa toodad lahti lastes. Libista järgmisele nupule ja need uuenevad taas. Lase lahti, et akord lõpetada.</string>
+    <string name="tutorial_non_adjacent">Libista ülevalt alla, kaardu läbi keskala, et vältida keskmist nuppu. See tipib \'%1$s\'.\n\nPane tähele, kuidas sümbolid uuenevad, kui su akord kujuneb — need juhivad sind alati järgmise sammuni.</string>
+    <string name="tutorial_space">Libista alla üle kõigi kolme parempoolse nupu Tühiku jaoks. Kasutad seda pidevalt!\n\nTagasilüke on peegelpilt — kõik kolm vasakpoolset nuppu. Seda kasutad sa samuti kogu aeg!</string>
+    <string name="tutorial_cross_side">Alusta ühelt poolt ja liigu teisele. Järgi noolt, et tippida \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Tõmba ülemisest paremast nupust alla vasakusse keskele — nagu joonistaksid ülakoma pliiatsiga.</string>
+    <string name="tutorial_question_mark">Libista ülemisest vasakust nupust alumisse paremasse, et tippida \'?\'.</string>
+    <string name="tutorial_enter">Järgi noolt üle viie nupu Enteri jaoks. Alusta vasakust keskelt, üles, üle paremale poole ja alla.</string>
+    <string name="tutorial_shift_on">Puuduta mõlemat keskmist nuppu korraga, et lülitada Suurtähed sisse. Pane tähele ilmuvat ⇧-näidikut.</string>
+    <string name="tutorial_shift_off">Vajuta samu kahte keskmist nuppu uuesti, et lülitada Suurtähed välja.</string>
+    <string name="tutorial_numeric_switch">Tõmba üle kõigi kuue nupu, et lülituda numbrirežiimi. Pane tähele 123-näidikut.</string>
+    <string name="tutorial_numeric_digit">Numbrirežiimis toodavad samad nupud numbreid. Puuduta seda nuppu, et tippida \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Numbrid 7–9 kasutavad ristakorde. Järgi noolt, et tippida \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Libista üle nende kahe nupu, et tippida \'0\'.</string>
+    <string name="tutorial_numeric_back">Tõmba uuesti üle kõigi kuue nupu, et naasta täherežiimi.</string>
+    <string name="tutorial_complete">Õnnitleme! Oled õppinud GKOS akordiga tippimise põhitõed. Väikesed sümbolid nuppudel ja nende vahel juhivad sind, kui õpid rohkem akorde.\n\nGKOS-i klaviatuurina kasutamiseks mine oma seadme Seadetesse (tavaliselt jaotises Üldine või Süsteem), luba GKOS klaviatuuride loendis ja määra see vaikimisi sisestusmeetodiks. Saad igal ajal oma algse klaviatuuri taastada.</string>
+    <string name="tutorial_skip">Jäta vahele</string>
+    <string name="tutorial_done">Valmis</string>
+    <string name="tutorial_step_of">Samm %1$d / %2$d</string>
+    <string name="tutorial_word_typed">Sa tippisid \'%1$s\'!</string>
+    <string name="tutorial_replay">Korda õpetust</string>
 </resources>

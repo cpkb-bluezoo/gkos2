@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_title">Ajustes de GKOS</string>
-    <string name="layouts_title">Distribuciones</string>
-    <string name="layouts_summary">Seleccione una distribución de idioma. Use el selector de variante para cambiar entre GKOS Estándar y Optimizado.</string>
-    <string name="layout_selected">Distribución elegida: %1$s (%2$s)</string>
+    <string name="layouts_title">Disposiciones</string>
+    <string name="layouts_summary">Seleccione una disposición de idioma. Use el selector de variante para elegir entre GKOS Estándar y Optimizado.</string>
+    <string name="layout_selected">Disposición: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">¡Bienvenido a GKOS! Este tutorial te enseñará a escribir con acordes — cada botón o combinación produce un carácter diferente.\n\nToca este botón resaltado y levanta el dedo para escribir \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">¡Bien! Ahora toca este botón para escribir \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Desliza el dedo por dos botones adyacentes para escribir \'%1$s\'.\n\nMientras mantienes el dedo, observa cómo cambian los símbolos en los botones — muestran lo que producirás al soltar. Desliza al siguiente botón y se actualizan de nuevo. Suelta para completar el acorde.</string>
+    <string name="tutorial_non_adjacent">Desliza de arriba a abajo, curvando hacia el espacio central para evitar el botón del medio. Esto escribe \'%1$s\'.\n\nObserva cómo los símbolos se actualizan mientras construyes el acorde — siempre te guían hacia lo que viene después.</string>
+    <string name="tutorial_space">Desliza hacia abajo por los tres botones del lado derecho para Espacio. ¡Lo usarás constantemente!\n\nRetroceso es el movimiento inverso — los tres botones del lado izquierdo. ¡También lo usarás todo el tiempo!</string>
+    <string name="tutorial_cross_side">Empieza en un lado y cruza al otro. Sigue la flecha para escribir \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Desliza desde el botón superior derecho hacia el medio izquierdo — como si dibujaras un apóstrofo con un bolígrafo.</string>
+    <string name="tutorial_question_mark">Desliza desde el botón superior izquierdo al inferior derecho para escribir \'?\'.</string>
+    <string name="tutorial_enter">Sigue la flecha a través de cinco botones para Enter. Empieza desde el medio izquierdo, sube, cruza hacia el lado derecho y baja.</string>
+    <string name="tutorial_shift_on">Toca ambos botones centrales a la vez para activar Mayúsculas. Observa el indicador ⇧ que aparece.</string>
+    <string name="tutorial_shift_off">Pulsa los mismos dos botones centrales otra vez para desactivar Mayúsculas.</string>
+    <string name="tutorial_numeric_switch">Desliza por los seis botones para cambiar al modo numérico. Observa el indicador 123.</string>
+    <string name="tutorial_numeric_digit">En modo numérico, los mismos botones producen dígitos. Toca este botón para escribir \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Los números 7–9 usan acordes cruzados. Sigue la flecha para escribir \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Desliza por estos dos botones para escribir \'0\'.</string>
+    <string name="tutorial_numeric_back">Desliza por los seis botones otra vez para volver al modo de letras.</string>
+    <string name="tutorial_complete">¡Felicidades! Has aprendido lo básico de la escritura por acordes de GKOS. Los pequeños símbolos en y entre los botones te guiarán a medida que aprendas más acordes.\n\nPara usar GKOS como teclado, ve a los Ajustes de tu dispositivo (normalmente en General o Sistema), activa GKOS en la lista de teclados y configúralo como método de entrada predeterminado. Puedes volver a tu teclado original en cualquier momento.</string>
+    <string name="tutorial_skip">Omitir</string>
+    <string name="tutorial_done">Hecho</string>
+    <string name="tutorial_step_of">Paso %1$d de %2$d</string>
+    <string name="tutorial_word_typed">¡Escribiste \'%1$s\'!</string>
+    <string name="tutorial_replay">Repetir tutorial</string>
 </resources>

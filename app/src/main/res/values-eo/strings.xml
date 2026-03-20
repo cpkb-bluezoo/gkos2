@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="settings_title">GKOS-agordoj</string>
+    <string name="settings_title">Agordoj de GKOS</string>
     <string name="layouts_title">Aranĝoj</string>
-    <string name="layouts_summary">Elektu lingvan aranĝon. Uzu la variantan ŝaltilon por ŝanĝi inter GKOS Norma kaj Optimumigita literaranĝoj.</string>
-    <string name="layout_selected">Aranĝo elektita: %1$s (%2$s)</string>
+    <string name="layouts_summary">Elektu lingvan aranĝon. Uzu la variantelektilon por ŝanĝi inter GKOS Norma kaj Optimigita.</string>
+    <string name="layout_selected">Aranĝo: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Bonvenon al GKOS! Ĉi tiu lernilo instruos vin pri akorda tajpado — ĉiu butono aŭ kombino produktas malsaman signon.\n\nTuŝu ĉi tiun markitan butonon kaj levu vian fingron por tajpi \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Bone! Nun tuŝu ĉi tiun butonon por tajpi \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Glitu vian fingron tra du apudaj butonoj por tajpi \'%1$s\'.\n\nDum vi tenas premite, rigardu kiel la simboloj sur la butonoj ŝanĝiĝas — ili montras kion vi produktos se vi malpremas. Glitu al la sekva butono kaj ili ĝisdatiĝas denove. Malpremu por kompletigi la akordon.</string>
+    <string name="tutorial_non_adjacent">Glitu de supre malsupren, kurvante tra la centra spaco por eviti la mezan butonon. Tio tajpas \'%1$s\'.\n\nRimarku kiel la simboloj ĝisdatiĝas dum via akordo konstruiĝas — ili ĉiam gvidas vin al la sekva paŝo.</string>
+    <string name="tutorial_space">Glitu malsupren tra ĉiuj tri dekstraj butonoj por Spaco. Vi uzos ĉi tion konstante!\n\nRetropaŝo estas la spegula movado — ĉiuj tri maldekstraj butonoj. Tion vi ankaŭ uzos tre ofte!</string>
+    <string name="tutorial_cross_side">Komencu ĉe unu flanko kaj transiru al la alia. Sekvu la sagon por tajpi \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Glitu de la supra dekstra butono malsupren al la meza maldekstra — kvazaŭ vi desegnus apostrofon per plumo.</string>
+    <string name="tutorial_question_mark">Glitu de la supra maldekstra butono al la malsupra dekstra por tajpi \'?\'.</string>
+    <string name="tutorial_enter">Sekvu la sagon tra kvin butonoj por Enigo. Komencu de la meza maldekstra, supren, transiru al la dekstra flanko kaj malsupren.</string>
+    <string name="tutorial_shift_on">Tuŝu ambaŭ mezajn butonojn samtempe por ŝalti Majusklojn. Rimarku la ⇧-indikilon kiu aperas.</string>
+    <string name="tutorial_shift_off">Premu la samajn du mezajn butonojn denove por malŝalti Majusklojn.</string>
+    <string name="tutorial_numeric_switch">Glitu tra ĉiuj ses butonoj por ŝanĝi al cifera reĝimo. Rimarku la 123-indikilon.</string>
+    <string name="tutorial_numeric_digit">En cifera reĝimo, la samaj butonoj produktas ciferojn. Tuŝu ĉi tiun butonon por tajpi \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Numeroj 7–9 uzas krucflankajn akordojn. Sekvu la sagon por tajpi \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Glitu tra ĉi tiuj du butonoj por tajpi \'0\'.</string>
+    <string name="tutorial_numeric_back">Glitu denove tra ĉiuj ses butonoj por reveni al litera reĝimo.</string>
+    <string name="tutorial_complete">Gratulojn! Vi lernis la bazojn de GKOS-akorda tajpado. La malgrandaj simboloj sur kaj inter la butonoj gvidos vin dum vi lernos pliajn akordojn.\n\nPor uzi GKOS kiel klavaron, iru al la Agordoj de via aparato (kutime sub Ĝenerala aŭ Sistemo), ebligu GKOS en la listo de klavaroj kaj agordu ĝin kiel vian defaŭltan enigmetodon. Vi povas reveni al via originala klavaro iam ajn.</string>
+    <string name="tutorial_skip">Preterpasi</string>
+    <string name="tutorial_done">Farita</string>
+    <string name="tutorial_step_of">Paŝo %1$d el %2$d</string>
+    <string name="tutorial_word_typed">Vi tajpis \'%1$s\'!</string>
+    <string name="tutorial_replay">Reludi lernilon</string>
 </resources>

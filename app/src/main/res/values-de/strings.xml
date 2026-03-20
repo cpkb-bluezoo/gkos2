@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_title">GKOS-Einstellungen</string>
-    <string name="layouts_title">Tastaturbelegungen</string>
-    <string name="layouts_summary">Wählen Sie eine Sprachbelegung. Verwenden Sie den Variantenschalter, um zwischen GKOS Standard und Optimiert zu wechseln.</string>
-    <string name="layout_selected">Belegung gewählt: %1$s (%2$s)</string>
+    <string name="layouts_title">Belegungen</string>
+    <string name="layouts_summary">Wählen Sie eine Sprachbelegung. Verwenden Sie den Variantenwähler, um zwischen GKOS Standard und Optimiert zu wechseln.</string>
+    <string name="layout_selected">Belegung: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Willkommen bei GKOS! Dieses Tutorial zeigt dir das Akkord-Tippen — jede Taste oder Kombination erzeugt ein anderes Zeichen.\n\nBerühre diese hervorgehobene Taste und hebe deinen Finger, um \'%1$s\' zu tippen.</string>
+    <string name="tutorial_single_key_2">Gut! Jetzt berühre diese Taste, um \'%1$s\' zu tippen.</string>
+    <string name="tutorial_adjacent">Gleite mit dem Finger über zwei benachbarte Tasten, um \'%1$s\' zu tippen.\n\nWährend du gedrückt hältst, beobachte wie sich die Symbole auf den Tasten ändern — sie zeigen, was du beim Loslassen erzeugst. Gleite zur nächsten Taste und sie aktualisieren sich erneut. Lass los, um den Akkord abzuschließen.</string>
+    <string name="tutorial_non_adjacent">Gleite von oben nach unten und kurve durch die Mitte, um die mittlere Taste zu vermeiden. Das tippt \'%1$s\'.\n\nBeachte, wie sich die Symbole aktualisieren, während dein Akkord aufgebaut wird — sie führen dich immer zum nächsten Schritt.</string>
+    <string name="tutorial_space">Gleite über alle drei rechten Tasten nach unten für Leertaste. Das wirst du ständig benutzen!\n\nRücktaste ist die Spiegelbewegung — alle drei linken Tasten. Auch das wirst du sehr oft brauchen!</string>
+    <string name="tutorial_cross_side">Beginne auf einer Seite und wechsle zur anderen. Folge dem Pfeil, um \'%1$s\' zu tippen.</string>
+    <string name="tutorial_apostrophe">Gleite von der oberen rechten Taste nach unten zur mittleren linken — als würdest du ein Apostroph mit einem Stift zeichnen.</string>
+    <string name="tutorial_question_mark">Gleite von der oberen linken Taste zur unteren rechten, um \'?\' zu tippen.</string>
+    <string name="tutorial_enter">Folge dem Pfeil über fünf Tasten für Eingabe. Starte von der mittleren linken, nach oben, hinüber zur rechten Seite und nach unten.</string>
+    <string name="tutorial_shift_on">Berühre beide mittleren Tasten gleichzeitig, um Großbuchstaben zu aktivieren. Beachte den ⇧-Indikator, der erscheint.</string>
+    <string name="tutorial_shift_off">Drücke die gleichen zwei mittleren Tasten erneut, um Großbuchstaben zu deaktivieren.</string>
+    <string name="tutorial_numeric_switch">Streiche über alle sechs Tasten, um in den Zahlenmodus zu wechseln. Beachte den 123-Indikator.</string>
+    <string name="tutorial_numeric_digit">Im Zahlenmodus erzeugen die gleichen Tasten Ziffern. Berühre diese Taste, um \'%1$s\' zu tippen.</string>
+    <string name="tutorial_numeric_789">Die Zahlen 7–9 verwenden seitenübergreifende Akkorde. Folge dem Pfeil, um \'%1$s\' zu tippen.</string>
+    <string name="tutorial_numeric_0">Gleite über diese zwei Tasten, um \'0\' zu tippen.</string>
+    <string name="tutorial_numeric_back">Streiche erneut über alle sechs Tasten, um zum Buchstabenmodus zurückzukehren.</string>
+    <string name="tutorial_complete">Herzlichen Glückwunsch! Du hast die Grundlagen des GKOS-Akkord-Tippens gelernt. Die kleinen Symbole auf und zwischen den Tasten werden dich leiten, während du weitere Akkorde lernst.\n\nUm GKOS als Tastatur zu verwenden, gehe zu den Einstellungen deines Geräts (meist unter Allgemein oder System), aktiviere GKOS in der Tastaturliste und lege es als Standard-Eingabemethode fest. Du kannst jederzeit zu deiner ursprünglichen Tastatur zurückkehren.</string>
+    <string name="tutorial_skip">Überspringen</string>
+    <string name="tutorial_done">Fertig</string>
+    <string name="tutorial_step_of">Schritt %1$d von %2$d</string>
+    <string name="tutorial_word_typed">Du hast \'%1$s\' getippt!</string>
+    <string name="tutorial_replay">Tutorial wiederholen</string>
 </resources>

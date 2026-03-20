@@ -21,11 +21,15 @@
 
 package org.bluezoo.gkos;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -122,6 +126,18 @@ public class GkosKeyboardView extends View {
     private final Paint unicodeHexPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint unicodePreviewPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+    // Tutorial highlight overlay
+    private int highlightMask = 0;
+    private int[] swipeHintPath = null;
+    private int errorFlashMask = 0;
+    private final Paint highlightPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint errorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint swipeHintPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private ValueAnimator highlightAnimator;
+    private ValueAnimator errorAnimator;
+    private float highlightAlpha = 0f;
+    private float errorAlpha = 0f;
+
     public interface ChordOutputHandler {
         void onChord(int chord);
     }
@@ -204,6 +220,14 @@ public class GkosKeyboardView extends View {
         unicodePreviewPaint.setTextSize(baseFontSize);
         unicodePreviewPaint.setTextAlign(Paint.Align.CENTER);
 
+        // Tutorial highlight paints
+        highlightPaint.setStyle(Paint.Style.FILL);
+        errorPaint.setStyle(Paint.Style.FILL);
+        swipeHintPaint.setStyle(Paint.Style.STROKE);
+        swipeHintPaint.setStrokeWidth(3 * density);
+        swipeHintPaint.setStrokeCap(Paint.Cap.ROUND);
+        swipeHintPaint.setStrokeJoin(Paint.Join.ROUND);
+
         applyColorScheme();
     }
 
@@ -248,6 +272,93 @@ public class GkosKeyboardView extends View {
     public void setUnicodeHex(String hex) {
         this.unicodeHex = hex;
         invalidate();
+    }
+
+    public void setGlobeVisible(boolean visible) {
+        this.globeVisible = visible;
+        invalidate();
+    }
+
+    // ── Tutorial highlight API ──────────────────────────────────────
+
+    /** Highlight specific keys with a pulsing glow (tutorial target keys). */
+    public void setHighlightMask(int mask) {
+        this.highlightMask = mask;
+        if (mask != 0) {
+            startHighlightAnimation();
+        } else {
+            stopHighlightAnimation();
+        }
+        invalidate();
+    }
+
+    /** Show an animated directional swipe path through the given key indices. */
+    public void setSwipeHintPath(int[] keySequence) {
+        this.swipeHintPath = keySequence;
+        invalidate();
+    }
+
+    /** Briefly flash the given keys in red to indicate a wrong chord. */
+    public void flashErrorKeys(int errorMask) {
+        this.errorFlashMask = errorMask;
+        startErrorAnimation();
+    }
+
+    /** Remove all tutorial highlights, swipe hints, and error flashes. */
+    public void clearHighlights() {
+        highlightMask = 0;
+        swipeHintPath = null;
+        errorFlashMask = 0;
+        stopHighlightAnimation();
+        stopErrorAnimation();
+        invalidate();
+    }
+
+    private void startHighlightAnimation() {
+        if (highlightAnimator != null && highlightAnimator.isRunning()) return;
+        highlightAnimator = ValueAnimator.ofFloat(0.3f, 1f);
+        highlightAnimator.setDuration(800);
+        highlightAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        highlightAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        highlightAnimator.addUpdateListener(a -> {
+            highlightAlpha = (float) a.getAnimatedValue();
+            invalidate();
+        });
+        highlightAnimator.start();
+    }
+
+    private void stopHighlightAnimation() {
+        if (highlightAnimator != null) {
+            highlightAnimator.cancel();
+            highlightAnimator = null;
+        }
+        highlightAlpha = 0f;
+    }
+
+    private void startErrorAnimation() {
+        if (errorAnimator != null) errorAnimator.cancel();
+        errorAnimator = ValueAnimator.ofFloat(1f, 0f);
+        errorAnimator.setDuration(500);
+        errorAnimator.addUpdateListener(a -> {
+            errorAlpha = (float) a.getAnimatedValue();
+            invalidate();
+        });
+        errorAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                errorFlashMask = 0;
+                invalidate();
+            }
+        });
+        errorAnimator.start();
+    }
+
+    private void stopErrorAnimation() {
+        if (errorAnimator != null) {
+            errorAnimator.cancel();
+            errorAnimator = null;
+        }
+        errorAlpha = 0f;
     }
 
     public void onStartInput(android.view.inputmethod.EditorInfo info) {
@@ -494,24 +605,29 @@ public class GkosKeyboardView extends View {
         drawSideButtons(canvas, 0, 3, true);
         drawSideButtons(canvas, 3, 6, false);
 
-        // 2. Secondary outcomes (discovery hints — drawn first so primaries overlay)
+        // 2. Tutorial overlays (between button shapes and text)
+        drawTutorialHighlights(canvas);
+        drawTutorialErrorFlash(canvas);
+        drawTutorialSwipeHint(canvas);
+
+        // 3. Secondary outcomes (discovery hints — drawn first so primaries overlay)
         drawSecondaryOutcomes(canvas, 0, true);
         drawSecondaryOutcomes(canvas, 3, false);
 
-        // 3. Primary outcomes (what will happen next — large, on top)
+        // 4. Primary outcomes (what will happen next — large, on top)
         drawSidePrimary(canvas, 0, 3, true);
         drawSidePrimary(canvas, 3, 6, false);
 
-        // 4. Globe icon in the transparent gap
+        // 5. Globe icon in the transparent gap
         drawGlobe(canvas);
 
-        // 5. Mode indicator in the transparent gap (opposite the globe)
+        // 6. Mode indicator in the transparent gap (opposite the globe)
         drawModeIndicator(canvas);
 
-        // 6. Predictive text suggestions (in the centre gap)
+        // 7. Predictive text suggestions (in the centre gap)
         drawSuggestions(canvas);
 
-        // 7. Unicode hex input overlay (in the centre gap — overlays suggestions)
+        // 8. Unicode hex input overlay (in the centre gap — overlays suggestions)
         drawUnicodeInput(canvas);
     }
 
@@ -838,6 +954,111 @@ public class GkosKeyboardView extends View {
         secondaryTextPaint.setTextSize(baseFontSize * 0.5f);
     }
 
+    // ── Tutorial overlay drawing ──────────────────────────────────────
+
+    private void drawTutorialHighlights(Canvas canvas) {
+        if (highlightMask == 0 || highlightAlpha == 0f) return;
+        highlightPaint.setAlpha((int) (highlightAlpha * 80));
+        for (int i = 0; i < 6; i++) {
+            if ((highlightMask & keyIndexToMask(i)) != 0 && keyRects[i] != null) {
+                canvas.drawRoundRect(keyRects[i], cornerRadius, cornerRadius, highlightPaint);
+            }
+        }
+    }
+
+    private void drawTutorialErrorFlash(Canvas canvas) {
+        if (errorFlashMask == 0 || errorAlpha == 0f) return;
+        errorPaint.setAlpha((int) (errorAlpha * 100));
+        for (int i = 0; i < 6; i++) {
+            if ((errorFlashMask & keyIndexToMask(i)) != 0 && keyRects[i] != null) {
+                canvas.drawRoundRect(keyRects[i], cornerRadius, cornerRadius, errorPaint);
+            }
+        }
+    }
+
+    private void drawTutorialSwipeHint(Canvas canvas) {
+        if (swipeHintPath == null || swipeHintPath.length < 2) return;
+        if (highlightAlpha == 0f) return;
+        if (keyRects[0] == null || keyRects[3] == null) return;
+
+        float gapCenterX = (keyRects[0].right + keyRects[3].left) / 2f;
+
+        Path path = new Path();
+        float startX = hintKeyX(swipeHintPath[0]);
+        float startY = keyRects[swipeHintPath[0]].centerY();
+        path.moveTo(startX, startY);
+
+        float lastCtrlX = startX;
+        float lastCtrlY = startY;
+
+        for (int i = 1; i < swipeHintPath.length; i++) {
+            if (swipeHintPath[i] < 0 || swipeHintPath[i] >= 6) return;
+            RectF r = keyRects[swipeHintPath[i]];
+            if (r == null) return;
+
+            float destX = hintKeyX(swipeHintPath[i]);
+            float destY = r.centerY();
+
+            int skipped = getSkippedMiddleKey(swipeHintPath[i - 1], swipeHintPath[i]);
+            if (skipped >= 0 && keyRects[skipped] != null) {
+                float cx = gapCenterX;
+                float cy = keyRects[skipped].centerY();
+                path.quadTo(cx, cy, destX, destY);
+                lastCtrlX = cx;
+                lastCtrlY = cy;
+            } else {
+                lastCtrlX = hintKeyX(swipeHintPath[i - 1]);
+                lastCtrlY = keyRects[swipeHintPath[i - 1]].centerY();
+                path.lineTo(destX, destY);
+            }
+        }
+
+        swipeHintPaint.setAlpha((int) (highlightAlpha * 200));
+        canvas.drawPath(path, swipeHintPaint);
+
+        // Arrowhead — use the last control point for tangent direction
+        // (for curves this gives the correct arrival angle)
+        float endX = hintKeyX(swipeHintPath[swipeHintPath.length - 1]);
+        float endY = keyRects[swipeHintPath[swipeHintPath.length - 1]].centerY();
+        float angle = (float) Math.atan2(endY - lastCtrlY, endX - lastCtrlX);
+        float arrowLen = 12 * getResources().getDisplayMetrics().density;
+        Path arrow = new Path();
+        arrow.moveTo(endX, endY);
+        arrow.lineTo(
+                endX - arrowLen * (float) Math.cos(angle - 0.4f),
+                endY - arrowLen * (float) Math.sin(angle - 0.4f));
+        arrow.moveTo(endX, endY);
+        arrow.lineTo(
+                endX - arrowLen * (float) Math.cos(angle + 0.4f),
+                endY - arrowLen * (float) Math.sin(angle + 0.4f));
+        canvas.drawPath(arrow, swipeHintPaint);
+    }
+
+    /**
+     * Returns the X coordinate where the primary letter sits for the given
+     * key index — near the inner edge of the key, aligned with the text
+     * anchor used by {@link #drawPrimaryText}.
+     */
+    private float hintKeyX(int keyIndex) {
+        RectF r = keyRects[keyIndex];
+        float halfChar = baseFontSize * 0.25f;
+        if (keyIndex < 3) {
+            return r.right - textPadding - halfChar;
+        }
+        return r.left + textPadding + halfChar;
+    }
+
+    /**
+     * Returns the key index skipped when swiping between two non-adjacent
+     * keys on the same side (e.g. A to C skips B), or -1 if the segment
+     * doesn't need an arc.
+     */
+    private static int getSkippedMiddleKey(int fromKey, int toKey) {
+        if ((fromKey == 0 && toKey == 2) || (fromKey == 2 && toKey == 0)) return 1;
+        if ((fromKey == 3 && toKey == 5) || (fromKey == 5 && toKey == 3)) return 4;
+        return -1;
+    }
+
     // ── Colour scheme (light/dark mode) ─────────────────────────────
 
     /**
@@ -890,6 +1111,11 @@ public class GkosKeyboardView extends View {
         textPaint.setColor(colorText);
         secondaryTextPaint.setColor(colorSecondary);
         modePaint.setColor(colorAction);
+
+        // Tutorial overlays — green highlight, red error
+        highlightPaint.setColor(dark ? 0xFF69F0AE : 0xFF00C853);
+        errorPaint.setColor(dark ? 0xFFFF5252 : 0xFFFF1744);
+        swipeHintPaint.setColor(dark ? 0xFF69F0AE : 0xFF00C853);
     }
 
     @Override

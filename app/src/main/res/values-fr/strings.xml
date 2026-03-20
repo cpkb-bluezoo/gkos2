@@ -4,4 +4,27 @@
     <string name="layouts_title">Dispositions</string>
     <string name="layouts_summary">Sélectionnez une disposition de langue. Utilisez le sélecteur de variante pour choisir entre GKOS Standard et Optimisé.</string>
     <string name="layout_selected">Disposition choisie\u00a0: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Bienvenue dans GKOS ! Ce tutoriel vous apprendra la saisie par accords — chaque bouton ou combinaison produit un caractère différent.\n\nTouchez ce bouton surligné et levez votre doigt pour taper \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Bien ! Maintenant touchez ce bouton pour taper \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Glissez votre doigt sur deux boutons adjacents pour taper \'%1$s\'.\n\nEn maintenant le doigt appuyé, observez comment les symboles sur les boutons changent — ils montrent ce que vous produirez en relâchant. Glissez vers le bouton suivant et ils se mettent à jour. Relâchez pour compléter l\'accord.</string>
+    <string name="tutorial_non_adjacent">Glissez du haut vers le bas en passant par l\'espace central pour éviter le bouton du milieu. Cela tape \'%1$s\'.\n\nRemarquez comment les symboles se mettent à jour pendant que votre accord se construit — ils vous guident toujours vers la suite.</string>
+    <string name="tutorial_space">Glissez vers le bas sur les trois boutons de droite pour l\'Espace. Vous l\'utiliserez en permanence !\n\nLe Retour arrière est le mouvement inverse — les trois boutons de gauche. Vous l\'utiliserez tout aussi souvent !</string>
+    <string name="tutorial_cross_side">Commencez d\'un côté et passez de l\'autre. Suivez la flèche pour taper \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Glissez du bouton en haut à droite vers le milieu gauche — comme si vous dessiniez une apostrophe avec un stylo.</string>
+    <string name="tutorial_question_mark">Glissez du bouton en haut à gauche vers le bas à droite pour taper \'?\'.</string>
+    <string name="tutorial_enter">Suivez la flèche à travers cinq boutons pour Entrée. Partez du milieu gauche, montez, traversez vers la droite et descendez.</string>
+    <string name="tutorial_shift_on">Touchez les deux boutons du milieu ensemble pour activer les Majuscules. Remarquez l\'indicateur ⇧ qui apparaît.</string>
+    <string name="tutorial_shift_off">Appuyez à nouveau sur les deux mêmes boutons pour désactiver les Majuscules.</string>
+    <string name="tutorial_numeric_switch">Balayez les six boutons pour passer en mode numérique. Remarquez l\'indicateur 123.</string>
+    <string name="tutorial_numeric_digit">En mode numérique, les mêmes boutons produisent des chiffres. Touchez ce bouton pour taper \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Les chiffres 7–9 utilisent des accords croisés. Suivez la flèche pour taper \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Glissez sur ces deux boutons pour taper \'0\'.</string>
+    <string name="tutorial_numeric_back">Balayez à nouveau les six boutons pour revenir au mode lettres.</string>
+    <string name="tutorial_complete">Félicitations ! Vous avez appris les bases de la saisie par accords GKOS. Les petits symboles sur et entre les boutons vous guideront à mesure que vous apprendrez de nouveaux accords.\n\nPour utiliser GKOS comme clavier, allez dans les Paramètres de votre appareil (généralement sous Général ou Système), activez GKOS dans la liste des claviers et définissez-le comme méthode de saisie par défaut. Vous pouvez revenir à votre clavier d\'origine à tout moment.</string>
+    <string name="tutorial_skip">Passer</string>
+    <string name="tutorial_done">Terminé</string>
+    <string name="tutorial_step_of">Étape %1$d sur %2$d</string>
+    <string name="tutorial_word_typed">Vous avez tapé \'%1$s\' !</string>
+    <string name="tutorial_replay">Relancer le tutoriel</string>
 </resources>

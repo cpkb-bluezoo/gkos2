@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="settings_title">Configurações do GKOS</string>
+    <string name="settings_title">Definições GKOS</string>
     <string name="layouts_title">Disposições</string>
-    <string name="layouts_summary">Selecione uma disposição de idioma. Use o seletor de variante para alternar entre GKOS Padrão e Otimizado.</string>
-    <string name="layout_selected">Disposição selecionada: %1$s (%2$s)</string>
+    <string name="layouts_summary">Selecione uma disposição de idioma. Use o seletor de variante para escolher entre GKOS Standard e Otimizado.</string>
+    <string name="layout_selected">Disposição: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Bem-vindo ao GKOS! Este tutorial vai ensinar-lhe a digitação por acordes — cada botão ou combinação produz um carácter diferente.\n\nToque neste botão destacado e levante o dedo para digitar \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Muito bem! Agora toque neste botão para digitar \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Deslize o dedo por dois botões adjacentes para digitar \'%1$s\'.\n\nEnquanto mantém o dedo pressionado, observe como os símbolos nos botões mudam — mostram o que produzirá ao soltar. Deslize para o botão seguinte e eles atualizam-se. Solte para completar o acorde.</string>
+    <string name="tutorial_non_adjacent">Deslize de cima para baixo, curvando pelo espaço central para evitar o botão do meio. Isto digita \'%1$s\'.\n\nRepare como os símbolos se atualizam à medida que o acorde se constrói — guiam-no sempre para o que vem a seguir.</string>
+    <string name="tutorial_space">Deslize para baixo nos três botões do lado direito para Espaço. Vai usar isto constantemente!\n\nRetroceder é o movimento inverso — os três botões do lado esquerdo. Também vai usar muito!</string>
+    <string name="tutorial_cross_side">Comece de um lado e cruze para o outro. Siga a seta para digitar \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Deslize do botão superior direito para o meio esquerdo — como se desenhasse um apóstrofo com uma caneta.</string>
+    <string name="tutorial_question_mark">Deslize do botão superior esquerdo para o inferior direito para digitar \'?\'.</string>
+    <string name="tutorial_enter">Siga a seta através de cinco botões para Enter. Comece pelo meio esquerdo, suba, cruze para o lado direito e desça.</string>
+    <string name="tutorial_shift_on">Toque nos dois botões centrais em simultâneo para ativar Maiúsculas. Repare no indicador ⇧ que aparece.</string>
+    <string name="tutorial_shift_off">Prima os mesmos dois botões centrais novamente para desativar Maiúsculas.</string>
+    <string name="tutorial_numeric_switch">Deslize pelos seis botões para mudar para o modo numérico. Repare no indicador 123.</string>
+    <string name="tutorial_numeric_digit">No modo numérico, os mesmos botões produzem dígitos. Toque neste botão para digitar \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Os números 7–9 usam acordes cruzados. Siga a seta para digitar \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Deslize por estes dois botões para digitar \'0\'.</string>
+    <string name="tutorial_numeric_back">Deslize pelos seis botões novamente para voltar ao modo de letras.</string>
+    <string name="tutorial_complete">Parabéns! Aprendeu o básico da digitação por acordes GKOS. Os pequenos símbolos nos e entre os botões vão guiá-lo à medida que aprender mais acordes.\n\nPara usar o GKOS como teclado, vá às Definições do dispositivo (normalmente em Geral ou Sistema), ative o GKOS na lista de teclados e defina-o como método de introdução predefinido. Pode voltar ao teclado original a qualquer momento.</string>
+    <string name="tutorial_skip">Saltar</string>
+    <string name="tutorial_done">Concluído</string>
+    <string name="tutorial_step_of">Passo %1$d de %2$d</string>
+    <string name="tutorial_word_typed">Digitou \'%1$s\'!</string>
+    <string name="tutorial_replay">Repetir tutorial</string>
 </resources>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GKOS Keyboard — Typing Demo</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  height: 100%;
+  background: linear-gradient(145deg, #0d0b1e 0%, #1b1838 40%, #2a1f4e 100%);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+#demo {
+  max-height: 96vh;
+  max-width: min(420px, 96vw);
+  width: 100%;
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,0.6));
+}
+.key-rect { transition: fill 0.12s ease-out, filter 0.12s ease-out; }
+.key-label { transition: fill 0.2s ease; }
+.key-label.fresh { fill: #1565C0 !important; }
+#finger { transition: opacity 0.18s ease; }
+#trail  { transition: opacity 0.3s ease; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.cursor-blink { animation: blink 1s step-end infinite; }
+</style>
+</head>
+<body>
+
+<svg id="demo" viewBox="0 0 400 840" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="keyShadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.8" flood-color="#000" flood-opacity="0.13"/>
+    </filter>
+    <filter id="keyGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#5090E0" flood-opacity="0.35" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="fingerShadow" x="-30%" y="-20%" width="160%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2060A0" flood-opacity="0.3"/>
+    </filter>
+    <radialGradient id="fingerGrad" cx="42%" cy="38%">
+      <stop offset="0%" stop-color="#70B8F8" stop-opacity="0.7"/>
+      <stop offset="45%" stop-color="#4A90D9" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#4A90D9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phoneGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38384a"/>
+      <stop offset="100%" stop-color="#1c1c28"/>
+    </linearGradient>
+    <clipPath id="screenClip">
+      <rect x="38" y="58" width="324" height="680" rx="3"/>
+    </clipPath>
+  </defs>
+
+  <!-- Phone frame -->
+  <rect x="30" y="40" width="340" height="750" rx="38" fill="url(#phoneGrad)"/>
+  <rect x="32" y="42" width="336" height="746" rx="36" fill="#222230" stroke="#444" stroke-width="0.5"/>
+  <rect x="162" y="48" width="76" height="15" rx="7.5" fill="#181820"/>
+  <circle cx="200" cy="55.5" r="4" fill="#222230" stroke="#333" stroke-width="0.5"/>
+
+  <!-- Screen -->
+  <rect x="38" y="68" width="324" height="666" rx="3" fill="#FAFAFA"/>
+
+  <!-- Status bar -->
+  <g clip-path="url(#screenClip)">
+    <rect x="38" y="68" width="324" height="22" fill="#F2F2F2"/>
+    <text x="200" y="83" text-anchor="middle" font-size="11" fill="#888" font-family="-apple-system,sans-serif" font-weight="600">12:00</text>
+    <g transform="translate(50,79)">
+      <rect x="0" y="-5" width="3" height="5" rx="0.5" fill="#aaa"/>
+      <rect x="4" y="-7" width="3" height="7" rx="0.5" fill="#aaa"/>
+      <rect x="8" y="-9" width="3" height="9" rx="0.5" fill="#999"/>
+      <rect x="12" y="-11" width="3" height="11" rx="0.5" fill="#ccc"/>
+    </g>
+    <g transform="translate(328,79)">
+      <rect x="0" y="-9" width="20" height="9" rx="2" fill="none" stroke="#aaa" stroke-width="1.2"/>
+      <rect x="2" y="-7" width="14" height="5" rx="1" fill="#aaa"/>
+      <rect x="20" y="-6" width="2.5" height="3" rx="1" fill="#aaa"/>
+    </g>
+  </g>
+
+  <!-- App bar -->
+  <rect x="38" y="90" width="324" height="38" fill="#1565C0"/>
+  <text x="200" y="114" text-anchor="middle" font-size="14" fill="white" font-family="-apple-system,sans-serif" font-weight="700" letter-spacing="0.3">GKOS Keyboard Demo</text>
+
+  <!-- Text input -->
+  <rect x="50" y="142" width="300" height="44" rx="10" fill="white" stroke="#D0D4D8" stroke-width="1.5"/>
+  <text id="typedText" x="64" y="170" font-size="19" fill="#222" font-family="'SF Mono','Menlo','Consolas',monospace" letter-spacing="0.3"></text>
+  <rect id="textCursor" x="64" y="150" width="1.5" height="24" fill="#1565C0" class="cursor-blink"/>
+
+  <!-- Chord info panel -->
+  <rect x="50" y="200" width="300" height="68" rx="12" fill="#EDF1F7" stroke="#D8DFE8" stroke-width="1"/>
+  <text id="chordType" x="200" y="226" text-anchor="middle" font-size="14" fill="#1565C0" font-family="-apple-system,sans-serif" font-weight="700" opacity="0"></text>
+  <text id="chordDetail" x="200" y="248" text-anchor="middle" font-size="12" fill="#777" font-family="'SF Mono','Menlo',monospace" opacity="0"></text>
+
+  <!-- Step label -->
+  <text id="stepLabel" x="200" y="290" text-anchor="middle" font-size="12" fill="#aaa" font-family="-apple-system,sans-serif" letter-spacing="0.5"></text>
+
+  <!-- Keyboard background -->
+  <rect x="38" y="492" width="324" height="228" rx="6" fill="#CDCDCD"/>
+
+  <!-- Key background rects -->
+  <g id="keyBgs">
+    <rect id="keyA" class="key-rect" x="44" y="498" width="106" height="66" rx="13" fill="#E8E8E8" filter="url(#keyShadow)"/>
+    <rect id="keyB" class="key-rect" x="44" y="570" width="106" height="66" rx="13" fill="#E8E8E8" filter="url(#keyShadow)"/>
+    <rect id="keyC" class="key-rect" x="44" y="642" width="106" height="66" rx="13" fill="#E8E8E8" filter="url(#keyShadow)"/>
+    <rect id="keyD" class="key-rect" x="250" y="498" width="106" height="66" rx="13" fill="#E8E8E8" filter="url(#keyShadow)"/>
+    <rect id="keyE" class="key-rect" x="250" y="570" width="106" height="66" rx="13" fill="#E8E8E8" filter="url(#keyShadow)"/>
+    <rect id="keyF" class="key-rect" x="250" y="642" width="106" height="66" rx="13" fill="#E8E8E8" filter="url(#keyShadow)"/>
+  </g>
+
+  <!-- Finger trail -->
+  <path id="trail" d="" fill="none" stroke="#4A88D0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+
+  <!-- Key labels (dynamic — primary label has id, sublabel is static) -->
+  <g pointer-events="none">
+    <text id="labelA" class="key-label" x="97" y="537" text-anchor="middle" font-size="22" fill="#222" font-family="-apple-system,sans-serif" font-weight="500">o</text>
+    <text id="labelB" class="key-label" x="97" y="609" text-anchor="middle" font-size="22" fill="#222" font-family="-apple-system,sans-serif" font-weight="500">t</text>
+    <text id="labelC" class="key-label" x="97" y="681" text-anchor="middle" font-size="22" fill="#222" font-family="-apple-system,sans-serif" font-weight="500">n</text>
+    <text id="labelD" class="key-label" x="303" y="537" text-anchor="middle" font-size="22" fill="#222" font-family="-apple-system,sans-serif" font-weight="500">a</text>
+    <text id="labelE" class="key-label" x="303" y="609" text-anchor="middle" font-size="22" fill="#222" font-family="-apple-system,sans-serif" font-weight="500">e</text>
+    <text id="labelF" class="key-label" x="303" y="681" text-anchor="middle" font-size="22" fill="#222" font-family="-apple-system,sans-serif" font-weight="500">i</text>
+  </g>
+
+  <!-- Center keyboard area -->
+  <text x="200" y="520" text-anchor="middle" font-size="12" fill="#999" font-family="-apple-system,sans-serif">abc</text>
+  <text id="centerNotation" x="200" y="598" text-anchor="middle" font-size="14" fill="#1565C0" font-family="-apple-system,sans-serif" font-weight="600" opacity="0"></text>
+  <text id="centerOutput" x="200" y="670" text-anchor="middle" font-size="26" fill="#333" font-family="-apple-system,sans-serif" font-weight="700" opacity="0"></text>
+
+  <!-- Finger (on top of everything in keyboard area) -->
+  <circle id="finger" cx="0" cy="0" r="28" fill="url(#fingerGrad)" filter="url(#fingerShadow)" opacity="0"/>
+
+  <!-- Home indicator -->
+  <rect x="158" y="755" width="84" height="5" rx="2.5" fill="#555"/>
+
+  <!-- Progress dots -->
+  <g id="dots" transform="translate(200,800)"></g>
+
+  <!-- Replay overlay -->
+  <g id="replayOverlay" opacity="0" style="pointer-events:none" cursor="pointer">
+    <rect x="38" y="310" width="324" height="60" fill="transparent"/>
+    <rect x="140" y="320" width="120" height="40" rx="20" fill="#1565C0"/>
+    <text x="200" y="345" text-anchor="middle" font-size="14" fill="white" font-family="-apple-system,sans-serif" font-weight="600">▶  Replay</text>
+  </g>
+</svg>
+
+<script>
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const $ = id => document.getElementById(id);
+
+  // ── Key geometry ──────────────────────────────────────────────
+  const BITS = { A:1, B:2, C:4, D:8, E:16, F:32 };
+  const NAMES = ['A','B','C','D','E','F'];
+  const POS = {
+    A:{cx:97,cy:531},  B:{cx:97,cy:603},  C:{cx:97,cy:675},
+    D:{cx:303,cy:531}, E:{cx:303,cy:603}, F:{cx:303,cy:675},
+  };
+  const DEFAULTS = { A:'o', B:'t', C:'n', D:'a', E:'e', F:'i' };
+  const REST = '#E8E8E8', PRESSED = '#B0D0FF';
+  const ACTIONS = new Set(['↑','↓','←','→','⌫','⇧','␣']);
+
+  // ── Chord map (bitmask → output) ─────────────────────────────
+  const CM = {
+    1:'o',2:'t',3:'h',4:'n',6:'l',7:'⌫',8:'a',9:'↑',10:"'",
+    11:'u',12:'!',14:'g',15:'←',16:'e',17:'-',18:'⇧',19:'w',
+    20:',',22:'v',24:'s',25:'c',26:'m',28:'y',32:'i',33:'?',
+    34:'.',35:'p',36:'↓',38:'j',40:'d',41:'x',42:'q',44:'z',
+    48:'r',49:'f',50:'b',52:'k',56:'␣',
+  };
+
+  // ── Chord sequence with finger paths ─────────────────────────
+  // Each step: { key, arc? } — arc is quadratic bezier control pt
+  const SEQ = [
+    { char:'o', type:'Single key',
+      detail:'A → o',
+      path:[{key:'A'}] },
+    { char:'h', type:'Adjacent pair (same side)',
+      detail:'A → B → h',
+      path:[{key:'A'},{key:'B'}] },
+    { char:',', type:'Cross-side pair',
+      detail:'C → E → ,',
+      path:[{key:'C'},{key:'E'}] },
+    { char:' ', type:'Same-side triple',
+      detail:'D → E → F → space',
+      path:[{key:'D'},{key:'E'},{key:'F'}] },
+    { char:'m', type:'Cross-side triple',
+      detail:'D → E → B → m',
+      path:[{key:'D'},{key:'E'},{key:'B'}] },
+    { char:'a', type:'Single key',
+      detail:'D → a',
+      path:[{key:'D'}] },
+    { char:'d', type:'Non-adjacent pair (same side)',
+      detail:'D → arc → F → d  (skipping E)',
+      path:[{key:'D'},{key:'F', arc:{x:170,y:603}}] },
+    { char:'!', type:'Cross-side pair',
+      detail:'C → D → !',
+      path:[{key:'C'},{key:'D'}] },
+  ];
+
+  // ── Timing (ms) ──────────────────────────────────────────────
+  const T = {
+    pre:2000, fadeIn:180, slide:420, arc:650,
+    holdMid:380, holdFinal:700, holdAfterChar:450,
+    gap:600, post:4000,
+  };
+
+  // ── DOM refs ─────────────────────────────────────────────────
+  const typedText = $('typedText'), textCursor = $('textCursor');
+  const chordType = $('chordType'), chordDetail = $('chordDetail');
+  const stepLabel = $('stepLabel');
+  const centerNotation = $('centerNotation'), centerOutput = $('centerOutput');
+  const fingerEl = $('finger'), trailEl = $('trail');
+  const dotsG = $('dots'), replayOv = $('replayOverlay');
+  const lbl = {}; NAMES.forEach(n => lbl[n] = $('label'+n));
+
+  let charWidth = 11, typed = '', running = false;
+  let fX = 0, fY = 0, trailPts = [];
+
+  // ── Progress dots ────────────────────────────────────────────
+  const dots = [];
+  SEQ.forEach((_,i) => {
+    const d = document.createElementNS(NS,'circle');
+    d.setAttribute('cx',(i-(SEQ.length-1)/2)*18);
+    d.setAttribute('cy','0');
+    d.setAttribute('r','4.5');
+    d.setAttribute('fill','#555');
+    dotsG.appendChild(d);
+    dots.push(d);
+  });
+
+  function measureChar() {
+    typedText.textContent = 'M';
+    charWidth = typedText.getComputedTextLength();
+    typedText.textContent = '';
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  function ease(t) { return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+  function lerp(a,b,t) { return a+(b-a)*t; }
+
+  // ── Key management ───────────────────────────────────────────
+  function pressKey(n) {
+    $('key'+n).setAttribute('fill', PRESSED);
+    $('key'+n).setAttribute('filter', 'url(#keyGlow)');
+  }
+  function releaseAll() {
+    NAMES.forEach(n => {
+      $('key'+n).setAttribute('fill', REST);
+      $('key'+n).setAttribute('filter', 'url(#keyShadow)');
+    });
+  }
+
+  // ── Label management ─────────────────────────────────────────
+  // Pressed keys show the current chord output.
+  // Unpressed keys show what adding that key would produce.
+  function updateLabels(mask) {
+    const currentOut = CM[mask] || '';
+    NAMES.forEach(n => {
+      const el = lbl[n], bit = BITS[n];
+      let txt;
+      if (mask & bit) {
+        txt = currentOut;
+      } else {
+        txt = CM[mask | bit] || '';
+      }
+      const changed = el.textContent !== txt;
+      el.textContent = txt;
+      if (ACTIONS.has(txt)) {
+        el.style.fill = '#1565C0';
+        el.classList.remove('fresh');
+      } else {
+        el.style.fill = '';
+        if (changed && txt) {
+          el.classList.add('fresh');
+          setTimeout(() => el.classList.remove('fresh'), 400);
+        }
+      }
+    });
+  }
+  function resetLabels() {
+    NAMES.forEach(n => {
+      lbl[n].textContent = DEFAULTS[n];
+      lbl[n].classList.remove('fresh');
+      lbl[n].style.fill = '';
+    });
+  }
+
+  // ── Finger / trail ───────────────────────────────────────────
+  function showFinger(x, y) {
+    fX = x; fY = y;
+    fingerEl.setAttribute('cx', x);
+    fingerEl.setAttribute('cy', y);
+    fingerEl.setAttribute('opacity', '1');
+    trailPts = [{x,y}];
+    trailEl.setAttribute('d', 'M'+x+','+y);
+    trailEl.setAttribute('opacity', '0.55');
+  }
+  function hideFinger() { fingerEl.setAttribute('opacity', '0'); }
+  function setFinger(x, y) {
+    fX = x; fY = y;
+    fingerEl.setAttribute('cx', x);
+    fingerEl.setAttribute('cy', y);
+    trailPts.push({x,y});
+    trailEl.setAttribute('d',
+      trailPts.map((p,i) => (i?'L':'M')+p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ')
+    );
+  }
+  function clearTrail() {
+    trailEl.setAttribute('opacity', '0');
+    setTimeout(() => { trailPts = []; trailEl.setAttribute('d',''); }, 350);
+  }
+
+  // Straight-line finger movement
+  function slideFingerTo(tx, ty, dur) {
+    const sx=fX, sy=fY;
+    return new Promise(res => {
+      let t0;
+      (function tick(now) {
+        if (!t0) t0 = now;
+        const p = Math.min((now-t0)/dur, 1), e = ease(p);
+        setFinger(lerp(sx,tx,e), lerp(sy,ty,e));
+        p < 1 ? requestAnimationFrame(tick) : res();
+      })(performance.now());
+    });
+  }
+
+  // Quadratic-bezier arc (for non-adjacent pair, avoiding middle key)
+  function arcFingerTo(ctrl, tx, ty, dur) {
+    const sx=fX, sy=fY;
+    return new Promise(res => {
+      let t0;
+      (function tick(now) {
+        if (!t0) t0 = now;
+        const p = Math.min((now-t0)/dur, 1), e = ease(p), u = 1-e;
+        setFinger(u*u*sx + 2*u*e*ctrl.x + e*e*tx,
+                  u*u*sy + 2*u*e*ctrl.y + e*e*ty);
+        p < 1 ? requestAnimationFrame(tick) : res();
+      })(performance.now());
+    });
+  }
+
+  // ── Text / info ──────────────────────────────────────────────
+  function updateText(s) {
+    typedText.textContent = s;
+    textCursor.setAttribute('x', 64 + s.length * charWidth + 1);
+  }
+  function setInfo(t,d) {
+    chordType.textContent = t; chordType.setAttribute('opacity', t?'1':'0');
+    chordDetail.textContent = d; chordDetail.setAttribute('opacity', d?'1':'0');
+  }
+  function setCenter(notation, output) {
+    centerNotation.textContent = notation;
+    centerNotation.setAttribute('opacity', notation?'1':'0');
+    centerOutput.textContent = output;
+    centerOutput.setAttribute('opacity', output?'1':'0');
+  }
+  function setDot(i,s) {
+    dots[i].setAttribute('fill', s==='active'?'#5090E0':s==='done'?'#7E8AA0':'#555');
+    dots[i].setAttribute('r', s==='active'?'5.5':'4.5');
+  }
+
+  // ── Reset ────────────────────────────────────────────────────
+  function resetAll() {
+    typed = ''; updateText('');
+    setInfo('',''); setCenter('','');
+    stepLabel.textContent = '';
+    releaseAll(); resetLabels();
+    hideFinger(); clearTrail();
+    dots.forEach((_,i) => setDot(i,'pending'));
+    replayOv.setAttribute('opacity','0');
+    replayOv.style.pointerEvents = 'none';
+  }
+
+  // ── Play one chord ───────────────────────────────────────────
+  async function playChord(chord, idx) {
+    setDot(idx, 'active');
+    setInfo(chord.type, chord.detail);
+
+    let mask = 0;
+    const pathKeys = chord.path.map(s => s.key);
+
+    // Helper: build notation string preserving finger order
+    const notation = () =>
+      pathKeys.filter(k => mask & BITS[k]).join(' + ');
+    const liveOut = () => CM[mask] || '';
+
+    // 1. Finger appears at first key
+    const first = POS[pathKeys[0]];
+    showFinger(first.cx, first.cy);
+    await sleep(T.fadeIn);
+
+    // 2. Press first key, update all labels
+    pressKey(pathKeys[0]);
+    mask |= BITS[pathKeys[0]];
+    updateLabels(mask);
+    setCenter(notation(), liveOut());
+
+    // 3. Walk to each subsequent key
+    for (let i = 1; i < chord.path.length; i++) {
+      await sleep(T.holdMid);
+
+      const step = chord.path[i];
+      const tgt = POS[step.key];
+
+      if (step.arc) {
+        await arcFingerTo(step.arc, tgt.cx, tgt.cy, T.arc);
+      } else {
+        await slideFingerTo(tgt.cx, tgt.cy, T.slide);
+      }
+
+      pressKey(step.key);
+      mask |= BITS[step.key];
+      updateLabels(mask);
+      setCenter(notation(), liveOut());
+    }
+
+    // 4. Hold on final position
+    await sleep(T.holdFinal);
+
+    // 5. Character produced
+    typed += chord.char;
+    updateText(typed);
+    const display = chord.char === ' ' ? '␣' : chord.char;
+    setCenter(pathKeys.join(' + '), '→ ' + display);
+
+    await sleep(T.holdAfterChar);
+
+    // 6. Release everything
+    releaseAll();
+    hideFinger();
+    clearTrail();
+    resetLabels();
+    setCenter('', '');
+    setDot(idx, 'done');
+
+    await sleep(T.gap);
+  }
+
+  // ── Play full sequence ───────────────────────────────────────
+  async function play() {
+    if (running) return;
+    running = true;
+    resetAll();
+    stepLabel.textContent = 'Typing:  oh, mad!';
+    await sleep(T.pre);
+
+    for (let i = 0; i < SEQ.length && running; i++) {
+      await playChord(SEQ[i], i);
+    }
+
+    setInfo('Done!', '"oh, mad!"');
+    stepLabel.textContent = '';
+    replayOv.setAttribute('opacity','1');
+    replayOv.style.pointerEvents = 'auto';
+    running = false;
+  }
+
+  replayOv.addEventListener('click', () => { running=false; setTimeout(play,50); });
+
+  async function loop() {
+    await play();
+    await sleep(T.post);
+    if (!running) loop();
+  }
+
+  window.addEventListener('load', () => { measureChar(); loop(); });
+})();
+</script>
+</body>
+</html>

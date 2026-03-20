@@ -2,6 +2,29 @@
 <resources>
     <string name="settings_title">Impostazioni GKOS</string>
     <string name="layouts_title">Disposizioni</string>
-    <string name="layouts_summary">Seleziona una disposizione di lingua. Usa il selettore di variante per passare tra GKOS Standard e Ottimizzato.</string>
-    <string name="layout_selected">Disposizione scelta: %1$s (%2$s)</string>
+    <string name="layouts_summary">Seleziona una disposizione di lingua. Usa il selettore di variante per scegliere tra GKOS Standard e Ottimizzato.</string>
+    <string name="layout_selected">Disposizione: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Benvenuto in GKOS! Questo tutorial ti insegnerà la digitazione ad accordi — ogni pulsante o combinazione produce un carattere diverso.\n\nTocca questo pulsante evidenziato e solleva il dito per digitare \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Bene! Ora tocca questo pulsante per digitare \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Fai scorrere il dito su due pulsanti adiacenti per digitare \'%1$s\'.\n\nMentre tieni premuto, osserva come cambiano i simboli sui pulsanti — mostrano cosa produrrai rilasciando. Scorri al pulsante successivo e si aggiornano di nuovo. Rilascia per completare l\'accordo.</string>
+    <string name="tutorial_non_adjacent">Scorri dall\'alto verso il basso, curvando nello spazio centrale per evitare il pulsante di mezzo. Questo digita \'%1$s\'.\n\nNota come i simboli si aggiornano mentre il tuo accordo si costruisce — ti guidano sempre verso il prossimo passo.</string>
+    <string name="tutorial_space">Scorri verso il basso sui tre pulsanti del lato destro per lo Spazio. Lo userai costantemente!\n\nCancella è il movimento speculare — i tre pulsanti del lato sinistro. Anche quello lo userai in continuazione!</string>
+    <string name="tutorial_cross_side">Parti da un lato e passa all\'altro. Segui la freccia per digitare \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Scorri dal pulsante in alto a destra verso il centro sinistro — come se disegnassi un apostrofo con una penna.</string>
+    <string name="tutorial_question_mark">Scorri dal pulsante in alto a sinistra a quello in basso a destra per digitare \'?\'.</string>
+    <string name="tutorial_enter">Segui la freccia attraverso cinque pulsanti per Invio. Parti dal centro sinistro, sali, attraversa verso il lato destro e scendi.</string>
+    <string name="tutorial_shift_on">Tocca entrambi i pulsanti centrali insieme per attivare le Maiuscole. Nota l\'indicatore ⇧ che appare.</string>
+    <string name="tutorial_shift_off">Premi di nuovo gli stessi due pulsanti centrali per disattivare le Maiuscole.</string>
+    <string name="tutorial_numeric_switch">Scorri su tutti e sei i pulsanti per passare alla modalità numerica. Nota l\'indicatore 123.</string>
+    <string name="tutorial_numeric_digit">In modalità numerica, gli stessi pulsanti producono cifre. Tocca questo pulsante per digitare \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">I numeri 7–9 usano accordi incrociati. Segui la freccia per digitare \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Scorri su questi due pulsanti per digitare \'0\'.</string>
+    <string name="tutorial_numeric_back">Scorri di nuovo su tutti e sei i pulsanti per tornare alla modalità lettere.</string>
+    <string name="tutorial_complete">Congratulazioni! Hai imparato le basi della digitazione ad accordi GKOS. I piccoli simboli sui e tra i pulsanti ti guideranno man mano che imparerai nuovi accordi.\n\nPer usare GKOS come tastiera, vai nelle Impostazioni del dispositivo (solitamente sotto Generali o Sistema), abilita GKOS nella lista delle tastiere e impostalo come metodo di immissione predefinito. Puoi tornare alla tastiera originale in qualsiasi momento.</string>
+    <string name="tutorial_skip">Salta</string>
+    <string name="tutorial_done">Fatto</string>
+    <string name="tutorial_step_of">Passo %1$d di %2$d</string>
+    <string name="tutorial_word_typed">Hai digitato \'%1$s\'!</string>
+    <string name="tutorial_replay">Ripeti tutorial</string>
 </resources>

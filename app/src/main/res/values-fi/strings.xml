@@ -2,6 +2,29 @@
 <resources>
     <string name="settings_title">GKOS-asetukset</string>
     <string name="layouts_title">Näppäimistöasettelut</string>
-    <string name="layouts_summary">Valitse kieliasettelu. Käytä varianttikytkintä vaihtaaksesi GKOS Standardi- ja Optimoitu-järjestysten välillä.</string>
-    <string name="layout_selected">Asettelu valittu: %1$s (%2$s)</string>
+    <string name="layouts_summary">Valitse kieliasettelu. Käytä variantinvalitsinta vaihtaaksesi GKOS Standardin ja Optimoidun välillä.</string>
+    <string name="layout_selected">Asettelu: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">Tervetuloa GKOS:iin! Tämä opas opettaa sinulle sointukirjoituksen — jokainen painike tai yhdistelmä tuottaa eri merkin.\n\nKosketa tätä korostettua painiketta ja nosta sormesi kirjoittaaksesi \'%1$s\'.</string>
+    <string name="tutorial_single_key_2">Hyvä! Kosketa nyt tätä painiketta kirjoittaaksesi \'%1$s\'.</string>
+    <string name="tutorial_adjacent">Liu\'uta sormesi kahden vierekkäisen painikkeen yli kirjoittaaksesi \'%1$s\'.\n\nKun pidät painettuna, katso miten painikkeiden symbolit muuttuvat — ne näyttävät mitä tuotat päästäessäsi irti. Liu\'uta seuraavaan painikkeeseen ja ne päivittyvät jälleen. Päästä irti viimeistelläksesi soinnun.</string>
+    <string name="tutorial_non_adjacent">Liu\'uta ylhäältä alas kaartaen keskialueen kautta välttääksesi keskimmäisen painikkeen. Tämä kirjoittaa \'%1$s\'.\n\nHuomaa miten symbolit päivittyvät sointusi rakentuessa — ne opastavat sinua aina seuraavaan vaiheeseen.</string>
+    <string name="tutorial_space">Liu\'uta alas kaikkien kolmen oikeanpuoleisen painikkeen yli Välilyöntiä varten. Käytät tätä jatkuvasti!\n\nAskelpalautin on peilikuva — kaikki kolme vasemmanpuoleista painiketta. Sitäkin käytät koko ajan!</string>
+    <string name="tutorial_cross_side">Aloita yhdeltä puolelta ja siirry toiselle. Seuraa nuolta kirjoittaaksesi \'%1$s\'.</string>
+    <string name="tutorial_apostrophe">Pyyhkäise oikeasta yläpainikkeesta alas vasempaan keskipainikkeeseen — kuin piirtäisit heittomerkin kynällä.</string>
+    <string name="tutorial_question_mark">Liu\'uta vasemmasta yläpainikkeesta oikeaan alapainikkeeseen kirjoittaaksesi \'?\'.</string>
+    <string name="tutorial_enter">Seuraa nuolta viiden painikkeen yli Enteriä varten. Aloita vasemmasta keskeltä, ylös, oikealle puolelle ja alas.</string>
+    <string name="tutorial_shift_on">Kosketa molempia keskipainikkeita yhtä aikaa kytkeäksesi Isot kirjaimet päälle. Huomaa näkyviin tuleva ⇧-ilmaisin.</string>
+    <string name="tutorial_shift_off">Paina samoja kahta keskipainiketta uudelleen kytkeäksesi Isot kirjaimet pois.</string>
+    <string name="tutorial_numeric_switch">Pyyhkäise kaikkien kuuden painikkeen yli vaihtaaksesi numerotilaan. Huomaa 123-ilmaisin.</string>
+    <string name="tutorial_numeric_digit">Numerotilassa samat painikkeet tuottavat numeroita. Kosketa tätä painiketta kirjoittaaksesi \'%1$s\'.</string>
+    <string name="tutorial_numeric_789">Numerot 7–9 käyttävät ristisointuja. Seuraa nuolta kirjoittaaksesi \'%1$s\'.</string>
+    <string name="tutorial_numeric_0">Liu\'uta näiden kahden painikkeen yli kirjoittaaksesi \'0\'.</string>
+    <string name="tutorial_numeric_back">Pyyhkäise kaikkien kuuden painikkeen yli uudelleen palataksesi kirjaintilaan.</string>
+    <string name="tutorial_complete">Onnittelut! Olet oppinut GKOS-sointukirjoituksen perusteet. Pienet symbolit painikkeissa ja niiden välissä opastavat sinua oppiessasi lisää sointuja.\n\nKäyttääksesi GKOS:ia näppäimistönä, mene laitteesi Asetuksiin (yleensä kohdassa Yleiset tai Järjestelmä), ota GKOS käyttöön näppäimistöluettelossa ja aseta se oletussyöttötavaksi. Voit palata alkuperäiseen näppäimistöösi milloin tahansa.</string>
+    <string name="tutorial_skip">Ohita</string>
+    <string name="tutorial_done">Valmis</string>
+    <string name="tutorial_step_of">Vaihe %1$d / %2$d</string>
+    <string name="tutorial_word_typed">Kirjoitit \'%1$s\'!</string>
+    <string name="tutorial_replay">Toista opas</string>
 </resources>

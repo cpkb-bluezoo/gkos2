@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_title">GKOS 설정</string>
-    <string name="layouts_title">키보드 레이아웃</string>
-    <string name="layouts_summary">언어 레이아웃을 선택하세요. 변형 전환기를 사용하여 GKOS 표준과 최적화 배열 사이를 전환하세요.</string>
-    <string name="layout_selected">레이아웃 설정: %1$s (%2$s)</string>
+    <string name="layouts_title">키보드 배열</string>
+    <string name="layouts_summary">언어 배열을 선택하세요. 변형 선택기를 사용하여 GKOS 표준과 최적화 사이를 전환할 수 있습니다.</string>
+    <string name="layout_selected">배열: %1$s (%2$s)</string>
+    <!-- Tutorial -->
+    <string name="tutorial_single_key">GKOS에 오신 것을 환영합니다! 이 튜토리얼은 코드 입력을 알려드립니다 — 각 버튼이나 조합이 다른 문자를 만듭니다.\n\n이 강조된 버튼을 터치하고 손가락을 들어 \'%1$s\'을(를) 입력하세요.</string>
+    <string name="tutorial_single_key_2">좋습니다! 이제 이 버튼을 터치하여 \'%1$s\'을(를) 입력하세요.</string>
+    <string name="tutorial_adjacent">두 개의 인접한 버튼을 밀어 \'%1$s\'을(를) 입력하세요.\n\n누르고 있으면 버튼의 기호가 변하는 것을 볼 수 있습니다 — 손가락을 떼면 무엇이 입력되는지 보여줍니다. 다음 버튼으로 밀면 다시 업데이트됩니다. 손가락을 떼서 코드를 완성하세요.</string>
+    <string name="tutorial_non_adjacent">위에서 아래로 중앙 영역을 통해 곡선으로 밀어 가운데 버튼을 건너뛰세요. 이렇게 하면 \'%1$s\'이(가) 입력됩니다.\n\n코드가 만들어지면서 기호가 업데이트되는 것에 주목하세요 — 항상 다음 단계를 안내합니다.</string>
+    <string name="tutorial_space">오른쪽 세 버튼을 모두 아래로 밀어 공백을 입력하세요. 항상 사용하게 될 것입니다!\n\n백스페이스는 반대 동작입니다 — 왼쪽 세 버튼 모두. 이것도 매우 자주 사용합니다!</string>
+    <string name="tutorial_cross_side">한쪽에서 시작하여 반대쪽으로 이동하세요. 화살표를 따라 \'%1$s\'을(를) 입력하세요.</string>
+    <string name="tutorial_apostrophe">오른쪽 위 버튼에서 왼쪽 가운데로 밀어내세요 — 펜으로 아포스트로피를 그리듯이.</string>
+    <string name="tutorial_question_mark">왼쪽 위 버튼에서 오른쪽 아래로 밀어 \'?\'를 입력하세요.</string>
+    <string name="tutorial_enter">다섯 개의 버튼을 가로질러 화살표를 따라 Enter를 누르세요. 왼쪽 가운데에서 시작하여 위로, 오른쪽으로 건너가서 아래로.</string>
+    <string name="tutorial_shift_on">양쪽 가운데 버튼을 동시에 터치하여 대문자를 켜세요. 나타나는 ⇧ 표시에 주목하세요.</string>
+    <string name="tutorial_shift_off">같은 두 가운데 버튼을 다시 눌러 대문자를 끄세요.</string>
+    <string name="tutorial_numeric_switch">여섯 개 버튼을 모두 밀어 숫자 모드로 전환하세요. 123 표시에 주목하세요.</string>
+    <string name="tutorial_numeric_digit">숫자 모드에서는 같은 버튼이 숫자를 입력합니다. 이 버튼을 터치하여 \'%1$s\'을(를) 입력하세요.</string>
+    <string name="tutorial_numeric_789">숫자 7–9는 교차 코드를 사용합니다. 화살표를 따라 \'%1$s\'을(를) 입력하세요.</string>
+    <string name="tutorial_numeric_0">이 두 버튼을 밀어 \'0\'을 입력하세요.</string>
+    <string name="tutorial_numeric_back">여섯 개 버튼을 모두 다시 밀어 문자 모드로 돌아가세요.</string>
+    <string name="tutorial_complete">축하합니다! GKOS 코드 입력의 기본을 배웠습니다. 버튼 위와 사이의 작은 기호들이 더 많은 코드를 배울 때 안내해줄 것입니다.\n\nGKOS를 키보드로 사용하려면 기기 설정(보통 일반 또는 시스템)에서 키보드 목록에서 GKOS를 활성화하고 기본 입력 방법으로 설정하세요. 언제든지 원래 키보드로 돌아갈 수 있습니다.</string>
+    <string name="tutorial_skip">건너뛰기</string>
+    <string name="tutorial_done">완료</string>
+    <string name="tutorial_step_of">%2$d 중 %1$d단계</string>
+    <string name="tutorial_word_typed">\'%1$s\'을(를) 입력했습니다!</string>
+    <string name="tutorial_replay">튜토리얼 다시하기</string>
 </resources>
